@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Filament\Resources\Stores\Tables;
+
+use App\Enums\ActiveStatus;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
+
+class StoresTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name')
+                    ->label('Store Name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('contact_no')
+                    ->label('Contact Number')
+                    ->sortable()
+                    ->alignCenter()
+                    ->searchable(),
+                IconColumn::make('status')->alignCenter(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable(),
+            ])
+            ->filters([
+                SelectFilter::make('status')->options(ActiveStatus::class),
+                TrashedFilter::make(),
+            ])
+            ->recordActions([
+                EditAction::make(),
+            ], position: RecordActionsPosition::BeforeColumns)
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ])
+            ->defaultSort('created_at', 'desc');
+    }
+}
