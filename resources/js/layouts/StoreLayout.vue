@@ -34,15 +34,15 @@ const showFooter = computed(() => !page.url.includes('/carts/review'));
 
         <!-- FOOTER CART -->
         <footer v-if="showFooter"
-            class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md p-4 flex justify-between items-center">
+            class="fixed bottom-0 left-0 right-0 z-50 bg-white  shadow-md p-4 flex justify-between items-center">
             <div class="text-red-600 font-bold text-lg italic">
                 RM {{ cartTotal.toFixed(2) }}
             </div>
 
             <Link :href="cartQuantity > 0 ? route('carts.review') : '#'" :class="[
-                'px-5 py-2 rounded-lg font-semibold italic flex items-center gap-2 transition',
+                'px-5 py-2 rounded-lg font-semibold italic flex items-center gap-2 transition text-black',
                 cartQuantity > 0
-                    ? 'bg-primary text-white hover:bg-yellow-600'
+                    ? 'bg-black text-white hover:bg-yellow-600'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             ]" @click.prevent="cartQuantity === 0">
                 <ShoppingCart :size="16" />

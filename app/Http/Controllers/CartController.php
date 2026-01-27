@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Inertia\Inertia;
+use Webimpian\BayarcashSdk\Bayarcash;
 
 class CartController extends Controller
 {
@@ -98,34 +99,14 @@ class CartController extends Controller
     public function review()
     {
         $cart = session()->get('cart', []);
+        $channels = (new \App\Services\BayarCashPayment())->getChannels();
 
         return Inertia::render('carts/Review', [
+            'customer' => session('customer'),
+            'channels' => $channels,
             'cart' => $cart,
             'cartQuantity' => array_sum(array_map(fn($item) => $item['quantity'], $cart)),
             'cartTotal' => array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)),
         ]);
-    }
-
-    public function process(Request $request)
-    {
-        $request->validate([
-            'payment_method' => 'required|in:cash,qr',
-            'customer_name' => 'required|string|max:255',
-            'customer_phone' => 'required|string|max:20',
-            'customer_address' => 'required|string|max:500',
-            'items' => 'required|array',
-            'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity' => 'required|integer|min:1',
-        ]);
-        $cartItems = $request->items;
-        $paymentMethod = $request->payment_method;
-
-        // Here you can save the order to database...
-        // e.g., Order::create([...]);
-
-        // Clear session cart
-        session()->forget('cart');
-
-        return redirect()->route('home')->with('success', 'Order placed successfully!');
     }
 }

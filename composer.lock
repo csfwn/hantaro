@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a81b13b5ee5ae4dd4cdbab67e2d76dd3",
+    "content-hash": "e0132f5957552929ca94facc3403ac6a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -9230,6 +9230,62 @@
                 }
             ],
             "time": "2024-11-21T01:49:47+00:00"
+        },
+        {
+            "name": "webimpian/bayarcash-php-sdk",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webimpian/bayarcash-php-sdk.git",
+                "reference": "efd2718d33fd7e6510eadf2bd80f5600c8a389e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webimpian/bayarcash-php-sdk/zipball/efd2718d33fd7e6510eadf2bd80f5600c8a389e1",
+                "reference": "efd2718d33fd7e6510eadf2bd80f5600c8a389e1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.0",
+                "php": "^7.4|^8.0|^8.1"
+            },
+            "require-dev": {
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "psr/simple-cache": "^2.0"
+            },
+            "type": "sdk",
+            "extra": {
+                "laravel": {
+                    "alias": {
+                        "BayarcashSdk": "Webimpian\\BayarcashSdk\\Facades\\Bayarcash"
+                    },
+                    "providers": [
+                        "Webimpian\\BayarcashSdk\\BayarcashSdkServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webimpian\\BayarcashSdk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "faiz",
+                    "email": "faizafzal@webmpian.com"
+                }
+            ],
+            "description": "Bayarcash payment gateway PHP Sdk.",
+            "support": {
+                "issues": "https://github.com/webimpian/bayarcash-php-sdk/issues",
+                "source": "https://github.com/webimpian/bayarcash-php-sdk/tree/v2.1.0"
+            },
+            "time": "2026-01-26T07:44:40+00:00"
         }
     ],
     "packages-dev": [
@@ -12527,5 +12583,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

@@ -17,7 +17,8 @@
         "laravel/wayfinder": "^0.1.9",
         "spatie/laravel-one-time-passwords": "^1.0",
         "tightenco/ziggy": "^2.6",
-        "tucker-eric/eloquentfilter": "^3.5"
+        "tucker-eric/eloquentfilter": "^3.5",
+        "webimpian/bayarcash-php-sdk": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

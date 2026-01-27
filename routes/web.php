@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,6 +32,12 @@ Route::controller(CartController::class)->prefix('carts')->name('carts.')->group
 });
 
 Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout.')->group(function () {
+    Route::get('/pay-again/{orderId}', 'payAgain')->name('payAgain');
     Route::post('/process', 'process')->name('process');
 });
+
+Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+Route::get('/payment/return', [PaymentController::class, 'return'])->name('payment.return');
+
+
 require __DIR__.'/settings.php';

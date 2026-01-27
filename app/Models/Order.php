@@ -20,6 +20,7 @@ class Order extends Model
         'service_fee',
         'payment_method',
         'customer_name',
+        'customer_email',
         'customer_phone',
         'customer_address',
         'status',

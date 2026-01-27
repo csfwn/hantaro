@@ -2,101 +2,95 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
+use App\Http\Requests\CheckoutRequest;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Services\BayarCashPayment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CheckoutController extends Controller
 {
-    public function process(Request $request)
+    public function process(CheckoutRequest $request)
     {
-        // Validate request
-        $request->validate([
-            'payment_method' => 'required|in:cash,qr',
-            'customer_name' => 'required|string|max:255',
-            'customer_phone' => ['required', 'regex:/^60\d{8,13}$/'], // starts with 60
-            'customer_address' => 'required|string|max:1000',
-            'items' => 'required|array|min:1',
-            'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity' => 'required|integer|min:1',
+        session()->put('customer', [
+            'name' => $request->customer_name,
+            'phone' => $request->customer_phone,
+            'address' => $request->customer_address,
+            'email' => $request->customer_email,
         ]);
 
         $items = $request->items;
-        $paymentMethod = $request->payment_method;
 
-        // Generate unique order reference
-        $refNo = 'ORD-' . strtoupper(Str::random(8));
+        DB::beginTransaction();
 
-        // Calculate total amount
-        $totalAmount = 0;
-        foreach ($items as $item) {
-            $product = Product::find($item['product_id']);
-            $totalAmount += $product->price * $item['quantity'];
-        }
+        try {
+            $refNo = 'ORD-' . strtoupper(Str::random(8));
 
-        // Create order
-        $order = Order::create([
-            'ref_no' => $refNo,
-            'currency_code' => 'MYR',
-            'total_amount' => $totalAmount,
-            'paid_amount' => 0,
-            'delivery_fee' => 0,
-            'service_fee' => 0,
-            'payment_method' => $paymentMethod,
-            'customer_name' => $request->customer_name,
-            'customer_phone' => $request->customer_phone,
-            'customer_address' => $request->customer_address,
-            'status' => 0, // pending
-        ]);
+            $totalAmount = 0;
+            foreach ($items as $item) {
+                $product = Product::findOrFail($item['product_id']);
+                $totalAmount += $product->price * $item['quantity'];
+            }
 
-        // Save order products
-        foreach ($items as $item) {
-            $product = Product::find($item['product_id']);
-            OrderProduct::create([
-                'order_id' => $order->id,
-                'product_id' => $product->id,
-                'store_id' => $product->store_id ?? null,
-                'name' => $product->name,
-                'quantity' => $item['quantity'],
-                'price' => $product->price,
-                'subtotal' => $product->price * $item['quantity'],
+            $order = Order::create([
+                'ref_no' => $refNo,
+                'currency_code' => 'MYR',
+                'total_amount' => $totalAmount,
+                'paid_amount' => 0,
+                'delivery_fee' => 0,
+                'service_fee' => 0,
+                'payment_method' => $request->payment_method,
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
+                'customer_address' => $request->customer_address,
+                'customer_email' => $request->customer_email,
+                'status' => OrderStatus::Processing->value,
+                'payment_status' => PaymentStatus::Unpaid->value,
             ]);
+
+            // Save order products
+            foreach ($items as $item) {
+                $product = Product::findOrFail($item['product_id']);
+                OrderProduct::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'store_id' => $product->store_id ?? null,
+                    'name' => $product->name,
+                    'quantity' => $item['quantity'],
+                    'price' => $product->price,
+                    'subtotal' => $product->price * $item['quantity'],
+                ]);
+            }
+
+            DB::commit();
+
+            $bayarCashPayment = new BayarCashPayment();
+            $paymentUrl = $bayarCashPayment->processPayment($order); // should return $response->url
+            return Inertia::location($paymentUrl);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
+        }
+    }
+
+    public function payAgain($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+        // Only allow retry if payment is not already successful
+        if ($order->payment_status === PaymentStatus::Paid->value) {
+            return back()->withErrors(['error' => 'Pembayaran telah berjaya, tidak boleh bayar semula.']);
         }
 
-        // Generate WhatsApp message
-        $now = now();
-        $orderDate = $now->format('d/m/Y');
-        $orderTime = $now->format('h:ia');
+        $bayarCashPayment = new BayarCashPayment();
+        $paymentUrl = $bayarCashPayment->processPayment($order); // Generate new payment URL
 
-        $message = "Hi, saya nak order:\n";
-        foreach ($order->products as $p) {
-            $message .= "- {$p->name} x {$p->quantity}\n";
-        }
-
-        $message .= "\nTarikh Hantar: {$orderDate}\n";
-        $message .= "Masa: {$orderTime}\n\n";
-        $message .= "Maklumat Pembeli:\n";
-        $message .= "- Nama: {$order->customer_name}\n";
-        $message .= "- Phone: {$order->customer_phone}\n";
-        $message .= "- Alamat: {$order->customer_address}\n\n";
-        $message .= "Kaedah pembayaran:\n- {$order->payment_method}\n\n";
-        $message .= "Harga total: RM " . number_format($order->total_amount, 2);
-
-        // WhatsApp number to send to (merchant)
-        $whatsappNumber = '60129531174';
-        $whatsappUrl = "https://api.whatsapp.com/send?phone={$whatsappNumber}&text=" . urlencode($message);
-
-        // Save WhatsApp URL in the order
-        $order->update(['whatsapp_url' => $whatsappUrl]);
-
-        // Clear session cart
-        session()->forget('cart');
-
-        // Redirect user to WhatsApp
-        // return redirect()->away($whatsappUrl);
-        return Inertia::location($whatsappUrl);
+        return Inertia::location($paymentUrl); // Redirect user to BayarCash payment page
     }
 }
