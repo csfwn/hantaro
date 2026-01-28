@@ -36,7 +36,6 @@ Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout
     Route::post('/process', 'process')->name('process');
 });
 
-Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 Route::get('/payment/return', [PaymentController::class, 'return'])->name('payment.return');
 
 
