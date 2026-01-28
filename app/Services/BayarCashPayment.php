@@ -45,7 +45,7 @@ class BayarCashPayment
         ];
 
         // Make sure checksum is last 
-        $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(env('BAYARCASH_API_SECRET_KEY'), $data);
+        $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(config('params.bayarcash_api_secret_key'), $data);
 
         try {
             $response = $bayarcash->createPaymentIntent($data);
