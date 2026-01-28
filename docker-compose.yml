@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hantaro_app
+    volumes:
+      - .:/var/www
+
+  web:
+    image: nginx:alpine
+    container_name: hantaro_web
+    ports:
+      - "8085:80"
+    volumes:
+      - .:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  node:
+    image: node:20-alpine
+    container_name: hantaro_node
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: sh -c "while true; do sleep 3600; done"
