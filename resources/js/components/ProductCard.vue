@@ -125,7 +125,7 @@ onMounted(() => {
         <div class="flex items-center gap-2">
           <!-- DECREMENT BUTTON -->
           <button 
-            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none touch-manipulation"
+            class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none touch-manipulation"
             :class="{ 'animate-press bg-red-200': isAnimating && animationType === 'decrement' }"
             @click.stop.prevent="decrement"
             type="button"
@@ -139,7 +139,7 @@ onMounted(() => {
             min="0" 
             disabled 
             v-model.number="qty" 
-            class="w-12 h-7 text-center border rounded-lg text-sm transition-all duration-300"
+            class="w-12 h-8 text-center border rounded-lg text-sm transition-all duration-300"
             :class="{ 
               'scale-110 border-green-400 bg-green-50': isAnimating && animationType === 'increment',
               'scale-90 border-red-400 bg-red-50': isAnimating && animationType === 'decrement'
@@ -148,7 +148,7 @@ onMounted(() => {
 
           <!-- INCREMENT BUTTON -->
           <button 
-            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none touch-manipulation"
+            class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none touch-manipulation"
             :class="{ 'animate-press bg-green-200': isAnimating && animationType === 'increment' }"
             @click.stop.prevent="increment"
             type="button"
