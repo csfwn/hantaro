@@ -39,13 +39,16 @@ class BayarCashPayment
             'payer_name' => $order->customer_name,
             'payer_email' => $order->customer_email,
             'payer_telephone_number' => $order->customer_phone, // string 
-            'callback_url' =>  route('payment.callback'),
-            'return_url' => route('payment.return'),
+            'callback_url' => 'https://hantaro.stwo.my/payment/callback',
+            'return_url' => 'https://hantaro.stwo.my/payment/return',
             'payment_channel' => $order->payment_method,
         ];
 
         // Make sure checksum is last 
-        $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(config('params.bayarcash_api_secret_key'), $data);
+        $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(
+            config('params.bayarcash_api_secret_key'),
+            $data
+        );
 
         try {
             $response = $bayarcash->createPaymentIntent($data);
@@ -53,5 +56,17 @@ class BayarCashPayment
         } catch (\Throwable $e) {
             dd('Payment failed', $e->getMessage());
         }
+    }
+
+    public function callbackValidation($request)
+    {
+        $bayarcash = $this->configureBayarCash();
+
+        $isValid = $bayarcash->verifyTransactionCallbackData(
+            $request->all(),
+            config('params.bayarcash_api_secret_key')
+        );
+
+        return $isValid;
     }
 }

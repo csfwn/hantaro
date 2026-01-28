@@ -109,7 +109,7 @@ onMounted(() => {
 <template>
   <div class="bg-white rounded-2xl shadow p-4 flex gap-4 hover:shadow-lg transition">
     <!-- IMAGE -->
-    <Link :href="route('products.show', product.id)" class="w-20 h-20 flex-shrink-0">
+    <Link :href="route('products.show', product.id)" class="w-23 h-23 flex-shrink-0">
       <img :src="product.main_image_url" class="w-full h-full object-cover rounded-xl" alt="Product Image" />
     </Link>
 
