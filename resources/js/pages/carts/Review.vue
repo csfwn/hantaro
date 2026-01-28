@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { usePage, router } from '@inertiajs/vue3'
 import StoreLayout from "@/layouts/StoreLayout.vue"
 import { ChevronLeft } from 'lucide-vue-next'
@@ -32,15 +32,36 @@ const customerAddress = ref(customer.value.address || '')
 // Validation errors
 const errors = ref<Record<string, string>>({})
 
+// 🔒 GLOBAL UI LOCK
+const isLoading = ref(false)
+
+// Lock UI when browser starts navigating
+function lockUI() {
+  isLoading.value = true
+}
+
+onMounted(() => {
+  window.addEventListener('beforeunload', lockUI)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('beforeunload', lockUI)
+})
+
 // Back button
 const goBack = () => {
+  if (isLoading.value) return
   if (history.length > 1) history.back()
   else router.visit('/')
 }
 
-// Submit payment
+// Submit payment (ONE-WAY ACTION)
 function proceedPayment() {
+  if (isLoading.value) return
+
   errors.value = {}
+  isLoading.value = true
+
   const phoneEl = document.querySelector(
     'input[name="customer_phone"]'
   ) as HTMLInputElement | null
@@ -51,13 +72,18 @@ function proceedPayment() {
   if (!customerPhone.value) errors.value.phone = 'Sila isi nombor telefon'
   if (!customerAddress.value) errors.value.address = 'Sila isi alamat'
 
-  if (Object.keys(errors.value).length > 0) return
+  // ❌ validation failed → unlock
+  if (Object.keys(errors.value).length > 0) {
+    isLoading.value = false
+    return
+  }
 
+  // 🔥 NO onFinish reset — wait for redirect
   router.post(route('checkout.process'), {
     payment_method: paymentMethod.value,
     customer_name: customerName.value,
     customer_email: customerEmail.value,
-    customer_phone: customerPhone.value, 
+    customer_phone: customerPhone.value,
     customer_address: customerAddress.value,
     items: cartItems.value.map(item => ({
       product_id: item.id,
@@ -69,14 +95,44 @@ function proceedPayment() {
 
 <template>
   <StoreLayout title="Hantaro - Review Cart">
-    <div class="min-h-screen bg-gray-100 space-y-3 p-2 pb-24 ">
+    <div class="min-h-screen bg-gray-100 space-y-3 p-2 pb-24 relative">
+
+      <!-- 🔒 FULLSCREEN LOCK OVERLAY -->
+      <div
+        v-if="isLoading"
+        class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center"
+      >
+        <div class="bg-white rounded-xl px-6 py-4 flex items-center gap-3 shadow-lg">
+          <svg class="animate-spin h-6 w-6 text-black" viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="none"
+            />
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+            />
+          </svg>
+          <span class="font-semibold">Mengarahkan ke pembayaran...</span>
+        </div>
+      </div>
 
       <!-- Back + Heading -->
       <div class="flex items-center gap-3 mb-4">
-        <button @click="goBack" class="rounded-full hover:bg-gray-200 transition">
+        <button
+          @click="goBack"
+          :disabled="isLoading"
+          class="rounded-full hover:bg-gray-200 transition disabled:opacity-50"
+        >
           <ChevronLeft size="20" />
         </button>
-        <h2 class="text-lg font-bold ">Maklumat Tempahan</h2>
+        <h2 class="text-lg font-bold">Maklumat Tempahan</h2>
       </div>
 
       <!-- Cart List -->
@@ -97,7 +153,7 @@ function proceedPayment() {
           </div>
         </div>
 
-        <div class="border-t  pt-2 text-right font-bold text-red-600">
+        <div class="border-t pt-2 text-right font-bold text-red-600">
           Jumlah: RM {{ cartTotal.toFixed(2) }}
         </div>
       </div>
@@ -111,7 +167,8 @@ function proceedPayment() {
           <input
             type="text"
             v-model="customerName"
-            class="w-full border  rounded-lg p-2"
+            :disabled="isLoading"
+            class="w-full border rounded-lg p-2"
             placeholder="Name"
           />
           <p v-if="errors.name" class="text-red-500 text-xs mt-1">
@@ -125,10 +182,7 @@ function proceedPayment() {
             id="phone"
             type="phone"
             name="customer_phone"
-            required
-            autofocus
-            :tabindex="1"
-            class=" "
+            :disabled="isLoading"
             placeholder="eg. 012-73456789"
           />
           <p v-if="errors.phone" class="text-red-500 text-xs mt-1">
@@ -141,7 +195,8 @@ function proceedPayment() {
           <input
             type="email"
             v-model="customerEmail"
-            class="w-full border  rounded-lg p-2"
+            :disabled="isLoading"
+            class="w-full border rounded-lg p-2"
             placeholder="Email"
           />
         </div>
@@ -150,7 +205,8 @@ function proceedPayment() {
           <label class="block font-medium text-sm mb-1">Alamat</label>
           <textarea
             v-model="customerAddress"
-            class="w-full border  rounded-lg p-2"
+            :disabled="isLoading"
+            class="w-full border rounded-lg p-2"
             rows="3"
             placeholder="Alamat"
           ></textarea>
@@ -169,7 +225,12 @@ function proceedPayment() {
             :key="channel.id"
             class="flex items-center gap-2"
           >
-            <input type="radio" :value="channel.id" v-model="paymentMethod" />
+            <input
+              type="radio"
+              :value="channel.id"
+              v-model="paymentMethod"
+              :disabled="isLoading"
+            />
             {{ channel.name }}
           </label>
         </div>
@@ -177,8 +238,13 @@ function proceedPayment() {
 
       <!-- Proceed Button -->
       <button
-        class="fixed bottom-4 left-4 right-4 bg-black text-white py-3 rounded-xl font-bold text-md hover:bg-yellow-600 transition "
+        :disabled="isLoading"
         @click="proceedPayment"
+        class="fixed bottom-4 left-4 right-4 py-3 rounded-xl font-bold text-md transition
+          flex items-center justify-center gap-2
+          bg-black text-white
+          hover:bg-yellow-600
+          disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         Bayar Sekarang (RM {{ cartTotal.toFixed(2) }})
       </button>

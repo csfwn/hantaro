@@ -39,8 +39,8 @@ class BayarCashPayment
             'payer_name' => $order->customer_name,
             'payer_email' => $order->customer_email,
             'payer_telephone_number' => $order->customer_phone, // string 
-            'callback_url' =>  config('params.bayarcash_callback_url'),
-            'return_url' => config('params.bayarcash_return_url'),
+            'callback_url' =>  route('payment.callback'),
+            'return_url' => route('payment.return'),
             'payment_channel' => $order->payment_method,
         ];
 
@@ -61,7 +61,7 @@ class BayarCashPayment
     public function callbackValidation($request)
     {
         $bayarcash = $this->configureBayarCash();
-
+        
         $isValid = $bayarcash->verifyTransactionCallbackData(
             $request->all(),
             config('params.bayarcash_api_secret_key')
