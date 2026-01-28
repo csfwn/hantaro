@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { router, usePage } from "@inertiajs/vue3";
 import { Link } from "@inertiajs/vue3";
 
@@ -24,7 +24,22 @@ const isAnimating = ref(false);
 const animationType = ref<'increment' | 'decrement' | null>(null);
 
 // Audio setup
-const clickSound = new Audio('data:audio/wav;base64,UklGRmQFAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YUAFAAC/v7+/v7+/v7+/v7+/v7+/wMDAwMDAwMDAwMDAwMDBwcHBwcHBwcHBwsLCwsLCwsLCw8PDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsbHx8fHx8fHyMjIyMjIyMnJycnJycrKysrKysrLy8vLy8vMzMzMzMzMzc3Nzc3Nzs7Ozs7Oz8/Pz8/P0NDQ0NDQ0dHR0dHR0tLS0tLS09PT09PU1NTU1NTV1dXV1dbW1tbW19fX19fY2NjY2NnZ2dnZ2tra2trb29vb29zc3Nzc3d3d3d3e3t7e3t/f39/f4ODg4ODh4eHh4eLi4uLi4+Pj4+Pk5OTk5OXl5eXl5ubm5ubn5+fn5+jo6Ojp6enp6erq6urq6+vr6+vs7Ozs7O3t7e3t7u7u7u7v7+/v7/Dw8PDw8fHx8fHy8vLy8vPz8/Pz9PT09PT19fX19fb29vb2+Pj4+Pj5+fn5+fr6+vr6+/v7+/v8/Pz8/P39/f39/v7+/v7///+/v7+/v7+/v7+/v7+/v7/AwMDAwMDAwMDAwMDAwcHBwcHBwcHBwcLCwsLCwsLCwsPDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsfHx8fHx8jIyMjIyMjJycnJycnKysrKysrLy8vLy8vMzMzMzMzNzc3Nzc3Ozs7Ozs7Pz8/Pz9DQ0NDQ0NHR0dHR0tLS0tLS09PT09PU1NTU1NXV1dXV1tbW1tbX19fX19jY2NjY2dnZ2dna2tra2tvb29vb3Nzc3Nzd3d3d3d7e3t7e39/f39/g4ODg4OHh4eHh4uLi4uLj4+Pj4+Tk5OTk5eXl5eXm5ubm5ufn5+fn6Ojo6Onp6enp6urq6urr6+vr6+zs7Ozs7e3t7e3u7u7u7u/v7+/v8PDw8PDx8fHx8fLy8vLy8/Pz8/P09PT09PX19fX19vb29vb4+Pj4+Pn5+fn5+vr6+vr7+/v7+/z8/Pz8/f39/f3+/v7+/v///w==');
+let clickSound: HTMLAudioElement | null = null;
+let audioInitialized = false;
+
+// Initialize audio
+function initializeAudio() {
+  if (!audioInitialized) {
+    try {
+      clickSound = new Audio('data:audio/wav;base64,UklGRmQFAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YUAFAAC/v7+/v7+/v7+/v7+/v7+/wMDAwMDAwMDAwMDAwMDBwcHBwcHBwcHBwsLCwsLCwsLCw8PDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsbHx8fHx8fHyMjIyMjIyMnJycnJycrKysrKysrLy8vLy8vMzMzMzMzMzc3Nzc3Nzs7Ozs7Oz8/Pz8/P0NDQ0NDQ0dHR0dHR0tLS0tLS09PT09PU1NTU1NTV1dXV1dbW1tbW19fX19fY2NjY2NnZ2dnZ2tra2trb29vb29zc3Nzc3d3d3d3e3t7e3t/f39/f4ODg4ODh4eHh4eLi4uLi4+Pj4+Pk5OTk5OXl5eXl5ubm5ubn5+fn5+jo6Ojp6enp6erq6urq6+vr6+vs7Ozs7O3t7e3t7u7u7u7v7+/v7/Dw8PDw8fHx8fHy8vLy8vPz8/Pz9PT09PT19fX19fb29vb2+Pj4+Pj5+fn5+fr6+vr6+/v7+/v8/Pz8/P39/f39/v7+/v7///+/v7+/v7+/v7+/v7+/v7/AwMDAwMDAwMDAwMDAwcHBwcHBwcHBwcLCwsLCwsLCwsPDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsfHx8fHx8jIyMjIyMjJycnJycnKysrKysrLy8vLy8vMzMzMzMzNzc3Nzc3Ozs7Ozs7Pz8/Pz9DQ0NDQ0NHR0dHR0tLS0tLS09PT09PU1NTU1NXV1dXV1tbW1tbX19fX19jY2NjY2dnZ2dna2tra2tvb29vb3Nzc3Nzd3d3d3d7e3t7e39/f39/g4ODg4OHh4eHh4uLi4uLj4+Pj4+Tk5OTk5eXl5eXm5ubm5ufn5+fn6Ojo6Onp6enp6urq6urr6+vr6+zs7Ozs7e3t7e3u7u7u7u/v7+/v8PDw8PDx8fHx8fLy8vLy8/Pz8/P09PT09PX19fX19vb29vb4+Pj4+Pn5+fn5+vr6+vr7+/v7+/z8/Pz8/f39/f3+/v7+/v///w==');
+      clickSound.volume = 0.3;
+      clickSound.load();
+      audioInitialized = true;
+    } catch (e) {
+      console.warn('Audio initialization failed:', e);
+    }
+  }
+}
 
 // Debounce timer
 let debounceTimer: number | null = null;
@@ -32,15 +47,29 @@ const DEBOUNCE_DELAY = 300;
 
 // Play sound effect
 function playSound() {
-  try {
-    const sound = clickSound.cloneNode() as HTMLAudioElement;
-    sound.volume = 0.3;
-    sound.play().catch(() => {
-      // Ignore autoplay restrictions
-    });
-  } catch (e) {
-    // Silent fail if audio not supported
+  if (!audioInitialized) {
+    initializeAudio();
   }
+
+  if (clickSound) {
+    try {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+    } catch (e) {}
+  }
+}
+
+// Haptic feedback (vibration) - Works immediately without user interaction!
+function playHaptic() {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(30); // Short 30ms vibration
+  }
+}
+
+// Combined feedback
+function playFeedback() {
+  playSound();    // Will work after first user interaction
+  playHaptic();   // Works immediately on mobile!
 }
 
 // Trigger animation
@@ -62,7 +91,7 @@ function syncQty() {
       {
         store_id: props.product.store?.id ?? null,
         items: [{ product_id: props.product.id, quantity: qty.value }],
-        increment: false, // replace quantity, don't add
+        increment: false,
       },
       {
         preserveScroll: true,
@@ -76,7 +105,7 @@ function syncQty() {
 // Button handlers
 function increment() {
   qty.value++;
-  playSound();
+  playFeedback();
   triggerAnimation('increment');
   syncQty();
 }
@@ -84,11 +113,21 @@ function increment() {
 function decrement() {
   if (qty.value > 0) {
     qty.value--;
-    playSound();
+    playFeedback();
     triggerAnimation('decrement');
     syncQty();
   }
 }
+
+// Initialize audio on first interaction
+onMounted(() => {
+  const initOnInteraction = () => {
+    initializeAudio();
+  };
+  
+  document.addEventListener('click', initOnInteraction, { once: true });
+  document.addEventListener('touchstart', initOnInteraction, { once: true });
+});
 </script>
 
 <template>
@@ -110,7 +149,7 @@ function decrement() {
         <div class="flex items-center gap-2">
           <!-- DECREMENT BUTTON -->
           <button 
-            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150"
+            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none"
             :class="{ 'animate-press': isAnimating && animationType === 'decrement' }"
             @click.stop="decrement"
           >
@@ -132,7 +171,7 @@ function decrement() {
 
           <!-- INCREMENT BUTTON -->
           <button 
-            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150"
+            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150 select-none"
             :class="{ 'animate-press': isAnimating && animationType === 'increment' }"
             @click.stop="increment"
           >
