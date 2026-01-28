@@ -15,7 +15,7 @@ class OrderObserver
      */
     public function creating(Order $order)
     {
-        $order->code = order_code();
+        $order->ref_no = order_ref_no();
     }
 
     /**

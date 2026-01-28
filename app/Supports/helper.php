@@ -11,12 +11,12 @@ if (!function_exists('random_alphanumeric')) {
     }
 }
 
-if (!function_exists('order_code')) {
-    function order_code()
+if (!function_exists('order_ref_no')) {
+    function order_ref_no()
     {
         $code = random_alphanumeric();
 
-        while (Order::where('code', $code)->count()) {
+        while (Order::where('ref_no', $code)->count()) {
             $code = random_alphanumeric();
         }
 
