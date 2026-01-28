@@ -8,6 +8,17 @@ use Carbon\Carbon;
 class OrderObserver
 {
     /**
+     * Handle the Order "creating" event.
+     *
+     * @param  \App\Models\Order  $order
+     * @return void
+     */
+    public function creating(Order $order)
+    {
+        $order->code = order_code();
+    }
+
+    /**
      * Handle the Order "created" event.
      */
     public function created(Order $order): void

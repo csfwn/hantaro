@@ -30,8 +30,6 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
-            $refNo = 'ORD-' . strtoupper(Str::random(8));
-
             $totalAmount = 0;
             foreach ($items as $item) {
                 $product = Product::findOrFail($item['product_id']);
@@ -39,7 +37,6 @@ class CheckoutController extends Controller
             }
 
             $order = Order::create([
-                'ref_no' => $refNo,
                 'currency_code' => 'MYR',
                 'total_amount' => $totalAmount,
                 'paid_amount' => 0,
