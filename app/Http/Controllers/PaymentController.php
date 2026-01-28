@@ -13,6 +13,7 @@ class PaymentController extends Controller
     public function callback(Request $request)
     {
         \Log::info('BayarCash callback received', $request->all());
+        
         $order = Order::where('ref_no', $request->order_ref)->first();
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);

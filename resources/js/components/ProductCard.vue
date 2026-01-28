@@ -19,9 +19,38 @@ const page = usePage();
 const cart = page.props.cart || {};
 const qty = ref(cart[props.product.id]?.quantity ?? 0);
 
+// Animation states
+const isAnimating = ref(false);
+const animationType = ref<'increment' | 'decrement' | null>(null);
+
+// Audio setup
+const clickSound = new Audio('data:audio/wav;base64,UklGRmQFAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YUAFAAC/v7+/v7+/v7+/v7+/v7+/wMDAwMDAwMDAwMDAwMDBwcHBwcHBwcHBwsLCwsLCwsLCw8PDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsbHx8fHx8fHyMjIyMjIyMnJycnJycrKysrKysrLy8vLy8vMzMzMzMzMzc3Nzc3Nzs7Ozs7Oz8/Pz8/P0NDQ0NDQ0dHR0dHR0tLS0tLS09PT09PU1NTU1NTV1dXV1dbW1tbW19fX19fY2NjY2NnZ2dnZ2tra2trb29vb29zc3Nzc3d3d3d3e3t7e3t/f39/f4ODg4ODh4eHh4eLi4uLi4+Pj4+Pk5OTk5OXl5eXl5ubm5ubn5+fn5+jo6Ojp6enp6erq6urq6+vr6+vs7Ozs7O3t7e3t7u7u7u7v7+/v7/Dw8PDw8fHx8fHy8vLy8vPz8/Pz9PT09PT19fX19fb29vb2+Pj4+Pj5+fn5+fr6+vr6+/v7+/v8/Pz8/P39/f39/v7+/v7///+/v7+/v7+/v7+/v7+/v7/AwMDAwMDAwMDAwMDAwcHBwcHBwcHBwcLCwsLCwsLCwsPDw8PDw8PDxMTExMTExMTFxcXFxcXFxsbGxsbGxsfHx8fHx8jIyMjIyMjJycnJycnKysrKysrLy8vLy8vMzMzMzMzNzc3Nzc3Ozs7Ozs7Pz8/Pz9DQ0NDQ0NHR0dHR0tLS0tLS09PT09PU1NTU1NXV1dXV1tbW1tbX19fX19jY2NjY2dnZ2dna2tra2tvb29vb3Nzc3Nzd3d3d3d7e3t7e39/f39/g4ODg4OHh4eHh4uLi4uLj4+Pj4+Tk5OTk5eXl5eXm5ubm5ufn5+fn6Ojo6Onp6enp6urq6urr6+vr6+zs7Ozs7e3t7e3u7u7u7u/v7+/v8PDw8PDx8fHx8fLy8vLy8/Pz8/P09PT09PX19fX19vb29vb4+Pj4+Pn5+fn5+vr6+vr7+/v7+/z8/Pz8/f39/f3+/v7+/v///w==');
+
 // Debounce timer
 let debounceTimer: number | null = null;
 const DEBOUNCE_DELAY = 300;
+
+// Play sound effect
+function playSound() {
+  try {
+    const sound = clickSound.cloneNode() as HTMLAudioElement;
+    sound.volume = 0.3;
+    sound.play().catch(() => {
+      // Ignore autoplay restrictions
+    });
+  } catch (e) {
+    // Silent fail if audio not supported
+  }
+}
+
+// Trigger animation
+function triggerAnimation(type: 'increment' | 'decrement') {
+  animationType.value = type;
+  isAnimating.value = true;
+  setTimeout(() => {
+    isAnimating.value = false;
+  }, 300);
+}
 
 // Sync quantity to session cart
 function syncQty() {
@@ -47,12 +76,18 @@ function syncQty() {
 // Button handlers
 function increment() {
   qty.value++;
+  playSound();
+  triggerAnimation('increment');
   syncQty();
 }
 
 function decrement() {
-  if (qty.value > 0) qty.value--;
-  syncQty();
+  if (qty.value > 0) {
+    qty.value--;
+    playSound();
+    triggerAnimation('decrement');
+    syncQty();
+  }
 }
 </script>
 
@@ -65,25 +100,42 @@ function decrement() {
 
     <!-- PRODUCT INFO -->
     <div class="flex flex-col flex-1 justify-between">
-      <!-- <Link :href="route('products.show', product.id)" class="block"> -->
-        <h2 class="text-md font-semibold leading-tight line-clamp-2">{{ product.name }}</h2>
-        <div class="text-xs text-gray-500 mt-1" v-html="product.description" />
-      <!-- </Link> -->
+      <h2 class="text-md font-semibold leading-tight line-clamp-2">{{ product.name }}</h2>
+      <div class="text-xs text-gray-500 mt-1" v-html="product.description" />
 
       <!-- PRICE + QTY -->
       <div class="mt-3 flex items-center justify-between w-full">
         <p class="text-red-600 text-md font-bold">RM {{ product.price }}</p>
 
         <div class="flex items-center gap-2">
-          <button class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center"
-            @click.stop="decrement">
+          <!-- DECREMENT BUTTON -->
+          <button 
+            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150"
+            :class="{ 'animate-press': isAnimating && animationType === 'decrement' }"
+            @click.stop="decrement"
+          >
             –
           </button>
 
-          <input type="number" min="0" disabled v-model.number="qty" class="w-12 h-7 text-center border rounded-lg text-sm" />
+          <!-- QUANTITY INPUT -->
+          <input 
+            type="number" 
+            min="0" 
+            disabled 
+            v-model.number="qty" 
+            class="w-12 h-7 text-center border rounded-lg text-sm transition-all duration-300"
+            :class="{ 
+              'scale-110 border-green-400': isAnimating && animationType === 'increment',
+              'scale-90 border-red-400': isAnimating && animationType === 'decrement'
+            }"
+          />
 
-          <button class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center"
-            @click.stop="increment">
+          <!-- INCREMENT BUTTON -->
+          <button 
+            class="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 active:scale-90 transition-all duration-150"
+            :class="{ 'animate-press': isAnimating && animationType === 'increment' }"
+            @click.stop="increment"
+          >
             +
           </button>
         </div>
@@ -91,3 +143,21 @@ function decrement() {
     </div>
   </div>
 </template>
+
+<style scoped>
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-press {
+  animation: press 0.3s ease-in-out;
+}
+</style>
