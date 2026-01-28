@@ -41,8 +41,8 @@ class BayarCashPayment
             'payer_telephone_number' => $order->customer_phone, // string ]
             'callback_url' => 'https://hantaro.stwo.my/api/payment/callback',
             'return_url' => 'https://hantaro.stwo.my/payment/return',
-            // 'callback_url' =>  config('params.bayarcash_callback_url'),
-            // 'return_url' => config('params.bayarcash_return_url'),
+            // 'callback_url' =>  route('payment.callback'),
+            // 'return_url' => route('payment.return'),
             'payment_channel' => $order->payment_method,
         ];
 
