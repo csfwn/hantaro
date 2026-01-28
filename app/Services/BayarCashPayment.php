@@ -13,7 +13,11 @@ class BayarCashPayment
     {
         $this->portalKey = config('params.bayarcash_portal_key');
         $bayarcash = app(Bayarcash::class);
-        $bayarcash->useSandbox();
+
+        if (config('params.bayarcash_sanbox')) {
+            $bayarcash->useSandbox();
+        }
+
         $bayarcash->setApiVersion('v3');
         return $bayarcash;
     }
@@ -29,16 +33,16 @@ class BayarCashPayment
         $bayarcash = $this->configureBayarCash();
 
         $data = [
-                'portal_key' => $this->portalKey,
-                'order_number' => $order->ref_no,
-                'amount' => $order->total_amount, // float 
-                'payer_name' => $order->customer_name,
-                'payer_email' => $order->customer_email,
-                'payer_telephone_number' => $order->customer_phone, // string 
-                'callback_url' =>  route('payment.callback'),
-                'return_url' => route('payment.return'),
-                'payment_channel' => $order->payment_method,
-            ];
+            'portal_key' => $this->portalKey,
+            'order_number' => $order->ref_no,
+            'amount' => $order->total_amount, // float 
+            'payer_name' => $order->customer_name,
+            'payer_email' => $order->customer_email,
+            'payer_telephone_number' => $order->customer_phone, // string 
+            'callback_url' =>  route('payment.callback'),
+            'return_url' => route('payment.return'),
+            'payment_channel' => $order->payment_method,
+        ];
 
         // Make sure checksum is last 
         $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(env('BAYARCASH_API_SECRET_KEY'), $data);
