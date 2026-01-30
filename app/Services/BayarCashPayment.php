@@ -30,6 +30,7 @@ class BayarCashPayment
 
     public function processPayment(Order $order)
     {
+        dd(route('payment.callback'));
         $bayarcash = $this->configureBayarCash();
 
         $data = [
@@ -39,8 +40,8 @@ class BayarCashPayment
             'payer_name' => $order->customer_name,
             'payer_email' => $order->customer_email,
             'payer_telephone_number' => $order->customer_phone, // string ]
-            'callback_url' => 'https://hantaro.stwo.my/api/payment/callback',
-            'return_url' => 'https://hantaro.stwo.my/payment/return',
+            'callback_url' => route('payment.callback'),
+            'return_url' => route('payment.return'),
             // 'callback_url' =>  route('payment.callback'),
             // 'return_url' => route('payment.return'),
             'payment_channel' => $order->payment_method,
