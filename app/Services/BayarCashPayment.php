@@ -35,18 +35,15 @@ class BayarCashPayment
         $data = [
             'portal_key' => $this->portalKey,
             'order_number' => $order->ref_no,
-            'amount' => $order->total_amount, // float 
+            'amount' => $order->total_amount,
             'payer_name' => $order->customer_name,
             'payer_email' => $order->customer_email,
-            'payer_telephone_number' => $order->customer_phone, // string ]
+            'payer_telephone_number' => $order->customer_phone,
             'callback_url' => route('payment.callback'),
             'return_url' => route('payment.return'),
-            // 'callback_url' =>  route('payment.callback'),
-            // 'return_url' => route('payment.return'),
             'payment_channel' => $order->payment_method,
         ];
 
-        // Make sure checksum is last 
         $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(
             config('params.bayarcash_api_secret_key'),
             $data

@@ -10,9 +10,11 @@ enum PaymentStatus: int implements HasColor, HasIcon, HasLabel
 {
     use EnumHelper;
 
-    case Unpaid = 0;
-    case Paid = 1;
+    case New = 0;
+    case Pending = 1;
     case Failed = 2;
+    case Success = 3;
+    case Cancelled = 4;
 
     public function getLabel(): ?string
     {
@@ -22,9 +24,9 @@ enum PaymentStatus: int implements HasColor, HasIcon, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Unpaid => 'danger',
-            self::Paid => 'success',
-            self::Failed => 'warning',
+            self::Failed => 'danger',
+            self::Success => 'success',
+            self::Pending => 'warning',
             default => 'warning'
         };
     }
@@ -32,8 +34,8 @@ enum PaymentStatus: int implements HasColor, HasIcon, HasLabel
     public function getIcon(): ?string
     {
         return match ($this) {
-            self::Paid => 'heroicon-m-check',
-            self::Unpaid => 'heroicon-m-question-mark-circle',
+            self::Success => 'heroicon-m-check',
+            self::Pending => 'heroicon-m-question-mark-circle',
             self::Failed => 'heroicon-m-x-circle',
             default => ''
         };

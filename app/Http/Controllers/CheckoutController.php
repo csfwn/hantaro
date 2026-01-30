@@ -48,10 +48,9 @@ class CheckoutController extends Controller
                 'customer_address' => $request->customer_address,
                 'customer_email' => $request->customer_email,
                 'status' => OrderStatus::Processing->value,
-                'payment_status' => PaymentStatus::Unpaid->value,
+                'payment_status' => PaymentStatus::New->value,
             ]);
 
-            // Save order products
             foreach ($items as $item) {
                 $product = Product::findOrFail($item['product_id']);
                 OrderProduct::create([
@@ -68,7 +67,8 @@ class CheckoutController extends Controller
             DB::commit();
 
             $bayarCashPayment = new BayarCashPayment();
-            $paymentUrl = $bayarCashPayment->processPayment($order); // should return $response->url
+            $paymentUrl = $bayarCashPayment->processPayment($order);
+
             return Inertia::location($paymentUrl);
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -81,7 +81,7 @@ class CheckoutController extends Controller
         $order = Order::findOrFail($orderId);
 
         // Only allow retry if payment is not already successful
-        if ($order->payment_status === PaymentStatus::Paid->value) {
+        if ($order->payment_status === PaymentStatus::Success->value) {
             return back()->withErrors(['error' => 'Pembayaran telah berjaya, tidak boleh bayar semula.']);
         }
 

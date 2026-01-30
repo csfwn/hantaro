@@ -14,10 +14,10 @@ if (!function_exists('random_alphanumeric')) {
 if (!function_exists('order_ref_no')) {
     function order_ref_no()
     {
-        $code = random_alphanumeric();
+        $code = 'ORD-'.random_alphanumeric();
 
         while (Order::where('ref_no', $code)->count()) {
-            $code = random_alphanumeric();
+            $code = 'ORD-'.random_alphanumeric();
         }
 
         return $code;

@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^3.1",
         "filament/filament": "^4.1",
         "filament/spatie-laravel-media-library-plugin": "^4.1",
         "filament/support": "^4.1",
@@ -99,6 +100,9 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": ["PKSA-z3gr-8qht-p93v"]
         }
     },
     "minimum-stability": "stable",

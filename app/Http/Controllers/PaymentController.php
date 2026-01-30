@@ -17,7 +17,7 @@ class PaymentController extends Controller
 
         $bayarCashPayment = new BayarCashPayment();
         $isValid = $bayarCashPayment->callbackValidation($request);
-        
+
         if (!$isValid) {
             \Log::warning('Invalid BayarCash callback checksum');
             return response()->json(['error' => 'Invalid checksum'], 400);
@@ -30,11 +30,10 @@ class PaymentController extends Controller
             return response()->json(['error' => 'Order not found'], 404);
         }
 
-        // status is INTEGER
-        if ((int) $request->status === 3) {
-            $order->payment_status = PaymentStatus::Paid->value;
-        } else {
-            $order->payment_status = PaymentStatus::Failed->value;
+        $order->payment_status = PaymentStatus::tryFrom((int) $request->status);
+
+        if ($request->status === PaymentStatus::Success->value) {
+            $order->paid_amount = $request->amount;
         }
 
         $order->save();
@@ -46,10 +45,12 @@ class PaymentController extends Controller
     // BayarCash return URL (frontend redirect)
     public function return(Request $request)
     {
+        session()->forget('cart', []);
         $order = Order::where('ref_no', $request->query('order_number'))->with('products')->firstOrFail();
 
         return Inertia::render('checkouts/Receipt', [
-            'order' => $order
+            'order' => $order,
+            'gatewayStatus' => (int) $request->query('status'), // 👈 IMPORTANT
         ]);
     }
 }
