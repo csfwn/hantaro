@@ -30,7 +30,6 @@ class BayarCashPayment
 
     public function processPayment(Order $order)
     {
-        dd(route('payment.callback'));
         $bayarcash = $this->configureBayarCash();
 
         $data = [
