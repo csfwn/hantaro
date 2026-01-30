@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->smallInteger('payment_status')->default(PaymentStatus::Unpaid->value)->after('status');
+            $table->smallInteger('payment_status')->default(PaymentStatus::New->value)->after('status');
         });
     }
 

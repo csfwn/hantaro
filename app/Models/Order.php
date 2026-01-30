@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentChannel;
+use App\Enums\PaymentStatus;
 use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 #[ObservedBy([OrderObserver::class])]
 class Order extends Model
@@ -25,7 +29,8 @@ class Order extends Model
         'customer_address',
         'status',
         'completed_at',
-        'whatsapp_url'
+        'whatsapp_url',
+        'url',
     ];
 
     // Casts
@@ -35,6 +40,9 @@ class Order extends Model
         'delivery_fee' => 'decimal:2',
         'service_fee' => 'decimal:2',
         'completed_at' => 'datetime',
+        'status' => OrderStatus::class,
+        'payment_status' => PaymentStatus::class,
+        'payment_method' => PaymentChannel::class
     ];
 
     /**
@@ -43,5 +51,12 @@ class Order extends Model
     public function products(): HasMany
     {
         return $this->hasMany(OrderProduct::class);
+    }
+
+    protected function customerUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => config('params.customer_url') . '/' . $this->ref_no,
+        );
     }
 }

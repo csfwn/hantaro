@@ -34,7 +34,7 @@ const formatMalaysiaDateTime = (dateString: string) => {
     const formatter = new Intl.DateTimeFormat('en-GB', options)
     const formatted = formatter.format(date)
 
-    const hour = date.toLocaleString('en-US', {
+    const hour = date.toLocaleString('ms-MY', {
         timeZone: 'Asia/Kuala_Lumpur',
         hour: '2-digit',
         minute: '2-digit',
@@ -43,6 +43,7 @@ const formatMalaysiaDateTime = (dateString: string) => {
 
     return `${formatted.split(',')[0]} ${hour}`
 }
+
 
 const payAgain = () => {
     router.visit(`/checkout/pay-again/${props.order.id}`)

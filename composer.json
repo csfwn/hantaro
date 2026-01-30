@@ -16,6 +16,7 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "laravel/wayfinder": "^0.1.9",
+        "malzariey/filament-daterangepicker-filter": "^4.0",
         "spatie/laravel-one-time-passwords": "^1.0",
         "tightenco/ziggy": "^2.6",
         "tucker-eric/eloquentfilter": "^3.5",

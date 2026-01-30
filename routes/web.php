@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -39,5 +40,6 @@ Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout
 
 Route::get('/payment/return', [PaymentController::class, 'return'])->name('payment.return');
 Route::get('/receipt/{order}/download', [ReceiptController::class, 'download'])->name('receipt.download');
+Route::get('/tracking/{code}', [TrackingController::class, 'track'])->name('order.tracking');
 
 require __DIR__.'/settings.php';

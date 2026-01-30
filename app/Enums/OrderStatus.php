@@ -22,7 +22,7 @@ enum OrderStatus: int implements HasColor, HasIcon, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Processing => 'info',
+            self::Processing => 'primary',
             self::Completed, self::Delivering => 'success',
             default => 'warning'
         };
