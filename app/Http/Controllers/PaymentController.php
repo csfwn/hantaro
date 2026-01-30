@@ -32,7 +32,9 @@ class PaymentController extends Controller
 
         $order->payment_status = PaymentStatus::tryFrom((int) $request->status);
 
-        if ($request->status === PaymentStatus::Success->value) {
+        $status = (int)$request->status;
+        
+        if ($status === PaymentStatus::Success->value) {
             $order->paid_amount = $request->amount;
         }
 
