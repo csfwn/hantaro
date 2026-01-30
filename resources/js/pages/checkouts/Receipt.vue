@@ -59,21 +59,12 @@ const downloadReceipt = () => {
         <div class="w-full max-w-md">
 
             <!-- Success/Failed Icon -->
-            <div class="flex justify-center mb-6 mt-5">
+            <div class="flex justify-center mb-2 mt-5">
                 <div :class="[
-                    'w-12 h-12 rounded-full flex items-center justify-center',
-                    isPaid ? 'bg-green-500' : 'bg-red-500'
+                    'w-25 h-25 rounded-full flex items-center justify-center'
                 ]">
-                    <svg v-if="isPaid"
-                        class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                            d="M5 13l4 4L19 7" />
-                    </svg>
-                    <svg v-else
-                        class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <img v-if="isPaid" src="/gifs/success.gif" alt="Success" class="w-25 h-25 object-contain" />
+                    <img v-else src="/gifs/failed.gif" alt="Failed" class="w-18 h-18 object-contain" />
                 </div>
             </div>
 
@@ -99,8 +90,7 @@ const downloadReceipt = () => {
                 </div>
 
                 <div class="space-y-3 pb-5 border-b border-gray-100">
-                    <div v-for="product in props.order.products"
-                        :key="product.id"
+                    <div v-for="product in props.order.products" :key="product.id"
                         class="flex justify-between items-start">
                         <div class="flex-1">
                             <p class="text-gray-900 font-medium">{{ product.name }}</p>
@@ -165,15 +155,13 @@ const downloadReceipt = () => {
 
             <!-- Action Buttons -->
             <div class="space-y-3">
-                <button v-if="!isPaid"
-                    @click="payAgain"
+                <button v-if="!isPaid" @click="payAgain"
                     class="w-full bg-red-500 hover:bg-red-600 text-white py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
                     <CreditCard size="20" />
                     Bayar Semula
                 </button>
 
-                <button v-if="isPaid"
-                    @click="downloadReceipt"
+                <button v-if="isPaid" @click="downloadReceipt"
                     class="w-full bg-gray-900 hover:bg-gray-800 text-white py-3.5 rounded-xl font-medium flex items-center justify-center gap-2">
                     <Download size="20" />
                     Muat Turun Resit
