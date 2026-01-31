@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PaymentStatus;
+use App\Jobs\SendPaymentSuccessWhatsApp;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Services\BayarCashPayment;
@@ -52,6 +53,10 @@ class PaymentController extends Controller
             'status_description' => $request->status_description,
             'paid_amount' => $order->paid_amount,
         ]);
+
+        if ($status === PaymentStatus::Success->value) {
+            SendPaymentSuccessWhatsApp::dispatch($order->id)->onQueue('whatsapp');
+        }
 
         return response()->json(['message' => 'OK'], 200);
     }

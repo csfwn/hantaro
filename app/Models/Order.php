@@ -31,6 +31,7 @@ class Order extends Model
         'completed_at',
         'whatsapp_url',
         'url',
+        'whatsapp_sent'
     ];
 
     // Casts

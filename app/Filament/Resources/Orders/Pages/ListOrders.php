@@ -54,6 +54,6 @@ class ListOrders extends ListRecords
 
     public function getDefaultActiveTab(): string|int|null
     {
-        return 'processing';
+        return 'all';
     }
 }

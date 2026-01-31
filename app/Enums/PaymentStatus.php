@@ -26,7 +26,7 @@ enum PaymentStatus: int implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Failed => 'danger',
             self::Success => 'success',
-            self::Pending => 'warning',
+            self::Pending => 'gray',
             default => 'warning'
         };
     }
