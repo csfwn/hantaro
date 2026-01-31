@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Http\Requests\CheckoutRequest;
-use App\Jobs\SendPaymentSuccessWhatsApp;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -30,7 +29,7 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
 
-        try {
+        // try {
             $totalAmount = 0;
             foreach ($items as $item) {
                 $product = Product::findOrFail($item['product_id']);
@@ -71,10 +70,10 @@ class CheckoutController extends Controller
             $paymentUrl = $bayarCashPayment->processPayment($order);
 
             return Inertia::location($paymentUrl);
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
-        }
+        // } catch (\Throwable $e) {
+        //     DB::rollBack();
+        //     return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
+        // }
     }
 
     public function payAgain($orderId)

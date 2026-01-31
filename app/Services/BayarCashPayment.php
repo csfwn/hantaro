@@ -31,7 +31,7 @@ class BayarCashPayment
     public function processPayment(Order $order)
     {
         $bayarcash = $this->configureBayarCash();
-
+        
         $data = [
             'portal_key' => $this->portalKey,
             'order_number' => $order->ref_no,
@@ -41,7 +41,7 @@ class BayarCashPayment
             'payer_telephone_number' => $order->customer_phone,
             'callback_url' => route('payment.callback'),
             'return_url' => route('payment.return'),
-            'payment_channel' => $order->payment_method,
+            'payment_channel' => $order->payment_method->value,
         ];
 
         $data['checksum'] = $bayarcash->createPaymentIntentChecksumValue(
