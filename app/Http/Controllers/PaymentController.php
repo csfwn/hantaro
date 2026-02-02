@@ -63,7 +63,7 @@ class PaymentController extends Controller
     public function return(Request $request)
     {
         session()->forget('cart', []);
-        $order = Order::where('ref_no', $request->query('order_number'))->with('products')->firstOrFail();
+        $order = Order::where('ref_no', $request->query('order_number'))->with(['products', 'store'])->firstOrFail();
 
         return Inertia::render('checkouts/Receipt', [
             'order' => $order,

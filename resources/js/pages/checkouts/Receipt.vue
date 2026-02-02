@@ -14,7 +14,7 @@ const isPaid = computed(() => {
 })
 
 const done = () => {
-    router.visit('/products')
+    router.visit(`/store/${props.order?.store?.code}`)
 }
 
 // Format datetime to Malaysia timezone

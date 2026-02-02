@@ -29,16 +29,16 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
 
-        // try {
+        try {
             $totalAmount = 0;
             foreach ($items as $item) {
                 $product = Product::findOrFail($item['product_id']);
                 $totalAmount += $product->price * $item['quantity'];
             }
-
+            $store = store_session();
             $order = Order::create([
                 'currency_code' => 'MYR',
-                'store_id' => $request->store_id,
+                'store_id' => $store->id,
                 'total_amount' => $totalAmount,
                 'paid_amount' => 0,
                 'delivery_fee' => 0,
@@ -71,10 +71,10 @@ class CheckoutController extends Controller
             $paymentUrl = $bayarCashPayment->processPayment($order);
 
             return Inertia::location($paymentUrl);
-        // } catch (\Throwable $e) {
-        //     DB::rollBack();
-        //     return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
-        // }
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
+        }
     }
 
     public function payAgain($orderId)
