@@ -32,10 +32,7 @@ class OrderObserver
      */
     public function updated(Order $order): void
     {
-        if ($order->payment_status->value === PaymentStatus::Success->value && 
-            $order->whatsapp_sent === 0) {
-            SendPaymentSuccessWhatsApp::dispatch($order->id);
-        }
+        
     }
 
     /**

@@ -42,6 +42,7 @@ class PaymentController extends Controller
 
         if ($status === PaymentStatus::Success->value) {
             $order->paid_amount = $request->amount;
+            SendPaymentSuccessWhatsApp::dispatch($order->id);
         }
 
         $order->save();
