@@ -38,6 +38,7 @@ class CheckoutController extends Controller
 
             $order = Order::create([
                 'currency_code' => 'MYR',
+                'store_id' => $request->store_id,
                 'total_amount' => $totalAmount,
                 'paid_amount' => 0,
                 'delivery_fee' => 0,

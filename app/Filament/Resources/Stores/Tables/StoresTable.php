@@ -23,12 +23,17 @@ class StoresTable
                     ->label('Store Name')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('code')
+                    ->label('Code')
+                    ->copyable()
+                    ->searchable(),
+                TextColumn::make('store_url')
+                    ->label('URL')
+                    ->copyable(),
                 TextColumn::make('contact_no')
                     ->label('Contact Number')
-                    ->sortable()
-                    ->alignCenter()
                     ->searchable(),
-                IconColumn::make('status')->alignCenter(),
+                TextColumn::make('status')->badge(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime()

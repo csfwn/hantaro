@@ -38,11 +38,20 @@ class HandleInertiaRequests extends Middleware
 
 public function share(Request $request): array
 {
-    $cart = $request->session()->get('cart', []);
+    $cart = $request->session()->get('cart');
+    $store = store_session(); // uses your helper
 
-    $cartQuantity = collect($cart)->sum('quantity');
-    $cartTotal = collect($cart)->sum(fn($item) => $item['quantity'] * $item['price']);
+    $visibleCartItems = [];
 
+    if (
+        $store &&
+        $cart &&
+        isset($cart['store_id']) &&
+        $cart['store_id'] === $store->id
+    ) {
+        $visibleCartItems = $cart['items'] ?? [];
+    }
+// dd($visibleCartItems);
     return [
         ...parent::share($request),
         'name' => config('app.name'),
@@ -52,9 +61,7 @@ public function share(Request $request): array
         'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
 
         // Share full cart
-        'cart' => $cart,
-        'cartQuantity' => $cartQuantity,
-        'cartTotal' => $cartTotal,
+        'cart' => $visibleCartItems,
 
         // optional store info
         'store' => $request->session()->get('store', null),

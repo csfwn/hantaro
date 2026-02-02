@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,7 +22,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::controller(ProductController::class)->prefix('products')->name('products.')->group(function () {
-    Route::get('/', 'index')->name('index');
+    // Route::get('/', 'index')->name('index');
     Route::get('{product}', 'show')->name('show');
 });
 
@@ -36,6 +37,10 @@ Route::controller(CartController::class)->prefix('carts')->name('carts.')->group
 Route::controller(CheckoutController::class)->prefix('checkout')->name('checkout.')->group(function () {
     Route::get('/pay-again/{orderId}', 'payAgain')->name('payAgain');
     Route::post('/process', 'process')->name('process');
+});
+
+Route::controller(StoreController::class)->prefix('store')->name('store.')->group(function () {
+     Route::get('{code}', 'show')->name('show');
 });
 
 Route::get('/payment/return', [PaymentController::class, 'return'])->name('payment.return');

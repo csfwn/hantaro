@@ -2,111 +2,146 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StoreResource;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Inertia\Inertia;
-use Webimpian\BayarcashSdk\Bayarcash;
 
 class CartController extends Controller
 {
     // Add or update product in session cart
     public function add(Request $request)
     {
+        $store = store_session();
+
+        if (!$store) {
+            return redirect('/');
+        }
+
         $request->validate([
-            'store_id' => 'nullable|exists:stores,id',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:0',
         ]);
 
-        $cart = session()->get('cart', []);
-        $increment = $request->input('increment', false);
+        // Get existing cart or create new
+        $cart = session()->get('cart', [
+            'store_id' => $store->id,
+            'items' => [],
+        ]);
 
-        foreach ($request->input('items') as $item) {
-            $productId = $item['product_id'];
-            $quantity = $item['quantity'];
+        // Cart belongs to different store → reset
+        if ($cart['store_id'] !== $store->id) {
+            $cart = [
+                'store_id' => $store->id,
+                'items' => [],
+            ];
+        }
 
-            $product = Product::find($productId);
+        $increment = $request->boolean('increment');
+
+        foreach ($request->items as $item) {
+            $product = Product::where('id', $item['product_id'])
+                ->where('store_id', $store->id)
+                ->first();
+
             if (!$product) continue;
 
-            if (isset($cart[$productId])) {
-                if ($increment) {
-                    $cart[$productId]['quantity'] += $quantity;
-                } else {
-                    $cart[$productId]['quantity'] = $quantity; // replace quantity
-                }
-            } else {
-                if ($quantity > 0) {
-                    $cart[$productId] = [
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'price' => $product->price,
-                        'quantity' => $quantity,
-                    ];
-                }
+            $qty = $item['quantity'];
+            $pid = $product->id;
+
+            // ✅ MULTI-ITEM LOGIC
+            if (isset($cart['items'][$pid])) {
+                $cart['items'][$pid]['quantity'] = $increment
+                    ? $cart['items'][$pid]['quantity'] + $qty
+                    : $qty;
+            } else if ($qty > 0) {
+                $cart['items'][$pid] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'quantity' => $qty,
+                ];
             }
 
-            // Remove product if quantity <= 0
-            if (isset($cart[$productId]) && $cart[$productId]['quantity'] <= 0) {
-                unset($cart[$productId]);
+            // Remove if quantity <= 0
+            if (($cart['items'][$pid]['quantity'] ?? 0) <= 0) {
+                unset($cart['items'][$pid]);
             }
         }
 
-        session()->put('cart', $cart);
+        // Save / clear cart
+        if (empty($cart['items'])) {
+            session()->forget('cart');
+        } else {
+            session()->put('cart', $cart);
+        }
 
-        return back()->with('success', 'Cart updated.');
+        return redirect()->to(url()->previous());
     }
 
-    // Remove product from cart
     public function remove(Request $request)
     {
+        $store = store_session();
+
+        if (!$store) {
+            return redirect('/');
+        }
+
         $request->validate([
-            'items' => 'required|array',
+            'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'nullable|integer|min:1',
         ]);
 
-        $cart = session()->get('cart', []);
+        $cart = session()->get('cart');
+
+        if (
+            !$cart ||
+            $cart['store_id'] !== $store->id
+        ) {
+            session()->forget('cart');
+            return redirect()->to(url()->previous());
+        }
 
         foreach ($request->items as $item) {
-            $productId = $item['product_id'];
-            $quantity = $item['quantity'] ?? null;
+            $pid = $item['product_id'];
+            $qty = $item['quantity'] ?? null;
 
-            if (!isset($cart[$productId])) continue;
+            if (!isset($cart['items'][$pid])) continue;
 
-            if ($quantity !== null) {
-                $cart[$productId]['quantity'] -= $quantity;
-                if ($cart[$productId]['quantity'] <= 0) {
-                    unset($cart[$productId]);
+            if ($qty !== null) {
+                $cart['items'][$pid]['quantity'] -= $qty;
+                if ($cart['items'][$pid]['quantity'] <= 0) {
+                    unset($cart['items'][$pid]);
                 }
             } else {
-                unset($cart[$productId]);
+                unset($cart['items'][$pid]);
             }
         }
 
-        session()->put('cart', $cart);
+        if (empty($cart['items'])) {
+            session()->forget('cart');
+        } else {
+            session()->put('cart', $cart);
+        }
 
-        return back()->with('success', 'Cart updated.');
+        return redirect()->to(url()->previous());
     }
 
-    // Return full cart
-    public function index()
-    {
-        $cart = session()->get('cart', []);
-        return response()->json($cart);
-    }
 
     public function review()
     {
         $cart = session()->get('cart', []);
-        $channels = (new \App\Services\BayarCashPayment())->getChannels();
-
+        $items = $cart['items'] ?? [];
+        
         return Inertia::render('carts/Review', [
             'customer' => session('customer'),
-            'channels' => $channels,
+            'channels' => (new \App\Services\BayarCashPayment())->getChannels(),
             'cart' => $cart,
-            'cartQuantity' => array_sum(array_map(fn($item) => $item['quantity'], $cart)),
-            'cartTotal' => array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)),
+            'store' => new StoreResource(store_session()),
+            'cartQuantity' => array_sum(array_map(fn($i) => $i['quantity'], $items)),
+            'cartTotal' => array_sum(array_map(fn($i) => $i['quantity'] * $i['price'], $items)),
         ]);
     }
 }

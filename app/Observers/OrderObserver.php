@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Enums\PaymentStatus;
+use App\Jobs\SendPaymentSuccessWhatsApp;
 use App\Models\Order;
 use Carbon\Carbon;
 
@@ -30,7 +32,9 @@ class OrderObserver
      */
     public function updated(Order $order): void
     {
-        //
+        if ($order->payment_status->value === PaymentStatus::Success->value) {
+            SendPaymentSuccessWhatsApp::dispatch($order->id);
+        }
     }
 
     /**

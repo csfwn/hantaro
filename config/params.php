@@ -8,6 +8,7 @@ return [
     'bayarcash_sanbox' => env('BAYARCASH_SANBOX', true),
     'currency_code' => env('CURRENCY_CODE', 'MYR'),
     'customer_url' => env('APP_URL').'/tracking',
+    'store_url' => env('APP_URL').'/store',
     'waha_base_url' => env('WAHA_BASE_URL'),
     'waha_api_key'  => env('WAHA_API_KEY'),
     'waha_session'  => env('WAHA_SESSION', 'default'),

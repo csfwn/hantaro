@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Orders\Tables;
 
+use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -13,6 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Actions\ActionGroup;
+use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
@@ -80,7 +84,44 @@ class OrdersTable
                 ActionGroup::make([
                     ViewAction::make(),
                     // EditAction::make(),
-                ])
+                ]),
+                Action::make('updateStatus')
+                    ->label('Update Status')
+                    ->color('warning')
+                    ->modalHeading('Update Order Status')
+                    ->modalSubmitActionLabel('Update')
+                    ->modalWidth('md')
+                    ->schema([
+                        Select::make('status')
+                            ->label('Order Status')
+                            ->options(
+                                collect(OrderStatus::cases())
+                                    ->mapWithKeys(fn($case) => [
+                                        $case->value => $case->getLabel(),
+                                    ])
+                            )
+                            ->required()
+                            ->native(false),
+                    ])
+
+                    ->mountUsing(function ($form, Order $record) {
+                        $form->fill([
+                            'status' => $record->status,
+                        ]);
+                    })
+
+                    ->action(function (array $data, Order $record) {
+                        $record->update([
+                            'status' => $data['status'],
+                        ]);
+
+                        Notification::make()
+                            ->title('Order status updated')
+                            ->body('Order has been successfully updated.')
+                            ->success()
+                            ->send();
+                    }),
+
             ], position: RecordActionsPosition::BeforeColumns)
 
             ->toolbarActions([

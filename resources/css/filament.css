@@ -1,0 +1,7 @@
+@import "../../vendor/filament/filament/resources/css/theme.css";
+
+@layer components {
+    .fi-dropdown-panel {
+        z-index: 20 !important;
+    }
+}
