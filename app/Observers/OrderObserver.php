@@ -23,17 +23,23 @@ class OrderObserver
     /**
      * Handle the Order "created" event.
      */
-    public function created(Order $order): void
-    {
-    }
+    public function created(Order $order): void {}
 
     /**
      * Handle the Order "updated" event.
      */
     public function updated(Order $order): void
     {
-        
+        if (
+            $order->wasChanged('payment_status') &&
+            $order->payment_status->value === PaymentStatus::Success->value &&
+            !$order->whatsapp_sent
+        ) {
+            SendPaymentSuccessWhatsApp::dispatch($order->id);
+        }
     }
+
+
 
     /**
      * Handle the Order "deleted" event.
