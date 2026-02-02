@@ -69,8 +69,8 @@ class OrdersTable
             ])
 
             ->filters([
-                SelectFilter::make('status')
-                    ->label('Status')
+                SelectFilter::make('payment_status')
+                    ->label('Payment Status')
                     ->options(
                         collect(PaymentStatus::cases())
                             ->mapWithKeys(fn($case) => [$case->value => $case->name])
