@@ -4,4 +4,14 @@
     .fi-dropdown-panel {
         z-index: 20 !important;
     }
+[x-cloak] {
+    display: none !important;
+}
+
+.fi-sidebar-header-logo-mini {
+    margin-top: 40px;
+    display: flex;
+    
+}
+
 }

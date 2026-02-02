@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->brandLogo(asset('images/newlogo.png'))
+            ->brandLogoHeight('6rem')
 
             // ✅ Discover ONLY resources & pages
             ->discoverResources(
