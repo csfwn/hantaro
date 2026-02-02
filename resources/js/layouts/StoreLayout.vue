@@ -3,18 +3,27 @@ import { computed } from 'vue'
 import { usePage, Link } from '@inertiajs/vue3'
 import { ShoppingCart, Share2 } from 'lucide-vue-next'
 
-const page = usePage()
+import Classic from '@/store-templates/Classic.vue'
+import Linktree from '@/store-templates/Linktree.vue'
+import Catalog from '@/store-templates/Catalog.vue'
 
 /* =========================
-   CART (REACTIVE & SAFE)
+   PROPS
 ========================= */
+const props = defineProps({
+  store: Object,
+})
+
+/* =========================
+   PAGE & CART
+========================= */
+const page = usePage()
+
 const cart = computed<Record<string, any>>(
   () => page.props.cart || {}
 )
 
-const cartItems = computed(() =>
-  Object.values(cart.value)
-)
+const cartItems = computed(() => Object.values(cart.value))
 
 const cartQuantity = computed(() =>
   cartItems.value.reduce(
@@ -31,17 +40,19 @@ const cartTotal = computed(() =>
   )
 )
 
-/* =========================
-   STORE & UI
-========================= */
-const store = computed(() => page.props.store || null)
 const showFooter = computed(() => !page.url.includes('/carts/review'))
+
+/* =========================
+   THEME (IMPORTANT)
+========================= */
+const primaryColor = computed(
+  () => props.store?.data?.theme?.primary || '#000000'
+)
 
 /* =========================
    SHARE STORE
 ========================= */
-
-const stripHtml = (html) => {
+const stripHtml = (html: string) => {
   const div = document.createElement('div')
   div.innerHTML = html
   return div.textContent || div.innerText || ''
@@ -49,85 +60,76 @@ const stripHtml = (html) => {
 
 const shareStore = async () => {
   const shareData = {
-    title: store.value?.data?.name,
-    text: stripHtml(store.value?.data?.description),
-    url: store.value?.data?.store_url,
+    title: props.store?.data?.name,
+    text: stripHtml(props.store?.data?.description),
+    url: props.store?.data?.store_url,
   }
 
   if (navigator.share) {
     try {
       await navigator.share(shareData)
-    } catch {
-      // user cancelled
-    }
+    } catch {}
   } else {
     await navigator.clipboard.writeText(shareData.url)
     alert('Link copied!')
   }
 }
+
+/* =========================
+   TEMPLATE MAP
+========================= */
+const templates = {
+  classic: Classic,
+  linktree: Linktree,
+  catalog: Catalog,
+}
 </script>
 
 <template>
-  <div class="bg-gray-100 min-h-screen pb-24">
-
-    <!-- HEADER -->
-    <header class="bg-white shadow px-4 py-3 flex items-center justify-between">
-      <!-- Left: Logo & Store Info -->
-      <a class="flex items-center gap-3">
-        <img
-          :src="store?.data?.store_logo_url"
-          alt="Store Logo"
-          class="w-20 h-20 rounded-full object-cover border"
-        />
-        <div class="leading-tight">
-          <h1 class="text-base font-bold text-gray-800">
-            {{ store?.data?.name || 'Hantaro' }}
-          </h1>
-          <p
-            class="text-xs text-gray-500"
-            v-html="store?.data?.description"
-          />
-        </div>
-      </a>
-
-      <!-- Right: Share -->
-      <button
-        @click="shareStore"
-        class="p-2 rounded-full hover:bg-gray-100 active:bg-gray-200"
-        aria-label="Share store"
-      >
-        <Share2 class="w-5 h-5 text-gray-700" />
-      </button>
-    </header>
-
-    <!-- PAGE CONTENT -->
-    <main class="p-4">
+  <!-- ROOT WRAPPER (IMPORTANT: DEFINE --primary HERE) -->
+  <div
+    class="bg-gray-100 min-h-screen pb-24"
+    :style="{ '--primary': primaryColor }"
+  >
+    <!-- STORE TEMPLATE -->
+    <component
+      :is="templates[store?.data?.template] || templates.classic"
+      :store="store"
+    >
       <slot />
-    </main>
+    </component>
 
     <!-- FOOTER CART -->
     <footer
       v-if="showFooter"
-      class="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-md p-4 flex justify-between items-center"
+      class="fixed bottom-0 left-0 right-0 z-50
+             bg-white shadow-md p-4
+             flex justify-between items-center"
     >
-      <div class="text-red-600 font-bold text-lg italic">
+      <!-- TOTAL PRICE -->
+      <div
+        class="font-bold text-lg"
+        style="color: var(--primary)"
+      >
         RM {{ cartTotal.toFixed(2) }}
       </div>
 
+      <!-- CHECKOUT BUTTON -->
       <Link
         :href="cartQuantity > 0 ? route('carts.review') : '#'"
         :class="[
-          'px-5 py-2 rounded-lg font-semibold italic flex items-center gap-2 transition',
+          'px-5 py-2 rounded-lg font-semibold flex items-center gap-2 transition',
           cartQuantity > 0
-            ? 'bg-black text-white hover:bg-yellow-600'
+            ? 'text-white active:scale-95'
             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
         ]"
+        :style="cartQuantity > 0
+          ? { backgroundColor: 'var(--primary)' }
+          : {}"
         @click.prevent="cartQuantity === 0"
       >
-        <ShoppingCart :size="16" />
-        Seterusnya ({{ cartQuantity }})
+        Checkout ({{ cartQuantity }})
       </Link>
     </footer>
-
   </div>
 </template>

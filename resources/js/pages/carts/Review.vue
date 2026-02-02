@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
 import { usePage, router } from '@inertiajs/vue3'
 import StoreLayout from "@/layouts/StoreLayout.vue"
 import { ChevronLeft } from 'lucide-vue-next'
@@ -8,7 +8,7 @@ import { PhoneInput } from '@/components/ui/phone-input'
 const page = usePage()
 
 /* =========================
-   CART (MULTI-ITEM SAFE)
+   CART
 ========================= */
 const cart = computed<any>(() => page.props.cart || {})
 
@@ -45,18 +45,6 @@ const customerAddress = ref(customer.value.address || '')
 const errors = ref<Record<string, string>>({})
 const isLoading = ref(false)
 
-function lockUI() {
-  isLoading.value = true
-}
-
-onMounted(() => {
-  window.addEventListener('beforeunload', lockUI)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('beforeunload', lockUI)
-})
-
 /* =========================
    NAVIGATION
 ========================= */
@@ -74,12 +62,6 @@ function proceedPayment() {
 
   errors.value = {}
   isLoading.value = true
-
-  const phoneEl = document.querySelector(
-    'input[name="customer_phone"]'
-  ) as HTMLInputElement | null
-
-  customerPhone.value = phoneEl?.value || ''
 
   if (!customerName.value) errors.value.name = 'Sila isi nama anda'
   if (!customerPhone.value) errors.value.phone = 'Sila isi nombor telefon'
@@ -105,34 +87,22 @@ function proceedPayment() {
 </script>
 
 <template>
-  <StoreLayout title="Hantaro - Review Cart">
-    <div class="min-h-screen bg-gray-100 space-y-3 p-2 pb-24 relative">
-
-      <!-- LOADING OVERLAY -->
-      <div
-        v-if="isLoading"
-        class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center"
-      >
-        <div class="bg-white rounded-xl px-6 py-4 flex items-center gap-3 shadow-lg">
-          <svg class="animate-spin h-6 w-6 text-black" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/>
-            <path class="opacity-75" fill="currentColor"
-              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
-          </svg>
-          <span class="font-semibold">Mengarahkan ke pembayaran...</span>
-        </div>
-      </div>
+  <StoreLayout title="Review Cart" :store="store">
+    <div class="min-h-screen bg-gray-100 space-y-3 p-2 pb-28">
 
       <!-- HEADER -->
       <div class="flex items-center gap-3 mb-4">
         <button
           @click="goBack"
           :disabled="isLoading"
-          class="rounded-full hover:bg-gray-200 transition disabled:opacity-50"
+          class="rounded-full p-1 transition disabled:opacity-50"
+          :style="{ color: 'var(--primary)' }"
         >
-          <ChevronLeft size="20" />
+          <ChevronLeft size="22" />
         </button>
-        <h2 class="text-lg font-bold">Maklumat Tempahan</h2>
+        <h2 class="text-lg font-bold text-gray-900">
+          Order Details
+        </h2>
       </div>
 
       <!-- CART LIST -->
@@ -143,83 +113,122 @@ function proceedPayment() {
           class="flex justify-between items-center"
         >
           <div>
-            <h3 class="font-semibold">{{ item.name }}</h3>
+            <h3 class="font-semibold text-gray-900">
+              {{ item.name }}
+            </h3>
             <p class="text-xs text-gray-500">
-              RM {{ item.price.toFixed(2) }} x {{ item.quantity }}
+              RM {{ item.price.toFixed(2) }} × {{ item.quantity }}
             </p>
           </div>
-          <div class="font-bold">
+
+          <div class="font-bold" :style="{ color: 'var(--primary)' }">
             RM {{ (item.price * item.quantity).toFixed(2) }}
           </div>
         </div>
 
-        <div class="border-t pt-2 text-right font-bold text-red-600">
-          Jumlah: RM {{ cartTotal.toFixed(2) }}
+        <div class="border-t pt-2 text-right font-bold"
+             :style="{ color: 'var(--primary)' }">
+          Total: RM {{ cartTotal.toFixed(2) }}
         </div>
       </div>
 
       <!-- CUSTOMER INFO -->
       <div class="bg-white rounded-xl shadow p-4 space-y-4">
-        <h3 class="font-semibold">Maklumat Pelanggan</h3>
+        <h3 class="font-semibold text-gray-900">Customer Info</h3>
 
         <div>
-          <label class="block font-medium text-sm mb-1">Nama</label>
+          <label class="block text-sm font-medium mb-1">Name</label>
           <input
-            type="text"
             v-model="customerName"
             :disabled="isLoading"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 focus:ring-2"
+            :style="{ '--tw-ring-color': 'var(--primary)' }"
           />
-          <p v-if="errors.name" class="text-red-500 text-xs mt-1">{{ errors.name }}</p>
+          <p v-if="errors.name" class="text-red-500 text-xs mt-1">
+            {{ errors.name }}
+          </p>
         </div>
 
         <div>
-          <label class="block font-medium text-sm mb-1">Nombor Telefon</label>
+          <label class="block text-sm font-medium mb-1">Whatsapp No</label>
           <PhoneInput
+            v-model="customerPhone"
             name="customer_phone"
             :disabled="isLoading"
-            placeholder="eg. 012-3456789"
           />
-          <p v-if="errors.phone" class="text-red-500 text-xs mt-1">{{ errors.phone }}</p>
+          <p v-if="errors.phone" class="text-red-500 text-xs mt-1">
+            {{ errors.phone }}
+          </p>
         </div>
 
         <div>
-          <label class="block font-medium text-sm mb-1">Email</label>
+          <label class="block text-sm font-medium mb-1">Email</label>
           <input
-            type="email"
             v-model="customerEmail"
             :disabled="isLoading"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 focus:ring-2"
+            :style="{ '--tw-ring-color': 'var(--primary)' }"
           />
         </div>
 
         <div>
-          <label class="block font-medium text-sm mb-1">Alamat</label>
+          <label class="block text-sm font-medium mb-1">Address</label>
           <textarea
             v-model="customerAddress"
-            :disabled="isLoading"
-            class="w-full border rounded-lg p-2"
             rows="3"
+            :disabled="isLoading"
+            class="w-full border rounded-lg p-2 focus:ring-2"
+            :style="{ '--tw-ring-color': 'var(--primary)' }"
           />
-          <p v-if="errors.address" class="text-red-500 text-xs mt-1">{{ errors.address }}</p>
+          <p v-if="errors.address" class="text-red-500 text-xs mt-1">
+            {{ errors.address }}
+          </p>
         </div>
       </div>
 
       <!-- PAYMENT -->
-      <div class="bg-white rounded-xl shadow p-4">
-        <h3 class="font-semibold mb-2">Pilih Kaedah Pembayaran</h3>
+      <div class="bg-white rounded-xl shadow p-4 space-y-3">
+        <h3 class="font-semibold">Choose Payment Method</h3>
+
         <label
           v-for="channel in page.props.channels"
           :key="channel.id"
-          class="flex items-center gap-2"
+          class="flex items-center justify-between rounded-xl border p-4 cursor-pointer transition"
+          :class="paymentMethod === channel.id
+            ? 'ring-2'
+            : 'border-gray-200'"
+          :style="paymentMethod === channel.id
+            ? { borderColor: 'var(--primary)', '--tw-ring-color': 'var(--primary)' }
+            : {}"
         >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-5 h-5 rounded-full border flex items-center justify-center"
+              :style="paymentMethod === channel.id
+                ? { borderColor: 'var(--primary)' }
+                : {}"
+            >
+              <div
+                v-if="paymentMethod === channel.id"
+                class="w-3 h-3 rounded-full"
+                :style="{ backgroundColor: 'var(--primary)' }"
+              />
+            </div>
+
+            <div>
+              <p class="font-medium text-sm">{{ channel.name }}</p>
+              <p class="text-xs text-gray-500">
+                Secure & trusted payment
+              </p>
+            </div>
+          </div>
+
           <input
             type="radio"
+            class="hidden"
             :value="channel.id"
             v-model="paymentMethod"
-            :disabled="isLoading"
           />
-          {{ channel.name }}
         </label>
       </div>
 
@@ -228,10 +237,26 @@ function proceedPayment() {
         :disabled="isLoading"
         @click="proceedPayment"
         class="fixed bottom-4 left-4 right-4 py-3 rounded-xl font-bold
-               bg-black text-white hover:bg-yellow-600
-               disabled:bg-gray-400"
+               flex items-center justify-center gap-2
+               text-white transition active:scale-95"
+        :style="{
+          backgroundColor: isLoading ? '#ccc' : 'var(--primary)'
+        }"
       >
-        Bayar Sekarang (RM {{ cartTotal.toFixed(2) }})
+        <svg
+          v-if="isLoading"
+          class="animate-spin h-5 w-5 text-white"
+          viewBox="0 0 24 24"
+        >
+          <circle class="opacity-25" cx="12" cy="12" r="10"
+                  stroke="currentColor" stroke-width="4" fill="none" />
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+        </svg>
+
+        <span>
+          {{ isLoading ? 'Processing…' : `Pay Now (RM ${cartTotal.toFixed(2)})` }}
+        </span>
       </button>
 
     </div>
