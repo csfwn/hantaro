@@ -40,10 +40,17 @@ const showFooter = computed(() => !page.url.includes('/carts/review'))
 /* =========================
    SHARE STORE
 ========================= */
+
+const stripHtml = (html) => {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  return div.textContent || div.innerText || ''
+}
+
 const shareStore = async () => {
   const shareData = {
     title: store.value?.data?.name,
-    text: store.value?.data?.description,
+    text: stripHtml(store.value?.data?.description),
     url: store.value?.data?.store_url,
   }
 
