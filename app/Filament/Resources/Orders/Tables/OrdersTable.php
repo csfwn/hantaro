@@ -30,6 +30,10 @@ class OrdersTable
                 TextColumn::make('ref_no')
                     ->label('Ref No')
                     ->searchable(),
+                
+                TextColumn::make('store.name')
+                    ->label('Store')
+                    ->searchable(),
 
                 TextColumn::make('customer_name')
                     ->label('Customer')
