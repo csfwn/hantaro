@@ -19,6 +19,11 @@ class LatestOrders extends TableWidget
         return Order::latest()->limit(5);
     }
 
+    public function getTableDescription(): ?string
+    {
+        return 'Latest 5 orders today';
+    }
+
     public function isTableSearchable(): bool
     {
         return false;
@@ -33,14 +38,12 @@ class LatestOrders extends TableWidget
             Tables\Columns\TextColumn::make('store.name')
                 ->label('Store'),
 
-            Tables\Columns\TextColumn::make('customer_name')
-                ->label('Customer'),
-
             Tables\Columns\TextColumn::make('total_amount')
                 ->money('MYR'),
 
             Tables\Columns\TextColumn::make('payment_status')
                 ->badge(),
+                
             Tables\Columns\TextColumn::make('created_at')
                 ->label('Created At'),
         ];
