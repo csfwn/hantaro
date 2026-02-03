@@ -13,9 +13,17 @@ class OrderSummary extends Widget
 
     protected ?string $pollingInterval = '15s';
 
-    protected static bool $isLazy = false;
+    // Public Livewire properties — these re-render on every poll
+    public array $orders = [];
+    public int $total = 0;
 
-    public function getViewData(): array
+    public function mount(): void
+    {
+        $this->refreshData();
+    }
+
+    // Livewire calls this every polling cycle
+    public function refreshData(): void
     {
         $now = Carbon::now();
 
@@ -35,9 +43,8 @@ class OrderSummary extends Widget
             ->count();
 
         $max = max($completed, $processing, $delivering, 1);
-        $total = $completed + $processing + $delivering;
 
-        $orders = [
+        $this->orders = [
             [
                 'label'      => 'Processing',
                 'count'      => $processing,
@@ -55,9 +62,6 @@ class OrderSummary extends Widget
             ],
         ];
 
-        return [
-            'orders' => $orders,
-            'total'  => $total,
-        ];
+        $this->total = $completed + $processing + $delivering;
     }
 }
