@@ -113,8 +113,6 @@ class OrderStats extends StatsOverviewWidget
                 ->color($revenueTrend >= 0 ? 'success' : 'danger')
                 ->chart($dailyRevenue)
                 ->icon('heroicon-o-banknotes'),
-
-            
         ];
     }
 }

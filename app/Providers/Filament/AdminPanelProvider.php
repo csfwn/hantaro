@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo5.png'))
             ->brandLogoHeight('1rem')
             ->darkMode(false)
+            ->globalSearch(false)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -72,6 +74,9 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->plugins([
+                FilamentShieldPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,

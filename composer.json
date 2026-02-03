@@ -8,6 +8,8 @@
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.1",
+        "bezhansalleh/filament-shield": "^4.1",
+        "chip/chip-sdk-php": "^1.0",
         "filament/filament": "^4.1",
         "filament/spatie-laravel-media-library-plugin": "^4.1",
         "filament/support": "^4.1",
@@ -18,9 +20,9 @@
         "laravel/wayfinder": "^0.1.9",
         "malzariey/filament-daterangepicker-filter": "^4.0",
         "spatie/laravel-one-time-passwords": "^1.0",
+        "spatie/laravel-permission": "^6.24",
         "tightenco/ziggy": "^2.6",
-        "tucker-eric/eloquentfilter": "^3.5",
-        "chip/chip-sdk-php": "^1.0"
+        "tucker-eric/eloquentfilter": "^3.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -62,11 +62,11 @@ class RevenueChart extends ChartWidget
                 [
                     'label' => 'Revenue (RM)',
                     'data' => $revenueData,
-                    'borderColor' => '#22c55e',
+                    'borderColor' => '#f97316',
                     'backgroundColor' => 'transparent',
                     'tension' => 0.4,
                     'borderWidth' => 2,
-                    'pointBackgroundColor' => '#22c55e',
+                    'pointBackgroundColor' => '#f97316',
                     'pointBorderColor' => '#fff',
                     'pointBorderWidth' => 2,
                     'pointRadius' => 4,
