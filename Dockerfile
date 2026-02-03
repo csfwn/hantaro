@@ -18,11 +18,18 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN echo "upload_max_filesize=50M\npost_max_size=50M\nmemory_limit=256M\nmax_execution_time=300\nmax_input_time=300" \
+    > /usr/local/etc/php/conf.d/zz-upload.ini
+
 WORKDIR /var/www
 
 # Copy Supervisor configs
-#COPY docker/supervisor/*.conf /etc/supervisor/conf.d/
+COPY docker/supervisor/*.conf /etc/supervisor/conf.d/
+
+# Permissions
+RUN chown -R www-data:www-data /var/www \
+   && chmod -R 775 storage bootstrap/cache || true
 
 # Start Supervisor (it will start php-fpm + queue)
-#CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n"]
 

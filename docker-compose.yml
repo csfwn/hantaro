@@ -6,6 +6,7 @@ services:
     container_name: hantaro_app
     volumes:
       - .:/var/www
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zz-uploads.ini
 
   web:
     image: nginx:alpine
