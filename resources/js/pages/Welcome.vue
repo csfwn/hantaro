@@ -1,132 +1,386 @@
 <template>
     <div class="min-h-screen bg-white text-gray-900 font-sans">
         <!-- Navigation -->
-        <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
+                <div class="flex justify-between items-center h-20">
                     <div class="flex items-center gap-2">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-lg">
-                            H
-                        </div>
-                        <span class="text-xl font-bold text-gray-900">Hantaro</span>
+                        <span class="text-2xl font-bold text-black">Hantaro<span style="color:#F57C20">•</span></span>
                     </div>
-                    
-                    <div class="hidden md:flex items-center gap-8">
-                        <a href="#features" class="text-sm font-medium text-gray-600 hover:text-gray-900">Features</a>
-                        <a href="#how-it-works" class="text-sm font-medium text-gray-600 hover:text-gray-900">How It Works</a>
-                        <a href="#pricing" class="text-sm font-medium text-gray-600 hover:text-gray-900">Pricing</a>
-                        <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+                    <div class="hidden md:flex items-center gap-10">
+                        <a href="#features" class="text-sm font-medium text-gray-600 nav-link">Features</a>
+                        <a href="#how-it-works" class="text-sm font-medium text-gray-600 nav-link">How It Works</a>
+                        <a href="#pricing" class="text-sm font-medium text-gray-600 nav-link">Pricing</a>
+                        <a href="#faq" class="text-sm font-medium text-gray-600 nav-link">FAQ</a>
                     </div>
-                    
-                    <button class="px-6 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-all">
-                        Start Free
-                    </button>
+                    <div class="flex items-center gap-4">
+                        <a href="/admin"
+                            class="hidden sm:block text-sm font-medium text-gray-700 hover:text-black transition">
+                            Log In
+                        </a>
+
+                        <button class="px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">Get Started
+                            Free</button>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <!-- Hero Section -->
-        <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <!-- Left Content -->
-                    <div class="text-center lg:text-left">
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900 mb-6">
-                            Create your own<br>
-                            <span class="bg-gradient-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent">online store</span><br>
-                            in minutes
-                        </h1>
-                        <p class="text-lg sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0">
-                            Hantaro helps home business owners sell online easily — no tech skills required.
-                        </p>
-                        
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                            <div class="relative">
-                                <input 
-                                    v-model="email" 
-                                    type="email" 
-                                    placeholder="Enter your email address" 
-                                    class="w-full sm:w-80 px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 text-base"
-                                >
-                            </div>
-                            <button 
-                                @click="handleStartFree"
-                                class="px-8 py-4 rounded-xl bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-all flex items-center justify-center gap-2"
-                            >
-                                Start Free
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        
-                        <p class="text-sm text-gray-500">No credit card required • Free forever plan available</p>
+        <!-- ===== HERO with Floating Cards ===== -->
+        <section class="hero-section relative overflow-hidden" style="min-height:100vh; background:#000;">
+            <div class="hero-mesh"></div>
+            <div class="hero-text-layer">
+                <h1 class="hero-h1">
+                    Build, Run &amp; Grow Your<br />
+                    <span class="hero-italic">Online Store.</span><br />
+                    <span class="hero-orange">All-in-One Platform</span>
+                </h1>
+                <p class="hero-sub">Hantaro is One Platform to build, run, and grow your commerce business — without
+                    limits. Built for fast-growing home businesses.</p>
+                <div class="hero-btns">
+                    <button class="btn-orange px-8 py-4 rounded-lg text-white font-semibold flex items-center gap-2">
+                        Get Started for Free
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                    <button class="px-8 py-4 rounded-lg border-2 font-semibold btn-outline-orange">See How It
+                        Works</button>
+                </div>
+            </div>
+            <div class="cards-field">
+                <div class="float-card card-0">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80') center/cover">
                     </div>
-                    
-                    <!-- Right Visual -->
-                    <div class="relative">
-                        <div class="relative z-10">
-                            <!-- Main Dashboard Mock -->
-                            <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div>
-                                        <h3 class="text-lg font-bold text-gray-900">Welcome Back, Sarah! 👋</h3>
-                                        <p class="text-sm text-gray-500">Here's your store performance</p>
-                                    </div>
-                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
-                                        <span class="text-purple-600 font-semibold">S</span>
-                                    </div>
+                    <div class="card-logo-wrap"><span class="card-logo-text">STWO</span></div>
+                    <div class="card-store-name">Manisan Kita</div>
+                    <div class="card-store-sub">Manisan Original Kelantan</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-[#25D366]">
+                                <path
+                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5">
+                                <defs>
+                                    <linearGradient id="ig0" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#F58529" />
+                                        <stop offset="30%" stop-color="#DD2A7B" />
+                                        <stop offset="60%" stop-color="#8134AF" />
+                                        <stop offset="100%" stop-color="#515BD4" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#ig0)"
+                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-black">
+                                <path
+                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1562439901-aed4ddaa17c3?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Popular</span>
+                            <div class="mini-name">Kek Coklat</div>
+                            <div class="mini-price">RM1.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1548364600-e1681e1eeb6f?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Popular</span>
+                            <div class="mini-name">Akok</div>
+                            <div class="mini-price">RM25.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-card card-1">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80') center/cover">
+                    </div>
+                    <div class="card-logo-wrap logo-green"><span class="card-logo-text">SG</span></div>
+                    <div class="card-store-name">Spice Garden</div>
+                    <div class="card-store-sub">Fresh Spices from Kelantan</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-[#25D366]">
+                                <path
+                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5">
+                                <defs>
+                                    <linearGradient id="ig1" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#F58529" />
+                                        <stop offset="30%" stop-color="#DD2A7B" />
+                                        <stop offset="60%" stop-color="#8134AF" />
+                                        <stop offset="100%" stop-color="#515BD4" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#ig1)"
+                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1599631927710-76e05e19b917?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Hot</span>
+                            <div class="mini-name">Rempah Ayam</div>
+                            <div class="mini-price">RM12.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1615361200141-f45040f367be?w=200&q=80') center/cover">
+                            </div>
+                            <div class="mini-name">Curry Powder</div>
+                            <div class="mini-price">RM8.50</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-card card-2">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80') center/cover">
+                    </div>
+                    <div class="card-logo-wrap logo-pink"><span class="card-logo-text">SC</span></div>
+                    <div class="card-store-name">Sweet Corner</div>
+                    <div class="card-store-sub">Homemade Pastries &amp; Desserts</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5">
+                                <defs>
+                                    <linearGradient id="ig2" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#F58529" />
+                                        <stop offset="30%" stop-color="#DD2A7B" />
+                                        <stop offset="60%" stop-color="#8134AF" />
+                                        <stop offset="100%" stop-color="#515BD4" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#ig2)"
+                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-black">
+                                <path
+                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1533953943578-43da53d18c7c?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ New</span>
+                            <div class="mini-name">Croissant</div>
+                            <div class="mini-price">RM5.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=200&q=80') center/cover">
+                            </div>
+                            <div class="mini-name">Macarons</div>
+                            <div class="mini-price">RM18.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-card card-3">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1439229747457-a74897f98ec8?w=400&q=80') center/cover">
+                    </div>
+                    <div class="card-logo-wrap logo-green"><span class="card-logo-text">OF</span></div>
+                    <div class="card-store-name">Organic Farm</div>
+                    <div class="card-store-sub">Fresh &amp; Natural Daily</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-[#25D366]">
+                                <path
+                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Fresh</span>
+                            <div class="mini-name">Sayur Organik</div>
+                            <div class="mini-price">RM9.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=200&q=80') center/cover">
+                            </div>
+                            <div class="mini-name">Buah Tempatan</div>
+                            <div class="mini-price">RM15.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-card card-4">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&q=80') center/cover">
+                    </div>
+                    <div class="card-logo-wrap logo-amber"><span class="card-logo-text">RC</span></div>
+                    <div class="card-store-name">Roasted Co.</div>
+                    <div class="card-store-sub">Specialty Coffee Beans</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-black">
+                                <path
+                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Best</span>
+                            <div class="mini-name">Liberica Blend</div>
+                            <div class="mini-price">RM42.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=200&q=80') center/cover">
+                            </div>
+                            <div class="mini-name">Robusta Dark</div>
+                            <div class="mini-price">RM35.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-card card-5">
+                    <div class="card-hero-img"
+                        style="background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80') center/cover">
+                    </div>
+                    <div class="card-logo-wrap logo-teal"><span class="card-logo-text">BC</span></div>
+                    <div class="card-store-name">Batik Craft</div>
+                    <div class="card-store-sub">Handmade Batik Kelantan</div>
+                    <div class="card-socials">
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-[#25D366]">
+                                <path
+                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5">
+                                <defs>
+                                    <linearGradient id="ig5" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#F58529" />
+                                        <stop offset="30%" stop-color="#DD2A7B" />
+                                        <stop offset="60%" stop-color="#8134AF" />
+                                        <stop offset="100%" stop-color="#515BD4" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#ig5)"
+                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
+                            </svg></span>
+                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="h-5 w-5 fill-black">
+                                <path
+                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
+                            </svg></span>
+                    </div>
+                    <div class="card-products">
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80') center/cover">
+                            </div><span class="mini-badge">⭐ Rare</span>
+                            <div class="mini-name">Sarung Batik</div>
+                            <div class="mini-price">RM85.00</div>
+                        </div>
+                        <div class="mini-product">
+                            <div class="mini-img"
+                                style="background:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=200&q=80') center/cover">
+                            </div>
+                            <div class="mini-name">Scarf Batik</div>
+                            <div class="mini-price">RM55.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Preview -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+                    <div class="bg-gray-100 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="flex-1 mx-8">
+                            <div class="bg-white rounded px-3 py-1 text-xs text-gray-500 text-center">
+                                hantaro.my/dashboard</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-black mb-1">Analytics</h3>
+                                <p class="text-sm text-gray-500">Monitor your store performance</p>
+                            </div>
+                            <div class="flex items-center gap-3"><select
+                                    class="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium bg-white">
+                                    <option>Last 30 days</option>
+                                </select><button
+                                    class="px-4 py-2 rounded-lg text-white text-sm font-medium btn-orange">Share</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                            <div v-for="stat in stats" :key="stat.label"
+                                class="p-6 rounded-xl border border-gray-200 hover:shadow-md transition stat-card">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-10 h-10 rounded-lg flex items-center justify-center"
+                                        style="background:#FFF3E0"><svg class="w-5 h-5" fill="none" :stroke="'#F57C20'"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                :d="stat.icon" />
+                                        </svg></div><span class="text-sm font-medium text-gray-600">{{ stat.label
+                                        }}</span>
                                 </div>
-                                
-                                <!-- Stats -->
-                                <div class="grid grid-cols-3 gap-4 mb-6">
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-gray-900">RM1,245</div>
-                                        <div class="text-xs text-gray-500">Revenue</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-gray-900">89</div>
-                                        <div class="text-xs text-gray-500">Orders</div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-gray-900">156</div>
-                                        <div class="text-xs text-gray-500">Visitors</div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Chart -->
-                                <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-xl p-4 h-40 flex items-end justify-between gap-2">
-                                    <div class="bg-primary-400 rounded-lg w-full h-16"></div>
-                                    <div class="bg-primary-500 rounded-lg w-full h-24"></div>
-                                    <div class="bg-primary-300 rounded-lg w-full h-20"></div>
-                                    <div class="bg-primary-600 rounded-lg w-full h-32"></div>
-                                    <div class="bg-primary-500 rounded-lg w-full h-28"></div>
-                                    <div class="bg-primary-700 rounded-lg w-full h-36"></div>
+                                <div class="text-3xl font-bold text-black mb-1">{{ stat.value }}</div>
+                                <div class="flex items-center gap-1 text-xs"
+                                    :class="stat.up ? 'text-green-600' : 'text-red-600'"><span>{{ stat.change }}</span>
                                 </div>
                             </div>
-                            
-                            <!-- Floating Cards -->
-                            <div class="absolute -top-4 -right-4 bg-white rounded-xl shadow-lg p-4 w-48 border border-gray-100">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                                        <span class="text-green-600 text-xl">✓</span>
-                                    </div>
-                                    <div>
-                                        <div class="text-xs text-gray-500">New Order</div>
-                                        <div class="text-sm font-semibold">RM45.00</div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="p-6 rounded-xl border border-gray-200">
+                                <h4 class="font-bold text-black mb-1">Total Orders</h4>
+                                <p class="text-sm text-gray-500 mb-6">Total customer orders completed</p>
+                                <div class="space-y-3">
+                                    <div v-for="o in orders" :key="o.label">
+                                        <div class="flex items-center justify-between text-sm mb-1"><span
+                                                class="text-gray-600">{{ o.label }}</span><span class="font-semibold">{{
+                                                    o.val }}</span></div>
+                                        <div class="w-full bg-gray-100 rounded-full h-2">
+                                            <div class="h-2 rounded-full" style="background:#F57C20"
+                                                :style="{ width: o.pct + '%' }"></div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                                    <div class="text-4xl font-bold text-black mb-1">1,250+</div>
+                                    <div class="text-sm text-gray-500">Orders</div>
+                                </div>
                             </div>
-                            
-                            <div class="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 w-48 border border-gray-100">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                                        <span class="text-blue-600 text-xl">📦</span>
+                            <div class="p-6 rounded-xl border border-gray-200">
+                                <h4 class="font-bold text-black mb-1">Total Sales</h4>
+                                <p class="text-sm text-gray-500 mb-6">Monthly sales for the selected period</p>
+                                <div class="h-48 flex items-end justify-between gap-2 mb-4">
+                                    <div v-for="bar in bars" :key="bar.label"
+                                        class="flex flex-col items-center gap-1 flex-1">
+                                        <div class="w-full rounded-t"
+                                            :style="{ height: bar.h + '%', background: bar.color }"></div><span
+                                            class="text-xs text-gray-500">{{ bar.label }}</span>
                                     </div>
-                                    <div>
-                                        <div class="text-xs text-gray-500">Products</div>
-                                        <div class="text-sm font-semibold">24 items</div>
-                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-500">May Sales</div>
+                                    <div class="text-2xl font-bold text-black">RM220,342,123</div>
                                 </div>
                             </div>
                         </div>
@@ -135,396 +389,222 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
-        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
+        <!-- Stats -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <div class="flex items-center justify-center gap-2 mb-2">
-                            <div class="text-4xl font-bold text-gray-900">5k+</div>
-                            <div class="flex -space-x-2">
-                                <div class="w-8 h-8 rounded-full bg-blue-400 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-purple-400 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-pink-400 border-2 border-white"></div>
-                            </div>
-                        </div>
-                        <p class="text-gray-600">Home businesses trust Hantaro to power their online stores</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <div class="border-r border-gray-200 last:border-r-0">
+                        <div class="text-5xl font-bold text-black mb-3">5,000<span style="color:#F57C20">+</span></div>
+                        <p class="text-gray-600">Home businesses powered by Hantaro</p>
                     </div>
-                    
-                    <div>
-                        <div class="flex items-center justify-center gap-2 mb-2">
-                            <div class="text-4xl font-bold text-gray-900">4.9</div>
-                            <div class="text-yellow-400 text-2xl">★</div>
+                    <div class="border-r border-gray-200 last:border-r-0">
+                        <div class="flex items-center justify-center gap-2 mb-3">
+                            <div class="text-5xl font-bold text-black">4.9</div>
+                            <div class="text-3xl" style="color:#F57C20">⭐</div>
                         </div>
-                        <p class="text-gray-600">Average rating from our happy sellers worldwide</p>
+                        <p class="text-gray-600">Average rating from sellers worldwide</p>
                     </div>
-                    
                     <div>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">100%</div>
-                        <p class="text-gray-600">User satisfaction with mobile-first experience</p>
+                        <div class="text-5xl font-bold text-black mb-3">100<span style="color:#F57C20">%</span></div>
+                        <p class="text-gray-600">Mobile-optimized storefront experience</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- How It Works -->
-        <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-black text-white">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">How Hantaro Works?</h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Start selling online in 3 simple steps — no technical skills needed</p>
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl sm:text-5xl font-bold mb-6">How Hantaro Works?</h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">Start selling online in 3 simple steps — no
+                        technical skills needed</p>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <!-- Step 1 -->
-                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold mb-6">
-                            1
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Create Your Store</h3>
-                        <p class="text-gray-600 mb-6">Sign up in seconds and customize your store with your brand name and colors</p>
-                        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                            <div class="text-sm text-gray-700 font-mono">hantaro.my/yourstore</div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
+                            style="background:#F57C20">1</div>
+                        <h3 class="text-2xl font-bold mb-4">Create Your Store</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">Sign up in seconds and customize your store with
+                            your brand name and colors</p>
+                        <div class="inline-block px-6 py-3 rounded-lg text-sm font-mono bg-white" style="color:#F57C20">
+                            hantaro.my/yourstore</div>
+                    </div>
+                    <!-- Step 2 — PLACEHOLDER kept identical, will be replaced next -->
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
+                            style="background:#F57C20">2</div>
+                        <h3 class="text-2xl font-bold mb-4">Add Your Products</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">Upload photos, set prices, and add descriptions —
+                            as simple as posting on social media</p>
+                        <!-- 2×2 product cards -->
+                        <div class="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+                            <div v-for="p in stepProducts" :key="p.name" class="sp-card">
+                                <!-- image + badge -->
+                                <div class="sp-img-wrap">
+                                    <div class="sp-img" :style="`background:url('${p.img}') center/cover`"></div>
+                                    <span v-if="p.badge" class="sp-badge">⭐ {{ p.badge }}</span>
+                                </div>
+                                <!-- name & price -->
+                                <div class="sp-name">{{ p.name }}</div>
+                                <div class="sp-price">RM{{ p.price }}</div>
+                                <!-- qty row  ─  [ − ]  Qty / 0  [ + ] -->
+                                <div class="sp-qty-row">
+                                    <button class="sp-btn sp-btn-minus" @click="p.qty > 0 && p.qty--">−</button>
+                                    <div class="sp-qty-center">
+                                        <span class="sp-qty-label">Qty</span>
+                                        <span class="sp-qty-val">{{ p.qty }}</span>
+                                    </div>
+                                    <button class="sp-btn sp-btn-plus" @click="p.qty++">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Step 2 -->
-                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mb-6">
-                            2
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Add Your Products</h3>
-                        <p class="text-gray-600 mb-6">Upload photos, set prices, and add descriptions — as simple as posting on social media</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="aspect-square rounded-lg bg-gradient-to-br from-purple-100 to-pink-100"></div>
-                            <div class="aspect-square rounded-lg bg-gradient-to-br from-blue-100 to-purple-100"></div>
-                        </div>
-                    </div>
-                    
                     <!-- Step 3 -->
-                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center text-white text-2xl font-bold mb-6">
-                            3
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
+                            style="background:#F57C20">3</div>
+                        <h3 class="text-2xl font-bold mb-4">Share &amp; Start Selling</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">Share your store link on WhatsApp, Instagram, or
+                            Facebook and start receiving orders</p>
+                        <div class="flex gap-3 justify-center">
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+                                    <defs>
+                                        <linearGradient id="ig3" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#F58529" />
+                                            <stop offset="30%" stop-color="#DD2A7B" />
+                                            <stop offset="60%" stop-color="#8134AF" />
+                                            <stop offset="100%" stop-color="#515BD4" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path fill="url(#ig3)"
+                                        d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
+                                </svg></div>
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    class="h-5 w-5 fill-[#25D366]">
+                                    <path
+                                        d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
+                                </svg></div>
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-black">
+                                    <path
+                                        d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
+                                </svg></div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Share & Start Selling</h3>
-                        <p class="text-gray-600 mb-6">Share your store link on WhatsApp, Instagram, or Facebook and start receiving orders</p>
-                        <div class="flex gap-2">
-                            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                                <span class="text-green-600 font-bold">W</span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
-                                <span class="text-pink-600 font-bold">I</span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                                <span class="text-blue-600 font-bold">F</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Storefront Preview -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Beautiful Mobile-First Stores</h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Your customers get a seamless shopping experience on any device</p>
-                </div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Store Home -->
-                    <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                            <div class="bg-gradient-to-r from-primary-500 to-purple-500 p-6 text-white">
-                                <h3 class="text-lg font-bold mb-1">Sarah's Bakery 🍰</h3>
-                                <p class="text-sm opacity-90">Homemade with love</p>
-                            </div>
-                            <div class="p-4">
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div class="aspect-square rounded-lg bg-gradient-to-br from-orange-200 to-red-200"></div>
-                                    <div class="aspect-square rounded-lg bg-gradient-to-br from-pink-200 to-purple-200"></div>
-                                    <div class="aspect-square rounded-lg bg-gradient-to-br from-yellow-200 to-orange-200"></div>
-                                    <div class="aspect-square rounded-lg bg-gradient-to-br from-green-200 to-teal-200"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-center text-sm text-gray-600 mt-4 font-medium">Product Grid</p>
-                    </div>
-                    
-                    <!-- Product Detail -->
-                    <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                            <div class="aspect-square bg-gradient-to-br from-purple-200 to-pink-200"></div>
-                            <div class="p-4">
-                                <h4 class="font-bold text-gray-900 mb-1">Chocolate Cake</h4>
-                                <div class="text-2xl font-bold text-primary-600 mb-3">RM45</div>
-                                <div class="flex gap-2 mb-3">
-                                    <div class="px-3 py-1 rounded-full bg-gray-100 text-xs">500g</div>
-                                    <div class="px-3 py-1 rounded-full bg-gray-100 text-xs">Fresh</div>
-                                </div>
-                                <button class="w-full py-2.5 rounded-lg bg-primary-600 text-white font-semibold text-sm">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                        <p class="text-center text-sm text-gray-600 mt-4 font-medium">Product Detail</p>
-                    </div>
-                    
-                    <!-- Checkout -->
-                    <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden p-4">
-                            <h4 class="font-bold text-gray-900 mb-4">Checkout</h4>
-                            <div class="space-y-3 mb-4">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-600">Subtotal</span>
-                                    <span class="font-semibold">RM45.00</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-600">Delivery</span>
-                                    <span class="font-semibold">RM5.00</span>
-                                </div>
-                                <div class="border-t pt-3 flex justify-between">
-                                    <span class="font-bold">Total</span>
-                                    <span class="font-bold text-primary-600">RM50.00</span>
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="p-3 rounded-lg border-2 border-primary-500 bg-primary-50 text-center text-sm font-medium">
-                                    💳 Online Banking
-                                </div>
-                                <div class="p-3 rounded-lg border border-gray-200 text-center text-sm">
-                                    📱 DuitNow
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-center text-sm text-gray-600 mt-4 font-medium">Checkout Preview</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Features -->
-        <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Everything You Need to Sell Online</h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Powerful features designed for home business owners</p>
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-black mb-6">Everything You Need to Sell Online</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Powerful features designed for home business
+                        owners</p>
                 </div>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div 
-                        v-for="feature in features" 
-                        :key="feature.title"
-                        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
-                    >
-                        <div :class="`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center text-2xl mb-4`">
-                            {{ feature.icon }}
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ feature.title }}</h3>
-                        <p class="text-gray-600">{{ feature.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Who It's For -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Perfect For Every Home Business</h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Join thousands of entrepreneurs selling online with Hantaro</p>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div 
-                        v-for="audience in targetAudience" 
-                        :key="audience.title"
-                        class="text-center p-6"
-                    >
-                        <div :class="`w-20 h-20 rounded-2xl ${audience.bgColor} flex items-center justify-center text-4xl mx-auto mb-4`">
-                            {{ audience.icon }}
-                        </div>
-                        <h3 class="font-bold text-gray-900 mb-2">{{ audience.title }}</h3>
-                        <p class="text-sm text-gray-600">{{ audience.description }}</p>
+                    <div v-for="f in features" :key="f.title"
+                        class="p-8 rounded-2xl border border-gray-200 feature-card"
+                        style="border-top:3px solid #F57C20">
+                        <div class="text-4xl mb-6">{{ f.icon }}</div>
+                        <h3 class="text-xl font-bold text-black mb-3">{{ f.title }}</h3>
+                        <p class="text-gray-600 leading-relaxed">{{ f.description }}</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Pricing -->
-        <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+        <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Flexible Plans for Every E-Commerce</h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Start free, upgrade as you grow — no hidden fees</p>
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-black mb-6">Simple, Transparent Pricing</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Start free, upgrade as you grow — no hidden fees
+                    </p>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <div 
-                        v-for="(plan, index) in pricingPlans" 
-                        :key="plan.name"
-                        :class="[
-                            'bg-white rounded-2xl p-8 shadow-sm',
-                            plan.popular ? 'border-2 border-primary-500 relative transform scale-105 shadow-xl' : 'border-2 border-gray-200'
-                        ]"
-                    >
-                        <div v-if="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <span class="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div v-for="plan in pricingPlans" :key="plan.name" class="bg-white rounded-2xl p-8 relative"
+                        :class="plan.popular ? 'shadow-2xl transform scale-105' : ''"
+                        :style="plan.popular ? 'border:2px solid #F57C20' : 'border:2px solid #e5e7eb'">
+                        <div v-if="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2"><span
+                                class="text-white px-6 py-2 rounded-full text-sm font-semibold"
+                                style="background:#F57C20">Most Popular</span></div>
+                        <div class="mb-8">
+                            <div class="text-sm font-semibold text-gray-600 mb-3">{{ plan.name }}</div>
+                            <div class="mb-2"><span class="text-5xl font-bold text-black">RM{{ plan.price }}</span><span
+                                    class="text-gray-600">/{{ plan.period }}</span></div>
                         </div>
-                        <div :class="['text-sm font-semibold mb-2', plan.popular ? 'text-primary-600' : 'text-gray-600']">{{ plan.name }}</div>
-                        <div class="mb-6">
-                            <span class="text-4xl font-bold text-gray-900">RM{{ plan.price }}</span>
-                            <span class="text-gray-600">/{{ plan.period }}</span>
-                        </div>
-                        <ul class="space-y-3 mb-8">
-                            <li 
-                                v-for="feature in plan.features" 
-                                :key="feature"
-                                class="flex items-start gap-2 text-sm"
-                            >
-                                <span class="text-green-500 mt-0.5">✓</span>
-                                <span :class="feature.includes('Everything') ? 'font-medium' : ''">{{ feature }}</span>
-                            </li>
+                        <ul class="space-y-4 mb-8">
+                            <li v-for="feat in plan.features" :key="feat" class="flex items-start gap-3"><svg
+                                    class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="#F57C20"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M5 13l4 4L19 7" />
+                                </svg><span class="text-gray-700">{{ feat }}</span></li>
                         </ul>
-                        <button 
-                            @click="handlePlanClick(plan.name)"
-                            :class="[
-                                'w-full py-3 rounded-xl font-semibold transition',
-                                plan.popular 
-                                    ? 'bg-primary-600 text-white hover:bg-primary-700' 
-                                    : 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
-                            ]"
-                        >
-                            {{ plan.buttonText }}
-                        </button>
+                        <button class="w-full py-4 rounded-lg font-semibold transition"
+                            :style="plan.popular ? 'background:#F57C20;color:#fff' : 'border:2px solid #F57C20;color:#F57C20;background:#fff'">{{
+                                plan.buttonText }}</button>
                     </div>
                 </div>
-                
                 <div class="text-center mt-12">
-                    <p class="text-sm text-gray-600">All plans include 14-day free trial • No credit card required • Cancel anytime</p>
+                    <p class="text-gray-600">All plans include 14-day free trial • No credit card required • Cancel
+                        anytime</p>
                 </div>
             </div>
         </section>
 
         <!-- FAQ -->
-        <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
             <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-black mb-6">Frequently Asked Questions</h2>
                 </div>
-                
                 <div class="space-y-4">
-                    <details 
-                        v-for="faq in faqs" 
-                        :key="faq.question"
-                        class="bg-gray-50 rounded-xl p-6 border border-gray-200 group"
-                    >
-                        <summary class="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
-                            <span>{{ faq.question }}</span>
-                            <span class="text-primary-600 group-open:rotate-180 transition-transform">+</span>
+                    <details v-for="faq in faqs" :key="faq.question"
+                        class="group border-2 border-gray-200 rounded-xl p-6 faq-item">
+                        <summary
+                            class="font-semibold text-lg text-black cursor-pointer list-none flex items-center justify-between">
+                            <span>{{ faq.question }}</span><span
+                                class="text-2xl transition-transform group-open:rotate-45"
+                                style="color:#F57C20">+</span>
                         </summary>
-                        <p class="text-gray-600 mt-4">{{ faq.answer }}</p>
+                        <p class="text-gray-600 mt-4 leading-relaxed">{{ faq.answer }}</p>
                     </details>
                 </div>
             </div>
         </section>
 
-        <!-- Final CTA -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-600 to-purple-600 text-white">
+        <!-- CTA -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-black text-white">
             <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Start Your Home Business Today</h2>
-                <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">Join 5,000+ home entrepreneurs who trust Hantaro to power their online stores. No credit card required.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-                    <input 
-                        v-model="ctaEmail" 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        class="px-6 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-white w-full sm:w-80 text-gray-900"
-                    >
-                    <button 
-                        @click="handleCreateStore"
-                        class="px-8 py-4 rounded-xl bg-white text-primary-600 font-bold hover:bg-gray-100 transition-all w-full sm:w-auto"
-                    >
-                        Create My Store
-                    </button>
+                <h2 class="text-4xl sm:text-5xl font-bold mb-6">Ready to Start Your <span style="color:#F57C20">Online
+                        Business?</span></h2>
+                <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">Join 5,000+ entrepreneurs selling online with
+                    Hantaro. No credit card required.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <input v-model="ctaEmail" type="email" placeholder="Enter your email address"
+                        class="px-6 py-4 rounded-lg w-full sm:w-96 text-white placeholder-gray-500 cta-input"
+                        style="border:2px solid #444;background:#1a1a1a">
+                    <button class="px-8 py-4 rounded-lg font-bold btn-orange text-white w-full sm:w-auto">Get Started
+                        Free</button>
                 </div>
-                
-                <p class="text-sm opacity-75">Free forever • No credit card required • Setup in 5 minutes</p>
+                <p class="text-sm text-gray-500">Free forever • No credit card required • Setup in 5 minutes</p>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-gray-900 text-gray-300 px-4 sm:px-6 lg:px-8 py-16">
+        <footer class="bg-white border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-10">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                    <!-- Brand -->
-                    <div>
-                        <div class="flex items-center gap-2 mb-4">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-lg">
-                                H
-                            </div>
-                            <span class="text-xl font-bold text-white">Hantaro</span>
-                        </div>
-                        <p class="text-sm text-gray-400 mb-4">Empowering home businesses to sell online — easily and affordably.</p>
-                        <div class="flex gap-3">
-                            <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition">
-                                <span class="text-lg">f</span>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition">
-                                <span class="text-lg">𝕏</span>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition">
-                                <span class="text-lg">in</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Product -->
-                    <div>
-                        <h4 class="font-bold text-white mb-4">Product</h4>
-                        <ul class="space-y-2 text-sm">
-                            <li><a href="#features" class="hover:text-white transition">Features</a></li>
-                            <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
-                            <li><a href="#" class="hover:text-white transition">Example Stores</a></li>
-                            <li><a href="#" class="hover:text-white transition">Success Stories</a></li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Company -->
-                    <div>
-                        <h4 class="font-bold text-white mb-4">Company</h4>
-                        <ul class="space-y-2 text-sm">
-                            <li><a href="#" class="hover:text-white transition">About Hantaro</a></li>
-                            <li><a href="#" class="hover:text-white transition">Blog</a></li>
-                            <li><a href="#" class="hover:text-white transition">Careers</a></li>
-                            <li><a href="#" class="hover:text-white transition">Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Support -->
-                    <div>
-                        <h4 class="font-bold text-white mb-4">Support</h4>
-                        <ul class="space-y-2 text-sm">
-                            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
-                            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-                            <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
-                            <li><a href="#" class="hover:text-white transition">Cookie Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Bottom Bar -->
-                <div class="border-t border-gray-800 pt-8">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p class="text-sm text-gray-400">© 2025 Hantaro. All rights reserved.</p>
-                        <div class="flex gap-6 text-sm">
-                            <a href="#" class="hover:text-white transition">Privacy</a>
-                            <a href="#" class="hover:text-white transition">Terms</a>
-                            <a href="#" class="hover:text-white transition">Sitemap</a>
-                        </div>
-                    </div>
+                <div class="border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-600">© 2026 Hantaro. All rights reserved.</p>
+                    <div class="flex gap-6"><a href="#" class="footer-link">Privacy</a><a href="#"
+                            class="footer-link">Terms</a><a href="#" class="footer-link">Sitemap</a></div>
                 </div>
             </div>
         </footer>
@@ -532,253 +612,612 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Link } from '@inertiajs/vue3'
-
-// Reactive state
-const email = ref('')
+import { ref, reactive } from 'vue'
+import { Link } from '@inertiajs/vue3';
 const ctaEmail = ref('')
 
-// Features data
+/* ── Step-2 product cards ── */
+const stepProducts = reactive([
+    { name: 'Rempah Ayam', price: '9.50', badge: 'New', qty: 0, img: 'https://images.unsplash.com/photo-1646809156467-6e825869b29f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Macarons', price: '18.00', badge: null, qty: 0, img: 'https://images.unsplash.com/photo-1422255198496-21531f12a6e8?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+])
+
+const stats = [
+    { label: 'Website Visitors', value: '500', change: '↑ 2.5%', up: true, icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' },
+    { label: 'Total Sales', value: 'RM70k', change: '↓ 1.3%', up: false, icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+    { label: 'Orders', value: '328', change: '↑ 2.3%', up: true, icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' },
+    { label: 'Conversion Rate', value: '5.23%', change: '↑ 1.5%', up: true, icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' }
+]
+const orders = [
+    { label: 'Return & Refund', val: '12', pct: 2 },
+    { label: 'Order Pending', val: '251', pct: 42 },
+    { label: 'Delivered', val: '1,665', pct: 95 }
+]
+const bars = [
+    { label: 'Mar 1', h: 45, color: '#FFE0B2' },
+    { label: 'Mar 8', h: 65, color: '#FFCC80' },
+    { label: 'Mar 15', h: 50, color: '#FFE0B2' },
+    { label: 'Mar 22', h: 85, color: '#F57C20' },
+    { label: 'Mar 31', h: 70, color: '#FFCC80' }
+]
 const features = [
-    {
-        icon: '🔗',
-        bgColor: 'bg-blue-100',
-        title: 'Personal Store Link',
-        description: 'Get your own custom link like hantaro.my/yourname to share everywhere'
-    },
-    {
-        icon: '📦',
-        bgColor: 'bg-purple-100',
-        title: 'Product Management',
-        description: 'Add unlimited products with photos, prices, variants, and stock tracking'
-    },
-    {
-        icon: '💳',
-        bgColor: 'bg-green-100',
-        title: 'Accept Payments',
-        description: 'FPX online banking, DuitNow QR, or manual bank transfer — your choice'
-    },
-    {
-        icon: '📱',
-        bgColor: 'bg-pink-100',
-        title: 'WhatsApp Integration',
-        description: 'Get instant order notifications via WhatsApp — perfect for your workflow'
-    },
-    {
-        icon: '📊',
-        bgColor: 'bg-yellow-100',
-        title: 'Sales Dashboard',
-        description: 'Track orders, revenue, and top products all in one simple dashboard'
-    },
-    {
-        icon: '📲',
-        bgColor: 'bg-red-100',
-        title: 'Mobile Optimized',
-        description: 'Your store looks perfect on phones, tablets, and desktop — tested by real users'
-    }
+    { icon: '🔗', title: 'Personal Store Link', description: 'Get your own custom link like hantaro.my/yourname to share everywhere' },
+    { icon: '📦', title: 'Product Management', description: 'Add unlimited products with photos, prices, variants, and stock tracking' },
+    { icon: '💳', title: 'Accept Payments', description: 'FPX online banking, DuitNow QR, or manual bank transfer — your choice' },
+    { icon: '📱', title: 'WhatsApp Integration', description: 'Get instant order notifications via WhatsApp — perfect for your workflow' },
+    { icon: '📊', title: 'Sales Dashboard', description: 'Track orders, revenue, and top products all in one simple dashboard' },
+    { icon: '📲', title: 'Mobile Optimized', description: 'Your store looks perfect on phones, tablets, and desktop' }
 ]
-
-// Target audience data
-const targetAudience = [
-    {
-        icon: '🧁',
-        bgColor: 'bg-gradient-to-br from-orange-100 to-red-100',
-        title: 'Home Bakers',
-        description: 'Sell cakes, cookies, and treats with beautiful product galleries'
-    },
-    {
-        icon: '👗',
-        bgColor: 'bg-gradient-to-br from-blue-100 to-purple-100',
-        title: 'Online Sellers',
-        description: 'Fashion, accessories, gadgets — showcase your products professionally'
-    },
-    {
-        icon: '📦',
-        bgColor: 'bg-gradient-to-br from-green-100 to-teal-100',
-        title: 'Dropshippers',
-        description: 'Manage inventory and orders without holding physical stock'
-    },
-    {
-        icon: '💼',
-        bgColor: 'bg-gradient-to-br from-pink-100 to-purple-100',
-        title: 'Digital Creators',
-        description: 'Sell e-books, templates, courses, and digital downloads'
-    }
-]
-
-// Pricing plans data
 const pricingPlans = [
-    {
-        name: 'Free Plan',
-        price: '0',
-        period: 'forever',
-        popular: false,
-        buttonText: 'Start Free',
-        features: [
-            'Personal store link',
-            'Up to 10 products',
-            'Basic order management',
-            'WhatsApp notifications'
-        ]
-    },
-    {
-        name: 'Starter Plan',
-        price: '29',
-        period: 'month',
-        popular: true,
-        buttonText: 'Get Started',
-        features: [
-            'Everything in Free, plus:',
-            'Unlimited products',
-            'Custom domain support',
-            'Online payment (FPX)',
-            'Sales analytics'
-        ]
-    },
-    {
-        name: 'Growth Plan',
-        price: '49',
-        period: 'month',
-        popular: false,
-        buttonText: 'Get Started',
-        features: [
-            'Everything in Starter, plus:',
-            'Priority support',
-            'Advanced analytics',
-            'Marketing tools',
-            'API access'
-        ]
-    }
+    { name: 'Free Plan', price: '0', period: 'forever', popular: false, buttonText: 'Start Free', features: ['Personal store link', 'Up to 10 products', 'Basic order management', 'WhatsApp notifications'] },
+    { name: 'Starter Plan', price: '29', period: 'month', popular: true, buttonText: 'Get Started', features: ['Everything in Free, plus:', 'Unlimited products', 'Custom domain support', 'Online payment (FPX)', 'Sales analytics'] },
+    { name: 'Growth Plan', price: '49', period: 'month', popular: false, buttonText: 'Get Started', features: ['Everything in Starter, plus:', 'Priority support', 'Advanced analytics', 'Marketing tools', 'API access'] }
 ]
-
-// FAQ data
 const faqs = [
-    {
-        question: 'Is there a free trial available?',
-        answer: 'Yes! Our Free plan is free forever with up to 10 products. You can also try our paid plans free for 14 days with no credit card required.'
-    },
-    {
-        question: 'Do I need technical skills to use Hantaro?',
-        answer: 'Not at all! Hantaro is designed for non-technical users. If you can use WhatsApp or Instagram, you can use Hantaro. Everything is point-and-click simple.'
-    },
-    {
-        question: 'What platforms can I integrate with?',
-        answer: 'Hantaro works great with WhatsApp, Instagram, Facebook, TikTok, and any platform where you can share links. Your store is mobile-optimized for social media sharing.'
-    },
-    {
-        question: 'How often is the data updated?',
-        answer: 'Your sales dashboard updates in real-time. Every order, payment, and product change is reflected instantly so you\'re always up to date.'
-    }
+    { question: 'Is there a free trial available?', answer: 'Yes! Our Free plan is free forever with up to 10 products. You can also try our paid plans free for 14 days with no credit card required.' },
+    { question: 'Do I need technical skills to use Hantaro?', answer: 'Not at all! Hantaro is designed for non-technical users. If you can use WhatsApp or Instagram, you can use Hantaro. Everything is point-and-click simple.' },
+    { question: 'What platforms can I integrate with?', answer: 'Hantaro works great with WhatsApp, Instagram, Facebook, TikTok, and any platform where you can share links. Your store is mobile-optimized for social media sharing.' },
+    { question: 'How often is the data updated?', answer: 'Your sales dashboard updates in real-time. Every order, payment, and product change is reflected instantly so you\'re always up to date.' }
 ]
-
-// Methods
-const handleStartFree = () => {
-    console.log('Start free clicked with email:', email.value)
-    // Add your registration logic here
-}
-
-const handleCreateStore = () => {
-    console.log('Create store clicked with email:', ctaEmail.value)
-    // Add your registration logic here
-}
-
-const handlePlanClick = (planName) => {
-    console.log('Plan clicked:', planName)
-    // Add your plan selection logic here
-}
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 * {
     font-family: 'Inter', sans-serif;
 }
 
-.glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+details>summary {
+    list-style: none;
 }
 
-.bg-clip-text {
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+details>summary::-webkit-details-marker {
+    display: none;
 }
 
-/* Custom Tailwind-like colors */
-:root {
-    --primary-50: #f0f4ff;
-    --primary-100: #e0e9ff;
-    --primary-200: #c7d6fe;
-    --primary-300: #a5bbfc;
-    --primary-400: #8197f8;
-    --primary-500: #6366f1;
-    --primary-600: #5855e6;
-    --primary-700: #4c42cb;
-    --primary-800: #3f37a4;
-    --primary-900: #373482;
+.btn-orange {
+    background: #F57C20;
+    transition: background .2s;
 }
 
-.text-primary-600 {
-    color: var(--primary-600);
+.btn-orange:hover {
+    background: #e06a10;
 }
 
-.bg-primary-50 {
-    background-color: var(--primary-50);
+.btn-outline-orange {
+    border-color: #F57C20;
+    color: #F57C20;
+    background: transparent;
+    transition: background .2s;
 }
 
-.bg-primary-100 {
-    background-color: var(--primary-100);
+.btn-outline-orange:hover {
+    background: rgba(245, 124, 32, .08);
 }
 
-.bg-primary-300 {
-    background-color: var(--primary-300);
+.nav-link {
+    transition: color .2s;
 }
 
-.bg-primary-400 {
-    background-color: var(--primary-400);
+.nav-link:hover {
+    color: #F57C20;
 }
 
-.bg-primary-500 {
-    background-color: var(--primary-500);
+.footer-link {
+    transition: color .2s;
 }
 
-.bg-primary-600 {
-    background-color: var(--primary-600);
+.footer-link:hover {
+    color: #F57C20;
 }
 
-.bg-primary-700 {
-    background-color: var(--primary-700);
+.cta-input:focus {
+    outline: none;
+    border-color: #F57C20 !important;
 }
 
-.hover\:bg-primary-50:hover {
-    background-color: var(--primary-50);
+.stat-card {
+    border-top: 3px solid #F57C20;
 }
 
-.hover\:bg-primary-700:hover {
-    background-color: var(--primary-700);
+.feature-card {
+    transition: box-shadow .25s, border-color .25s;
 }
 
-.border-primary-500 {
-    border-color: var(--primary-500);
+.feature-card:hover {
+    box-shadow: 0 10px 25px rgba(245, 124, 32, .18);
+    border-color: #F57C20;
 }
 
-.from-primary-500 {
-    --tw-gradient-from: var(--primary-500);
+.faq-item {
+    transition: border-color .2s;
 }
 
-.from-primary-600 {
-    --tw-gradient-from: var(--primary-600);
+.faq-item:hover,
+.faq-item[open] {
+    border-color: #F57C20;
 }
 
-.to-primary-700 {
-    --tw-gradient-to: var(--primary-700);
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    min-height: 100vh;
+    background: #0a0a0a;
+    overflow: hidden;
 }
 
-.focus\:ring-primary-500:focus {
-    --tw-ring-color: var(--primary-500);
+.hero-mesh {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(245, 124, 32, .18) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 85% 30%, rgba(245, 124, 32, .10) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 75% 75%, rgba(245, 124, 32, .06) 0%, transparent 70%);
+}
+
+.hero-text-layer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 680px;
+    padding: 0 24px;
+    pointer-events: none;
+}
+
+.hero-text-layer * {
+    pointer-events: auto;
+}
+
+.hero-h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.hero-italic {
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    color: #fff;
+}
+
+.hero-orange {
+    color: #F57C20;
+    font-style: normal;
+}
+
+.hero-sub {
+    color: rgba(255, 255, 255, .55);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cards-field {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.float-card {
+    position: absolute;
+    width: 200px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
+    overflow: hidden;
+    pointer-events: auto;
+    will-change: transform;
+}
+
+.card-hero-img {
+    width: 100%;
+    height: 78px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-logo-wrap {
+    position: absolute;
+    top: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    border: 3px solid #fff;
+}
+
+.card-logo-wrap.logo-green {
+    border-color: #a8e6a0;
+}
+
+.card-logo-wrap.logo-pink {
+    border-color: #f6a0c0;
+}
+
+.card-logo-wrap.logo-amber {
+    border-color: #f5c842;
+}
+
+.card-logo-wrap.logo-teal {
+    border-color: #6dd5d0;
+}
+
+.card-logo-text {
+    font-weight: 900;
+    font-size: .72rem;
+    color: #111;
+    letter-spacing: -.5px;
+}
+
+.card-store-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: .78rem;
+    color: #111;
+    margin-top: 18px;
+}
+
+.card-store-sub {
+    text-align: center;
+    font-size: .62rem;
+    color: #888;
+    margin-top: 1px;
+}
+
+.card-socials {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.social-pill {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-products {
+    display: flex;
+    gap: 6px;
+    padding: 10px 8px 10px;
+}
+
+.mini-product {
+    flex: 1;
+    background: #f7f7f7;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mini-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+.mini-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, .7);
+    color: #fff;
+    font-size: .52rem;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.mini-name {
+    font-size: .6rem;
+    font-weight: 600;
+    color: #111;
+    padding: 4px 4px 0;
+}
+
+.mini-price {
+    font-size: .62rem;
+    font-weight: 700;
+    color: #F57C20;
+    padding: 0 4px 4px;
+}
+
+.card-0 {
+    left: 3%;
+    top: 12%;
+    animation: float0 5.8s ease-in-out infinite;
+}
+
+@keyframes float0 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-1.2deg);
+    }
+
+    50% {
+        transform: translateY(-22px) rotate(0.6deg);
+    }
+}
+
+.card-1 {
+    left: 22%;
+    top: 5%;
+    animation: float1 6.6s ease-in-out infinite;
+    animation-delay: -.8s;
+}
+
+@keyframes float1 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0.8deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(-1deg);
+    }
+}
+
+.card-2 {
+    right: 18%;
+    top: 4%;
+    animation: float2 5.2s ease-in-out infinite;
+    animation-delay: -1.6s;
+}
+
+@keyframes float2 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(1deg);
+    }
+
+    50% {
+        transform: translateY(-26px) rotate(-0.5deg);
+    }
+}
+
+.card-3 {
+    right: 2%;
+    top: 42%;
+    animation: float3 7s ease-in-out infinite;
+    animation-delay: -2.4s;
+}
+
+@keyframes float3 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-0.7deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(1.1deg);
+    }
+}
+
+.card-4 {
+    left: 6%;
+    bottom: 4%;
+    animation: float4 6.1s ease-in-out infinite;
+    animation-delay: -3.2s;
+}
+
+@keyframes float4 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(1.4deg);
+    }
+
+    50% {
+        transform: translateY(-16px) rotate(-0.8deg);
+    }
+}
+
+.card-5 {
+    right: 5%;
+    bottom: 2%;
+    animation: float5 5.5s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+@keyframes float5 {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-0.5deg);
+    }
+
+    50% {
+        transform: translateY(-24px) rotate(0.9deg);
+    }
+}
+
+@media (max-width:1024px) {
+    .float-card {
+        width: 160px;
+    }
+
+    .card-hero-img {
+        height: 60px;
+    }
+
+    .card-logo-wrap {
+        width: 38px;
+        height: 38px;
+        top: 28px;
+    }
+
+    .card-store-name {
+        font-size: .68rem;
+        margin-top: 14px;
+    }
+
+    .card-store-sub {
+        font-size: .55rem;
+    }
+}
+
+@media (max-width:640px) {
+    .cards-field {
+        display: none;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding-top: 140px;
+        padding-bottom: 60px;
+    }
+}
+
+/* ========================================
+   STEP-2 PRODUCT CARDS  (dark bg section)
+   ======================================== */
+.sp-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* image + badge */
+.sp-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.sp-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.sp-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, .72);
+    color: #fff;
+    font-size: .58rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+}
+
+/* name & price */
+.sp-name {
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 600;
+    padding: 6px 7px 1px;
+    line-height: 1.25;
+}
+
+.sp-price {
+    color: #F57C20;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 0 7px 5px;
+}
+
+/* qty row  ──  [−]  center  [+] */
+.sp-qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 7px 7px;
+    margin-top: auto;
+    gap: 2px;
+}
+
+.sp-qty-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.15;
+}
+
+.sp-qty-label {
+    color: #777;
+    font-size: .54rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+.sp-qty-val {
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+}
+
+/* buttons */
+.sp-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.sp-btn:active {
+    transform: scale(.85);
+}
+
+.sp-btn-minus {
+    background: #2a2a2a;
+    color: #aaa;
+    border: 1px solid #444;
+}
+
+.sp-btn-minus:hover {
+    background: #3a3a3a;
+    color: #fff;
+}
+
+.sp-btn-plus {
+    background: #F57C20;
+    color: #fff;
+}
+
+.sp-btn-plus:hover {
+    background: #e06a10;
 }
 </style>
