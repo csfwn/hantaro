@@ -11,6 +11,8 @@ class OrderStats extends StatsOverviewWidget
 {
     protected ?string $pollingInterval = '15s';
 
+    protected static bool $isLazy = false;
+
     protected function getStats(): array
     {
         // This month's data

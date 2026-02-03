@@ -11,6 +11,8 @@ class RevenueChart extends ChartWidget
 {
     protected ?string $pollingInterval = '15s';
 
+    protected static bool $isLazy = false;
+
     public function getHeading(): string
     {
         return 'Revenue & Orders (Last 12 Months)';

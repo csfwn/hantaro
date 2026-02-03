@@ -13,6 +13,8 @@ class OrderSummary extends Widget
 
     protected ?string $pollingInterval = '15s';
 
+    protected static bool $isLazy = false;
+
     public function getViewData(): array
     {
         $now = Carbon::now();
