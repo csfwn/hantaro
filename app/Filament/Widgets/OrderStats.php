@@ -9,10 +9,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class OrderStats extends StatsOverviewWidget
 {
-    public function getPollingInterval(): ?string
-    {
-        return '15s';
-    }
+    protected ?string $pollingInterval = '15s';
 
     protected function getStats(): array
     {

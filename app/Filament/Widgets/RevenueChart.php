@@ -9,10 +9,7 @@ use Illuminate\Support\Carbon;
 
 class RevenueChart extends ChartWidget
 {
-    public function getPollingInterval(): ?string
-    {
-        return '30s';
-    }
+    protected ?string $pollingInterval = '15s';
 
     public function getHeading(): string
     {

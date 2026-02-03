@@ -11,10 +11,7 @@ class OrderSummary extends Widget
 {
     protected string $view = 'filament.widgets.order-summary';
 
-    public function getPollingInterval(): ?string
-    {
-        return '30s';
-    }
+    protected ?string $pollingInterval = '15s';
 
     public function getViewData(): array
     {
