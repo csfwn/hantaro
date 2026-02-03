@@ -12,4 +12,5 @@ return [
     'waha_base_url' => env('WAHA_BASE_URL'),
     'waha_api_key'  => env('WAHA_API_KEY'),
     'waha_session'  => env('WAHA_SESSION', 'default'),
+    'currency' => env('CURRENCY', 'MYR'),
 ];

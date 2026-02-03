@@ -103,7 +103,7 @@ function decrement() {
     </div>
 
     <!-- CONTENT SECTION -->
-    <div class="p-4 flex flex-col flex-1">
+    <div class="px-4 py-2 flex flex-col flex-1">
       <!-- Product Name -->
       <h3 class="text-sm font-semibold text-gray-900">
         {{ product.name }}
@@ -132,7 +132,7 @@ function decrement() {
              px-3 py-2
              flex items-center justify-between gap-3">
       <!-- Decrement Button -->
-      <button @click="decrement" :disabled="qty === 0" class="w-10 h-10 rounded-xl
+      <button @click="decrement" :disabled="qty === 0" class="w-8 h-8 rounded-xl
                bg-white border-2 border-gray-200
                text-gray-700 text-xl font-bold
                disabled:opacity-30 disabled:cursor-not-allowed
@@ -152,7 +152,7 @@ function decrement() {
       </div>
 
       <!-- Increment Button -->
-      <button @click="increment" class="w-10 h-10 rounded-xl
+      <button @click="increment" class="w-8 h-8 rounded-xl
                text-white text-xl font-bold
                active:scale-95 transition
                transition-all duration-200

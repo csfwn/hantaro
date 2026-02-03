@@ -32,7 +32,9 @@ class Order extends Model
         'completed_at',
         'whatsapp_url',
         'url',
-        'whatsapp_sent'
+        'whatsapp_sent',
+        'payment_gateway_reference',
+        'payment_status',
     ];
 
     // Casts

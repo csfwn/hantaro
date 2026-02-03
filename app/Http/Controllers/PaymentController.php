@@ -2,71 +2,112 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PaymentStatus;
-use App\Jobs\SendPaymentSuccessWhatsApp;
-use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Services\BayarCashPayment;
+use App\Services\ChipPaymentService;
+use App\Enums\PaymentStatus;
+use App\Enums\OrderStatus;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-    // BayarCash callback (server-to-server)
-    public function callback(Request $request)
+    public function success(Order $order, ChipPaymentService $chip)
     {
-        Log::channel('bayarcash')->info('CALLBACK HIT', [
-            'payload' => $request->all(),
-        ]);
+        try {
+            // Verify payment with CHIP
+            if ($order->payment_gateway_reference) {
+                $purchase = $chip->getPurchase($order->payment_gateway_reference);
+                
+                Log::info('CHIP Payment Success Callback:', [
+                    'order_id' => $order->id,
+                    'purchase_status' => $purchase->status ?? 'unknown',
+                    'purchase_data' => $purchase
+                ]);
 
-        $bayarCashPayment = new BayarCashPayment();
-        $isValid = $bayarCashPayment->callbackValidation($request);
+                // Update order if payment is confirmed
+                if (isset($purchase->status) && $purchase->status === 'paid') {
+                    $order->update([
+                        'payment_status' => PaymentStatus::Success->value,
+                        'paid_amount' => $order->total_amount,
+                        'status' => OrderStatus::Processing->value,
+                    ]);
 
-        if (!$isValid) {
-            Log::channel('bayarcash')->warning('Invalid BayarCash callback checksum HIT');
-            return;
-        }
+                    session()->forget('customer');
 
-        $order = Order::where('ref_no', $request->order_number)->first();
+                    return Inertia::render('payments/Success', [
+                        'order' => $order->load('products', 'store'),
+                        'message' => 'Payment successful! Your order has been confirmed.',
+                    ]);
+                }
+            }
 
-        if (!$order) {
-            Log::channel('bayarcash')->warning('Order not found', [
-                'payload' => $request->all(),
+            // If payment not confirmed, show pending status
+            return Inertia::render('payments/Pending', [
+                'order' => $order->load('products', 'store'),
+                'message' => 'Payment is being processed. Please wait for confirmation.',
             ]);
-            return;
+
+        } catch (\Exception $e) {
+            Log::error('Payment success callback error:', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return Inertia::render('payments/Pending', [
+                'order' => $order->load('products', 'store'),
+                'message' => 'Payment verification in progress. We will notify you once confirmed.',
+            ]);
         }
-
-        $order->payment_status = PaymentStatus::tryFrom((int) $request->status);
-
-        $status = (int)$request->status;
-
-        if ($status === PaymentStatus::Success->value) {
-            $order->paid_amount = $request->amount;
-        }
-
-        $order->save();
-
-        Log::channel('bayarcash')->info('Payment processed', [
-            'order_id' => $order->id,
-            'ref_no' => $order->ref_no,
-            'status' => $request->status,
-            'status_description' => $request->status_description,
-            'paid_amount' => $order->paid_amount,
-        ]);
-
-        return response()->json(['message' => 'OK'], 200);
     }
 
+    public function failure(Order $order, ChipPaymentService $chip)
+    {
+        try {
+            // Verify payment status with CHIP
+            if ($order->payment_gateway_reference) {
+                $purchase = $chip->getPurchase($order->payment_gateway_reference);
+                
+                Log::info('CHIP Payment Failure Callback:', [
+                    'order_id' => $order->id,
+                    'purchase_status' => $purchase->status ?? 'unknown',
+                    'purchase_data' => $purchase
+                ]);
 
-    // BayarCash return URL (frontend redirect)
+                // Check if payment is actually paid (user might have paid but clicked back)
+                if (isset($purchase->status) && $purchase->status === 'paid') {
+                    return redirect()->route('payment.success', ['order' => $order->id]);
+                }
+            }
+
+            // Mark order as failed
+            $order->update([
+                'payment_status' => PaymentStatus::Failed->value,
+            ]);
+
+            return Inertia::render('payments/Failure', [
+                'order' => $order->load('products', 'store'),
+                'message' => 'Payment was not completed. Please try again.',
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Payment failure callback error:', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return Inertia::render('paymets/Failure', [
+                'order' => $order->load('products', 'store'),
+                'message' => 'Payment was not completed. Please try again.',
+            ]);
+        }
+    }
+
     public function return(Request $request)
     {
-        session()->forget('cart', []);
-        $order = Order::where('ref_no', $request->query('order_number'))->with(['products', 'store'])->firstOrFail();
-
-        return Inertia::render('checkouts/Receipt', [
-            'order' => $order,
-            'gatewayStatus' => (int) $request->query('status'), // 👈 IMPORTANT
-        ]);
+        // Generic return handler (if needed for backward compatibility)
+        Log::info('Payment return endpoint hit', $request->all());
+        
+        return redirect()->route('home')->with('info', 'Payment process completed.');
     }
 }

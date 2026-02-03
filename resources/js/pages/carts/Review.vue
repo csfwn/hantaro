@@ -32,7 +32,7 @@ const cartTotal = computed(() =>
 const store = computed(() => page.props.store || null)
 const customer = computed(() => page.props.customer || {})
 
-const paymentMethod = ref<number>(page.props.channels?.[0]?.id || 0)
+// const paymentMethod = ref<number>(page.props.channels?.[0]?.id || 0)
 
 const customerName = ref(customer.value.name || '')
 const customerEmail = ref(customer.value.email || '')
@@ -73,7 +73,6 @@ function proceedPayment() {
   }
 
   router.post(route('checkout.process'), {
-    payment_method: paymentMethod.value,
     customer_name: customerName.value,
     customer_email: customerEmail.value,
     customer_phone: customerPhone.value,
@@ -187,7 +186,7 @@ function proceedPayment() {
       </div>
 
       <!-- PAYMENT -->
-      <div class="bg-white rounded-xl shadow p-4 space-y-3">
+      <!-- <div class="bg-white rounded-xl shadow p-4 space-y-3">
         <h3 class="font-semibold">Choose Payment Method</h3>
 
         <label
@@ -230,7 +229,7 @@ function proceedPayment() {
             v-model="paymentMethod"
           />
         </label>
-      </div>
+      </div> -->
 
       <!-- PAY BUTTON -->
       <button

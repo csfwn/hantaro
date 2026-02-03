@@ -10,13 +10,15 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Services\BayarCashPayment;
+use App\Services\ChipPaymentService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CheckoutController extends Controller
 {
-    public function process(CheckoutRequest $request)
+    public function process(CheckoutRequest $request, ChipPaymentService $chip)
     {
         session()->put('customer', [
             'name' => $request->customer_name,
@@ -31,10 +33,20 @@ class CheckoutController extends Controller
 
         try {
             $totalAmount = 0;
+            $chipProducts = []; // Initialize products array for CHIP
+
             foreach ($items as $item) {
                 $product = Product::findOrFail($item['product_id']);
                 $totalAmount += $product->price * $item['quantity'];
+
+                // Build CHIP products array
+                $chipProducts[] = [
+                    'name' => $product->name,
+                    'price' => (int)($product->price * 100), // Convert to cents
+                    'quantity' => $item['quantity']
+                ];
             }
+
             $store = store_session();
             $order = Order::create([
                 'currency_code' => 'MYR',
@@ -67,12 +79,32 @@ class CheckoutController extends Controller
 
             DB::commit();
 
-            $bayarCashPayment = new BayarCashPayment();
-            $paymentUrl = $bayarCashPayment->processPayment($order);
+            // Create CHIP payment with products array
+            $result = $chip->createPurchase([
+                'email' => $order->customer_email,
+                'name' => $order->customer_name,
+                'products' => $chipProducts, // Pass the products array
+                'success_url' => route('payment.success', ['order' => $order->id]),
+                'failure_url' => route('payment.failure', ['order' => $order->id]),
+                'reference' => "ORDER-{$order->id}",
+            ]);
 
-            return Inertia::location($paymentUrl);
+            // Store CHIP purchase ID
+            $order->update([
+                'payment_gateway_reference' => $result->id ?? null,
+            ]);
+
+            if (!empty($result->checkout_url)) {
+                return Inertia::location($result->checkout_url);
+            }
+
+            throw new \Exception('Payment gateway did not return checkout URL');
         } catch (\Throwable $e) {
             DB::rollBack();
+            Log::error('Order creation failed:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return back()->withErrors(['error' => 'Order creation failed: ' . $e->getMessage()]);
         }
     }
@@ -91,4 +123,29 @@ class CheckoutController extends Controller
 
         return Inertia::location($paymentUrl); // Redirect user to BayarCash payment page
     }
+
+
+    // public function pay(Request $request, ChipPaymentService $chip)
+    // {
+    //     try {
+    //         $result = $chip->createPurchase([
+    //             'email'        => 'testuser@chip.com',
+    //             'name'         => 'Test User',
+    //             'product_name' => 'CHIP Test Product',
+    //             'amount'       => 1000,
+    //             'success_url'  => route('payment.return'),
+    //             'failure_url'  => route('payment.return'),
+    //         ]);
+
+    //         \Log::info('CHIP Result:', ['checkout_url' => $result->checkout_url ?? 'MISSING']);
+
+    //         if (!empty($result->checkout_url)) {
+    //             return Inertia::location($result->checkout_url);
+    //         }
+
+    //         return back()->with('error', 'Checkout URL not returned');
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', 'Payment error: ' . $e->getMessage());
+    //     }
+    // }
 }
