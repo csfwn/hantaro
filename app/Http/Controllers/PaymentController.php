@@ -33,7 +33,7 @@ class PaymentController extends Controller
                         'status' => OrderStatus::Processing->value,
                     ]);
 
-                    session()->forget('customer');
+                    session()->forget('cart', []);
 
                     return Inertia::render('payments/Success', [
                         'order' => $order->load('products', 'store'),

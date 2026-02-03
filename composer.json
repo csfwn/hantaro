@@ -20,7 +20,6 @@
         "spatie/laravel-one-time-passwords": "^1.0",
         "tightenco/ziggy": "^2.6",
         "tucker-eric/eloquentfilter": "^3.5",
-        "webimpian/bayarcash-php-sdk": "^2.1",
         "chip/chip-sdk-php": "^1.0"
     },
     "require-dev": {

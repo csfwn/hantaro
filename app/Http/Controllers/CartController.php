@@ -137,7 +137,6 @@ class CartController extends Controller
         
         return Inertia::render('carts/Review', [
             'customer' => session('customer'),
-            'channels' => (new \App\Services\BayarCashPayment())->getChannels(),
             'cart' => $cart,
             'store' => new StoreResource(store_session()),
             'cartQuantity' => array_sum(array_map(fn($i) => $i['quantity'], $items)),
