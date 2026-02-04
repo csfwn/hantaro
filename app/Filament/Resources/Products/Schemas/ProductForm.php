@@ -36,6 +36,10 @@ class ProductForm
                         ->unique(ignoreRecord: true)
                         ->live()
                         ->afterStateUpdated(fn($state, $set) => $set('slug', Str::slug($state))),
+                    
+                    TextInput::make('sku')
+                        ->label('Sku')
+                        ->required(),
 
                     RichEditor::make('description')
                         ->label('Description')
@@ -44,7 +48,7 @@ class ProductForm
                     Toggle::make('is_active')
                         ->label('Active')
                         ->default(true),
-                ])->columns(2),
+                ])->columns(3),
 
                 Tab::make('Pricing & Stock')->schema([
                     TextInput::make('price')

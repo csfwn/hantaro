@@ -28,6 +28,9 @@ class ProductInfolist
                                     TextEntry::make('slug')
                                         ->label('Slug'),
 
+                                    TextEntry::make('sku')
+                                        ->label('SKU'),
+
                                     TextEntry::make('price')
                                         ->badge()
                                         ->label('Price')

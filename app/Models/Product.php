@@ -18,6 +18,7 @@ class Product extends Model implements HasMedia
         'store_id',
         'name',
         'slug',
+        'sku',
         'description',
         'is_active',
         'price',

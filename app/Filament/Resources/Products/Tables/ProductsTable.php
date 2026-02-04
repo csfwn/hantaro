@@ -29,6 +29,11 @@ class ProductsTable
                     ->label('Name')
                     ->sortable()
                     ->searchable(),
+                    
+                TextColumn::make('sku')
+                    ->label('SKU')
+                    ->sortable()
+                    ->searchable(),
 
                 TextColumn::make('store.name')
                     ->label('Store')
