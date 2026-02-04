@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -40,5 +41,20 @@ class Product extends Model implements HasMedia
         return Attribute::make(
             get: fn() => $this->getFirstMediaUrl('products') ?: null
         );
+    }
+
+    public function scopeVisibleTo(Builder $query, User $user): Builder
+    {
+        if ($user->hasRole('super_admin')) {
+            return $query;
+        }
+
+        if ($user->hasRole('merchant')) {
+            return $query->whereHas('store', function (Builder $q) use ($user) {
+                $q->where('user_id', $user->id);
+            });
+        }
+
+        return $query->whereRaw('1 = 0');
     }
 }

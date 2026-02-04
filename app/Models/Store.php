@@ -30,13 +30,18 @@ class Store extends Model implements HasMedia
         'links' => 'array',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     /* =========================
        MEDIA
     ========================= */
     public function mainImageUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->getFirstMediaUrl('store') ?: null
+            get: fn() => $this->getFirstMediaUrl('store') ?: null
         );
     }
 
@@ -46,7 +51,7 @@ class Store extends Model implements HasMedia
     public function template(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ?: 'classic'
+            get: fn($value) => $value ?: 'classic'
         );
     }
 
@@ -56,7 +61,7 @@ class Store extends Model implements HasMedia
     public function resolvedTheme(): Attribute
     {
         return Attribute::make(
-            get: fn () => array_merge([
+            get: fn() => array_merge([
                 'primary' => '#000000',
                 'header_background_type' => 'color',
                 'background_color' => '#ffffff',
@@ -72,7 +77,7 @@ class Store extends Model implements HasMedia
     public function resolvedLinks(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->links ?? []
+            get: fn() => $this->links ?? []
         );
     }
 }

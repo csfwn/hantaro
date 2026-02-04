@@ -10,13 +10,11 @@ use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
 {
-    // ❌ Remove default header widgets
     protected function getHeaderWidgets(): array
     {
         return [];
     }
 
-    // ✅ MUST be public in Filament v4
     public function getWidgets(): array
     {
         return [

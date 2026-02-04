@@ -18,11 +18,13 @@ class RevenueChart extends ChartWidget
 
     public function getDescription(): ?string
     {
-        $totalRevenue = Order::where('payment_status', PaymentStatus::Success)
+        $user = auth()->user();
+
+        $totalRevenue = Order::visibleTo($user)->where('payment_status', PaymentStatus::Success)
             ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
             ->sum('paid_amount');
         
-        $totalOrders = Order::where('payment_status', PaymentStatus::Success)
+        $totalOrders = Order::visibleTo($user)->where('payment_status', PaymentStatus::Success)
             ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
             ->count();
 
@@ -31,6 +33,7 @@ class RevenueChart extends ChartWidget
 
     protected function getData(): array
     {
+        $user = auth()->user();
         $labels = [];
         $revenueData = [];
         $ordersData = [];
@@ -40,12 +43,12 @@ class RevenueChart extends ChartWidget
 
             $labels[] = $date->format('M Y');
 
-            $monthRevenue = Order::whereYear('created_at', $date->year)
+            $monthRevenue = Order::visibleTo($user)->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', $date->month)
                 ->where('payment_status', PaymentStatus::Success)
                 ->sum('paid_amount');
 
-            $monthOrders = Order::whereYear('created_at', $date->year)
+            $monthOrders = Order::visibleTo($user)->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', $date->month)
                 ->where('payment_status', PaymentStatus::Success)
                 ->count();

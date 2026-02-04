@@ -16,6 +16,7 @@ class OrderSummary extends Widget
     // Public Livewire properties — these re-render on every poll
     public array $orders = [];
     public int $total = 0;
+    public $user;
 
     public function mount(): void
     {
@@ -25,19 +26,20 @@ class OrderSummary extends Widget
     // Livewire calls this every polling cycle
     public function refreshData(): void
     {
+        $this->user = auth()->user();
         $now = Carbon::now();
 
-        $completed = Order::where('status', OrderStatus::Completed->value)
+        $completed = Order::visibleTo($this->user)->where('status', OrderStatus::Completed->value)
             ->whereYear('created_at', $now->year)
             ->whereMonth('created_at', $now->month)
             ->count();
 
-        $processing = Order::where('status', OrderStatus::Processing->value)
+        $processing = Order::visibleTo($this->user)->where('status', OrderStatus::Processing->value)
             ->whereYear('created_at', $now->year)
             ->whereMonth('created_at', $now->month)
             ->count();
 
-        $delivering = Order::where('status', OrderStatus::Delivering->value)
+        $delivering = Order::visibleTo($this->user)->where('status', OrderStatus::Delivering->value)
             ->whereYear('created_at', $now->year)
             ->whereMonth('created_at', $now->month)
             ->count();

@@ -17,6 +17,14 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/privacy', function () {
+    return Inertia::render('PrivacyPolicy');
+});
+
+Route::get('/terms', function () {
+    return Inertia::render('TermsOfService');
+});
+
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

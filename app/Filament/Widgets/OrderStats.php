@@ -10,35 +10,37 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class OrderStats extends StatsOverviewWidget
 {
     protected ?string $pollingInterval = '15s';
+    public $user;
 
     protected function getStats(): array
     {
+        $this->user = auth()->user();
         // This month's data
-        $thisMonthOrders = Order::whereMonth('created_at', now()->month)
+        $thisMonthOrders = Order::visibleTo($this->user)->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->count();
         
-        $thisMonthSuccess = Order::where('payment_status', PaymentStatus::Success)
+        $thisMonthSuccess = Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->count();
         
-        $thisMonthRevenue = Order::where('payment_status', PaymentStatus::Success)
+        $thisMonthRevenue = Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->sum('paid_amount');
         
         // Last month's data for comparison
-        $lastMonthOrders = Order::whereMonth('created_at', now()->subMonth()->month)
+        $lastMonthOrders = Order::visibleTo($this->user)->whereMonth('created_at', now()->subMonth()->month)
             ->whereYear('created_at', now()->subMonth()->year)
             ->count();
         
-        $lastMonthSuccess = Order::where('payment_status', PaymentStatus::Success)
+        $lastMonthSuccess = Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
             ->whereMonth('created_at', now()->subMonth()->month)
             ->whereYear('created_at', now()->subMonth()->year)
             ->count();
         
-        $lastMonthRevenue = Order::where('payment_status', PaymentStatus::Success)
+        $lastMonthRevenue = Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
             ->whereMonth('created_at', now()->subMonth()->month)
             ->whereYear('created_at', now()->subMonth()->year)
             ->sum('paid_amount');
@@ -59,14 +61,14 @@ class OrderStats extends StatsOverviewWidget
         // Get daily data for this month's chart
         $daysInMonth = now()->daysInMonth;
         $dailyOrders = collect(range(1, min($daysInMonth, now()->day)))->map(function ($day) {
-            return Order::whereYear('created_at', now()->year)
+            return Order::visibleTo($this->user)->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
                 ->whereDay('created_at', $day)
                 ->count();
         })->toArray();
         
         $dailySuccess = collect(range(1, min($daysInMonth, now()->day)))->map(function ($day) {
-            return Order::where('payment_status', PaymentStatus::Success)
+            return Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
                 ->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
                 ->whereDay('created_at', $day)
@@ -74,7 +76,7 @@ class OrderStats extends StatsOverviewWidget
         })->toArray();
         
         $dailyRevenue = collect(range(1, min($daysInMonth, now()->day)))->map(function ($day) {
-            return Order::where('payment_status', PaymentStatus::Success)
+            return Order::visibleTo($this->user)->where('payment_status', PaymentStatus::Success)
                 ->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
                 ->whereDay('created_at', $day)

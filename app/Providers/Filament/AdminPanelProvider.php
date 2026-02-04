@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Setting;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -16,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Outerweb\FilamentSettings\SettingsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -35,8 +37,6 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->brandLogoHeight('3rem')
-
-            // ✅ Discover ONLY resources & pages
             ->discoverResources(
                 in: app_path('Filament/Resources'),
                 for: 'App\Filament\Resources'
@@ -45,25 +45,14 @@ class AdminPanelProvider extends PanelProvider
                 in: app_path('Filament/Pages'),
                 for: 'App\Filament\Pages'
             )
-
-            // ✅ Dashboard page ONLY (no default widgets)
             ->pages([
                 \App\Filament\Pages\Dashboard::class,
             ])
-
-
             ->discoverWidgets(
                 in: app_path('Filament/Widgets'),
                 for: 'App\Filament\Widgets'
             )
-
-
-
-            // ❌ IMPORTANT: DO NOT discover widgets here
-            // ❌ DO NOT register AccountWidget / FilamentInfoWidget
-
             ->viteTheme('resources/css/filament.css')
-
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -77,6 +66,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+                SettingsPlugin::make()
+                    ->pages([
+                        Setting::class,
+                    ]),
             ])
             ->authMiddleware([
                 Authenticate::class,

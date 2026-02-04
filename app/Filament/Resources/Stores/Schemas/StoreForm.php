@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Stores\Schemas;
 
+use App\Models\User;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
@@ -19,6 +20,25 @@ class StoreForm
         return $schema->components([
             Section::make('Store Info')
                 ->schema([
+                    Select::make('user_id')
+                        ->label('Merchant User')
+                        ->relationship(
+                            name: 'user',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: fn($query) =>
+                            $query->whereHas(
+                                'roles',
+                                fn($q) =>
+                                $q->where('name', 'merchant')
+                            )
+                        )
+                        ->getOptionLabelFromRecordUsing(
+                            fn(User $record) => "{$record->name} ({$record->email})"
+                        )
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
                     TextInput::make('name')
                         ->label('Store Name')
                         ->required()
@@ -76,13 +96,13 @@ class StoreForm
 
                     ColorPicker::make('theme.background_color')
                         ->label('Header Background Color')
-                        ->visible(fn ($get) => $get('theme.header_background_type') === 'color'),
+                        ->visible(fn($get) => $get('theme.header_background_type') === 'color'),
 
                     FileUpload::make('theme.background_image')
                         ->label('Header Background Image')
                         ->image()
                         ->directory('store-backgrounds')
-                        ->visible(fn ($get) => $get('theme.header_background_type') === 'image'),
+                        ->visible(fn($get) => $get('theme.header_background_type') === 'image'),
 
                     TextInput::make('theme.background_opacity')
                         ->label('Image Overlay Opacity (0–1)')
@@ -91,7 +111,7 @@ class StoreForm
                         ->maxValue(1)
                         ->step(0.1)
                         ->default(0.6)
-                        ->visible(fn ($get) => $get('theme.header_background_type') === 'image'),
+                        ->visible(fn($get) => $get('theme.header_background_type') === 'image'),
                 ])
                 ->columns(2)
                 ->columnSpanFull(),
@@ -103,7 +123,7 @@ class StoreForm
                             Select::make('type')
                                 ->options([
                                     'whatsapp'  => 'WhatsApp',
-                                    'instagram'=> 'Instagram',
+                                    'instagram' => 'Instagram',
                                     'tiktok'   => 'TikTok',
                                     'website'  => 'Website',
                                 ])

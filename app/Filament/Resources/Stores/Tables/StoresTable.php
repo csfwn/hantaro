@@ -12,6 +12,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class StoresTable
 {
@@ -19,6 +20,12 @@ class StoresTable
     {
         return $table
             ->columns([
+                TextColumn::make('user.name')
+                    ->label('Owner')
+                    ->limit(25)               
+                    ->tooltip(fn(Model $record) => $record->user?->name)
+                    ->description(fn(Model $record) => $record->user?->email)
+                    ->searchable(),
                 TextColumn::make('name')
                     ->label('Store Name')
                     ->sortable()

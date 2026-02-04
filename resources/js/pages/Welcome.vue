@@ -602,9 +602,9 @@
         <footer class="bg-white border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-10">
             <div class="max-w-7xl mx-auto">
                 <div class="border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-gray-600">© 2026 Hantaro. All rights reserved.</p>
-                    <div class="flex gap-6"><a href="#" class="footer-link">Privacy</a><a href="#"
-                            class="footer-link">Terms</a><a href="#" class="footer-link">Sitemap</a></div>
+                    <p class="text-gray-600">© 2026 Hantaro. 202503084987 (AS0493179-P).</p>
+                    <div class="flex gap-6"><a href="/privacy" class="footer-link">Privacy</a><a href="/terms"
+                            class="footer-link">Terms</a></div>
                 </div>
             </div>
         </footer>

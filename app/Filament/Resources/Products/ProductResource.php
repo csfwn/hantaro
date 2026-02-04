@@ -25,7 +25,7 @@ class ProductResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?int $navigationSort = 2;
-    
+
     public static function form(Schema $schema): Schema
     {
         return ProductForm::configure($schema);
@@ -43,9 +43,7 @@ class ProductResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -56,6 +54,14 @@ class ProductResource extends Resource
             'view' => ViewProduct::route('/{record}'),
             'edit' => EditProduct::route('/{record}/edit'),
         ];
+    }
+
+    /**
+     * 🔐 ROLE-BASED VISIBILITY
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->visibleTo(auth()->user());
     }
 
     public static function getRecordRouteBindingEloquentQuery(): Builder

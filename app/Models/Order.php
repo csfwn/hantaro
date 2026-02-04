@@ -9,8 +9,10 @@ use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 #[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
@@ -64,5 +66,20 @@ class Order extends Model
         return Attribute::make(
             get: fn() => config('params.customer_url') . '/' . $this->ref_no,
         );
+    }
+
+    public function scopeVisibleTo(Builder $query, User $user): Builder
+    {
+        if ($user->hasRole('super_admin')) {
+            return $query;
+        }
+
+        if ($user->hasRole('merchant')) {
+            return $query->whereHas('store', function (Builder $q) use ($user) {
+                $q->where('user_id', $user->id);
+            });
+        }
+
+        return $query->whereRaw('1 = 0');
     }
 }
