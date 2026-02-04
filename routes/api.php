@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TiktokController;
+use App\Http\Controllers\TikTokProductTestController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -11,3 +12,6 @@ Route::get('/order-status/{ref}', function ($ref) {
 });
 
 Route::post('/tiktok/callback', [TiktokController::class, 'callback'])->name('tiktok.callback');
+Route::post('/tiktok/webhook', [TiktokController::class, 'webhook'])->name('tiktok.webhook');
+
+Route::get('/test/tiktok/products', [TikTokProductTestController::class, 'sync']);

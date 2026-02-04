@@ -24,12 +24,13 @@ class ProductsTable
         $currency = config('params.currency_symbol');
 
         return $table
+            ->poll('3s')
             ->columns([
                 TextColumn::make('name')
                     ->label('Name')
                     ->sortable()
                     ->searchable(),
-                    
+
                 TextColumn::make('sku')
                     ->label('SKU')
                     ->sortable()
@@ -50,7 +51,7 @@ class ProductsTable
                     ->badge()
                     ->color('success')
                     ->alignCenter(),
-                
+
                 ToggleColumn::make('is_active')
                     ->label(__('Status'))
                     ->alignCenter()

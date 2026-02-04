@@ -58,6 +58,12 @@ Route::controller(PaymentController::class)->prefix('payment')->name('payment.')
     Route::get('/failure/{order}', 'failure')->name('failure');
 });
 
+Route::controller(PaymentController::class)->prefix('payment')->name('payment.')->group(function () {
+    Route::get('/return', 'return')->name('return');
+    Route::get('/success/{order}', 'success')->name('success');
+    Route::get('/failure/{order}', 'failure')->name('failure');
+});
+
 Route::get('/receipt/{order}/download', [ReceiptController::class, 'download'])->name('receipt.download');
 Route::get('/tracking/{code}', [TrackingController::class, 'track'])->name('order.tracking');
 

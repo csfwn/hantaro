@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc99b01b222045ab7975ba6dc820780a",
+    "content-hash": "c394a4c7b1383d19aea9372c8c2ea4e9",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2812,6 +2812,77 @@
                 "source": "https://github.com/kirschbaum-development/eloquent-power-joins/tree/4.2.11"
             },
             "time": "2025-12-17T00:37:48+00:00"
+        },
+        {
+            "name": "laraditz/tiktok",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laraditz/tiktok.git",
+                "reference": "54020f5874fa2dc522b683950d9dd8ed35ace13c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laraditz/tiktok/zipball/54020f5874fa2dc522b683950d9dd8ed35ace13c",
+                "reference": "54020f5874fa2dc522b683950d9dd8ed35ace13c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^10.0|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "TikTok": "Laraditz\\TikTok\\Facades\\TikTok"
+                    },
+                    "providers": [
+                        "Laraditz\\TikTok\\TikTokServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laraditz\\TikTok\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raditz Farhan",
+                    "email": "raditzfarhan@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package for interacting with TikTok API.",
+            "homepage": "https://github.com/laraditz/tiktok",
+            "keywords": [
+                "TikTok ",
+                "laraditz"
+            ],
+            "support": {
+                "issues": "https://github.com/laraditz/tiktok/issues",
+                "source": "https://github.com/laraditz/tiktok/tree/1.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/raditzfarhan",
+                    "type": "buy_me_a_coffee"
+                },
+                {
+                    "url": "https://github.com/raditzfarhan",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-02T02:36:43+00:00"
         },
         {
             "name": "laravel/fortify",

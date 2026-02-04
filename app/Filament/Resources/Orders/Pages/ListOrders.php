@@ -24,10 +24,10 @@ class ListOrders extends ListRecords
     {
         return [
             'all' => Tab::make('All')
-                ->badge(Order::count()),
+                ->badge(Order::visibleTo(auth()->user())->count()),
 
             'processing' => Tab::make('Processing')
-                ->badge(Order::where('status', OrderStatus::Processing->value)->count())
+                ->badge(Order::visibleTo(auth()->user())->where('status', OrderStatus::Processing->value)->count())
                 ->badgeColor('warning')
                 ->modifyQueryUsing(
                     fn(Builder $query) =>
@@ -35,7 +35,7 @@ class ListOrders extends ListRecords
                 ),
 
             'delivering' => Tab::make('Delivering')
-                ->badge(Order::where('status', OrderStatus::Delivering->value)->count())
+                ->badge(Order::visibleTo(auth()->user())->where('status', OrderStatus::Delivering->value)->count())
                 ->badgeColor('info')
                 ->modifyQueryUsing(
                     fn(Builder $query) =>
@@ -43,7 +43,7 @@ class ListOrders extends ListRecords
                 ),
 
             'completed' => Tab::make('Completed')
-                ->badge(Order::where('status', OrderStatus::Completed->value)->count())
+                ->badge(Order::visibleTo(auth()->user())->where('status', OrderStatus::Completed->value)->count())
                 ->badgeColor('success')
                 ->modifyQueryUsing(
                     fn(Builder $query) =>
