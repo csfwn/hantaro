@@ -19,8 +19,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Outerweb\FilamentSettings\SettingsPlugin;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Assets\Js;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,12 +28,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(Login::class)
+            ->login()
             ->topbar(false)
             ->brandLogo(asset('images/logo5.png'))
             ->brandLogoHeight('1rem')
             ->darkMode(false)
             ->globalSearch(false)
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -76,14 +75,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->bootUsing(function () {
-                FilamentAsset::register([
-                    Js::make(
-                        'turnstile',
-                        'https://challenges.cloudflare.com/turnstile/v0/api.js'
-                    )->loadedOnRequest(),
-                ]);
-            });
+            ]);
     }
 }
