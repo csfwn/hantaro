@@ -18,31 +18,31 @@ class ListProducts extends ListRecords
         return [
             CreateAction::make(),
 
-            Action::make('syncTikTokProducts')
-                ->label('Sync TikTok Products')
-                ->icon('heroicon-o-arrow-path')
-                ->color('gray')
-                ->requiresConfirmation()
-                ->modalHeading('Sync TikTok Products')
-                ->modalDescription(
-                    'This will sync ALL products from TikTok Shop. The page will wait until sync completes.'
-                )
-                ->action(function (TikTokProductSyncService $service) {
-                    try {
-                        $service->process();
-                        Notification::make()
-                            ->title('TikTok products synced successfully')
-                            ->success()
-                            ->send();
-                         $this->dispatch('$refresh');
-                    } catch (\Throwable $e) {
-                        Notification::make()
-                            ->title('TikTok product sync failed')
-                            ->body($e->getMessage())
-                            ->danger()
-                            ->send();
-                    }
-                }),
+            // Action::make('syncTikTokProducts')
+            //     ->label('Sync TikTok Products')
+            //     ->icon('heroicon-o-arrow-path')
+            //     ->color('gray')
+            //     ->requiresConfirmation()
+            //     ->modalHeading('Sync TikTok Products')
+            //     ->modalDescription(
+            //         'This will sync ALL products from TikTok Shop. The page will wait until sync completes.'
+            //     )
+            //     ->action(function (TikTokProductSyncService $service) {
+            //         try {
+            //             $service->process();
+            //             Notification::make()
+            //                 ->title('TikTok products synced successfully')
+            //                 ->success()
+            //                 ->send();
+            //              $this->dispatch('$refresh');
+            //         } catch (\Throwable $e) {
+            //             Notification::make()
+            //                 ->title('TikTok product sync failed')
+            //                 ->body($e->getMessage())
+            //                 ->danger()
+            //                 ->send();
+            //         }
+            //     }),
         ];
     }
 }
