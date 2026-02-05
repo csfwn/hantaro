@@ -527,34 +527,45 @@
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">Start free, upgrade as you grow — no hidden fees
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div v-for="plan in pricingPlans" :key="plan.name" class="bg-white rounded-2xl p-8 relative"
-                        :class="plan.popular ? 'shadow-2xl transform scale-105' : ''"
-                        :style="plan.popular ? 'border:2px solid #F57C20' : 'border:2px solid #e5e7eb'">
-                        <div v-if="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2"><span
-                                class="text-white px-6 py-2 rounded-full text-sm font-semibold"
-                                style="background:#F57C20">Most Popular</span></div>
-                        <div class="mb-8">
-                            <div class="text-sm font-semibold text-gray-600 mb-3">{{ plan.name }}</div>
-                            <div class="mb-2"><span class="text-5xl font-bold text-black">RM{{ plan.price }}</span><span
-                                    class="text-gray-600">/{{ plan.period }}</span></div>
+
+                <!-- Hide scrollbar and center cards with proper spacing -->
+                <div class="overflow-x-auto pb-8 scrollbar-hide pt-6">
+                    <div class="flex gap-6 justify-center mx-auto" style="width: fit-content; min-width: 100%;">
+                        <div v-for="plan in pricingPlans" :key="plan.name"
+                            class="bg-white rounded-2xl p-8 relative flex-shrink-0 w-80"
+                            :class="plan.popular ? 'shadow-2xl' : 'shadow-md'"
+                            :style="plan.popular ? 'border:2px solid #F57C20' : 'border:2px solid #e5e7eb'">
+
+                            <div v-if="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                                <span class="text-white px-6 py-2 rounded-full text-sm font-semibold whitespace-nowrap"
+                                    style="background:#F57C20">Most Popular</span>
+                            </div>
+
+                            <div class="mb-8">
+                                <div class="text-sm font-semibold text-gray-600 mb-3">{{ plan.name }}</div>
+                                <div class="mb-2 flex items-baseline flex-wrap">
+                                    <span class="text-5xl font-bold text-black">RM{{ plan.price }}</span>
+                                    <span class="text-gray-600 ml-1">/{{ plan.period }}</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-4 mb-8">
+                                <li v-for="feat in plan.features" :key="feat" class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="#F57C20"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">{{ feat }}</span>
+                                </li>
+                            </ul>
+
+                            <button class="w-full py-4 rounded-lg font-semibold transition hover:opacity-90"
+                                :style="plan.popular ? 'background:#F57C20;color:#fff' : 'border:2px solid #F57C20;color:#F57C20;background:#fff'">
+                                {{ plan.buttonText }}
+                            </button>
                         </div>
-                        <ul class="space-y-4 mb-8">
-                            <li v-for="feat in plan.features" :key="feat" class="flex items-start gap-3"><svg
-                                    class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="#F57C20"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                        d="M5 13l4 4L19 7" />
-                                </svg><span class="text-gray-700">{{ feat }}</span></li>
-                        </ul>
-                        <button class="w-full py-4 rounded-lg font-semibold transition"
-                            :style="plan.popular ? 'background:#F57C20;color:#fff' : 'border:2px solid #F57C20;color:#F57C20;background:#fff'">{{
-                                plan.buttonText }}</button>
                     </div>
-                </div>
-                <div class="text-center mt-12">
-                    <p class="text-gray-600">All plans include 14-day free trial • No credit card required • Cancel
-                        anytime</p>
                 </div>
             </div>
         </section>
@@ -649,10 +660,69 @@ const features = [
     { icon: '📲', title: 'Mobile Optimized', description: 'Your store looks perfect on phones, tablets, and desktop' }
 ]
 const pricingPlans = [
-    { name: 'Free Plan', price: '0', period: 'forever', popular: false, buttonText: 'Start Free', features: ['Personal store link', 'Up to 10 products', 'Basic order management', 'WhatsApp notifications'] },
-    { name: 'Starter Plan', price: '29', period: 'month', popular: true, buttonText: 'Get Started', features: ['Everything in Free, plus:', 'Unlimited products', 'Custom domain support', 'Online payment (FPX)', 'Sales analytics'] },
-    { name: 'Growth Plan', price: '49', period: 'month', popular: false, buttonText: 'Get Started', features: ['Everything in Starter, plus:', 'Priority support', 'Advanced analytics', 'Marketing tools', 'API access'] }
+    {
+        name: 'Starter (Free)',
+        price: '0',
+        period: 'forever',
+        popular: false,
+        buttonText: 'Start Free',
+        features: [
+            '1 ecommerce store',
+            'Unlimited products',
+            'Order & inventory management',
+            'Checkout & payment handling',
+            'Sales summary dashboard',
+            'Platform fee per transaction (2.5%–3%)',
+            'No monthly commitment'
+        ]
+    },
+    {
+        name: 'Growth',
+        price: '129',
+        period: 'month',
+        popular: true,
+        buttonText: 'Upgrade to Growth',
+        features: [
+            'Up to 2 stores',
+            'Sync 1 marketplace (Shopee OR TikTok OR Lazada)',
+            'Centralised order dashboard',
+            'Manual WhatsApp integration',
+            'Standard sales & order reports',
+            'Email & ticket support'
+        ]
+    },
+    {
+        name: 'Pro',
+        price: '299',
+        period: 'month',
+        popular: false,
+        buttonText: 'Upgrade to Pro',
+        features: [
+            'Up to 5 stores',
+            'Sync Shopee + TikTok + Lazada',
+            'Automated order status updates',
+            'WhatsApp automation (fair usage)',
+            'Advanced reports & CSV export',
+            'Multi-user access (staff roles)'
+        ]
+    },
+    {
+        name: 'Enterprise',
+        price: '1,000',
+        period: 'month',
+        popular: false,
+        buttonText: 'Contact Sales',
+        features: [
+            'Unlimited stores & channels',
+            'High-volume order handling',
+            'Advanced automation & workflows',
+            'High WhatsApp message limits',
+            'Dedicated onboarding & support',
+            'Custom integrations & SLA'
+        ]
+    }
 ]
+
 const faqs = [
     { question: 'Is there a free trial available?', answer: 'Yes! Our Free plan is free forever with up to 10 products. You can also try our paid plans free for 14 days with no credit card required.' },
     { question: 'Do I need technical skills to use Hantaro?', answer: 'Not at all! Hantaro is designed for non-technical users. If you can use WhatsApp or Instagram, you can use Hantaro. Everything is point-and-click simple.' },
@@ -666,6 +736,19 @@ const faqs = [
 
 * {
     font-family: 'Inter', sans-serif;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
 }
 
 details>summary {
