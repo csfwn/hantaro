@@ -8,7 +8,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Livewire\Livewire;
-
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -61,5 +62,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+        RateLimiter::for('register', function ($request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
     }
 }
