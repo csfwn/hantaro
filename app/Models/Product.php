@@ -46,7 +46,7 @@ class Product extends Model implements HasMedia
 
     public function scopeVisibleTo(Builder $query, User $user): Builder
     {
-        if ($user->hasRole(['super_admin', 'shopee_testing'])) {
+        if ($user->hasRole(['super_admin'])) {
             return $query;
         }
 
