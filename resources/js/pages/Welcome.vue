@@ -4,24 +4,75 @@
         <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
+
+                    <!-- Logo -->
                     <div class="flex items-center gap-2">
-                        <span class="text-2xl font-bold text-black">Hantaro<span style="color:#F57C20">•</span></span>
+                        <span class="text-2xl font-bold text-black">
+                            Hantaro<span style="color:#F57C20">•</span>
+                        </span>
                     </div>
+
+                    <!-- Desktop Menu -->
                     <div class="hidden md:flex items-center gap-10">
-                        <a href="#features" class="text-sm font-medium text-gray-600 nav-link">Features</a>
-                        <a href="#how-it-works" class="text-sm font-medium text-gray-600 nav-link">How It Works</a>
-                        <a href="#pricing" class="text-sm font-medium text-gray-600 nav-link">Pricing</a>
-                        <a href="#faq" class="text-sm font-medium text-gray-600 nav-link">FAQ</a>
+                        <a href="#features" class="text-sm font-medium text-gray-600">Features</a>
+                        <a href="#how-it-works" class="text-sm font-medium text-gray-600">How It Works</a>
+                        <a href="#pricing" class="text-sm font-medium text-gray-600">Pricing</a>
+                        <a href="#faq" class="text-sm font-medium text-gray-600">FAQ</a>
                     </div>
+
+                    <!-- Right Side -->
                     <div class="flex items-center gap-4">
+
+                        <!-- Login -->
                         <a href="/admin"
-                            class="hidden sm:block text-sm font-medium text-gray-700 hover:text-black transition">
+                            class="hidden md:block text-sm font-medium text-gray-700 hover:text-black transition">
                             Log In
                         </a>
 
-                        <button class="px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">Get Started
-                            Free</button>
+                        <!-- CTA -->
+                        <a href="/admin/register"
+                            class="hidden md:block px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">
+                            Get Started Free
+                        </a>
+
+                        <!-- Hamburger Button -->
+                        <button class="md:hidden focus:outline-none" @click="mobileOpen = !mobileOpen">
+                            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+
                     </div>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown -->
+            <div :class="[
+                'md:hidden bg-white border-t border-gray-200',
+                mobileOpen ? 'block' : 'hidden'
+            ]">
+                <div class="px-4 py-6 space-y-4">
+
+                    <a href="#features" @click="mobileOpen = false"
+                        class="block text-sm font-medium text-gray-700">Features</a>
+                    <a href="#how-it-works" @click="mobileOpen = false"
+                        class="block text-sm font-medium text-gray-700">How It Works</a>
+                    <a href="#pricing" @click="mobileOpen = false"
+                        class="block text-sm font-medium text-gray-700">Pricing</a>
+                    <a href="#faq" @click="mobileOpen = false" class="block text-sm font-medium text-gray-700">FAQ</a>
+
+                    <hr>
+
+                    <a href="/admin"
+                        class="block w-full text-center px-4 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-100 transition">
+                        Log In
+                    </a>
+
+                    <a href="/admin/register" class="block w-full text-center px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">
+                        Get Started Free
+                    </a>
+
                 </div>
             </div>
         </nav>
@@ -38,15 +89,17 @@
                 <p class="hero-sub">Hantaro is One Platform to build, run, and grow your commerce business — without
                     limits. Built for fast-growing home businesses.</p>
                 <div class="hero-btns">
-                    <button class="btn-orange px-8 py-4 rounded-lg text-white font-semibold flex items-center gap-2">
+                    <a href="/admin/register" class="btn-orange px-8 py-4 rounded-lg text-white font-semibold flex items-center gap-2">
                         Get Started for Free
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
-                    </button>
-                    <button class="px-8 py-4 rounded-lg border-2 font-semibold btn-outline-orange">See How It
-                        Works</button>
+                    </a>
+                    <a href="#how-it-works"
+                        class="px-8 py-4 rounded-lg border-2 font-semibold btn-outline-orange inline-block text-center">
+                        See How It Works
+                    </a>
                 </div>
             </div>
             <div class="cards-field">
@@ -56,7 +109,7 @@
                     </div>
                     <div class="card-logo-wrap"><span class="card-logo-text">STWO</span></div>
                     <div class="card-store-name">Manisan Kita</div>
-                    <div class="card-store-sub">Manisan Original Kelantan</div>
+                    <div class="card-store-sub">Manisan Original Malaysia</div>
                     <div class="card-socials">
                         <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 class="h-5 w-5 fill-[#25D366]">
@@ -85,17 +138,17 @@
                     <div class="card-products">
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1562439901-aed4ddaa17c3?w=200&q=80') center/cover">
+                                style="background:url('https://cdn.motherhood.com.my/wp-content/uploads/sites/2/2023/05/05135830/Copy-of-Story-MMY-8-1-1-1.png') center/cover">
                             </div><span class="mini-badge">⭐ Popular</span>
                             <div class="mini-name">Kek Coklat</div>
-                            <div class="mini-price">RM1.00</div>
+                            <div class="mini-price">RM39.00</div>
                         </div>
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1548364600-e1681e1eeb6f?w=200&q=80') center/cover">
+                                style="background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvj0BE-y_K2nu8beNyL6mPUyBKmDqi4FQcQ&s') center/cover">
                             </div><span class="mini-badge">⭐ Popular</span>
                             <div class="mini-name">Akok</div>
-                            <div class="mini-price">RM25.00</div>
+                            <div class="mini-price">RM15.00</div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +158,7 @@
                     </div>
                     <div class="card-logo-wrap logo-green"><span class="card-logo-text">SG</span></div>
                     <div class="card-store-name">Spice Garden</div>
-                    <div class="card-store-sub">Fresh Spices from Kelantan</div>
+                    <div class="card-store-sub">Fresh Spices</div>
                     <div class="card-socials">
                         <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 class="h-5 w-5 fill-[#25D366]">
@@ -129,14 +182,14 @@
                     <div class="card-products">
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1599631927710-76e05e19b917?w=200&q=80') center/cover">
+                                style="background:url('https://putrafood.com/wp-content/uploads/2024/05/Paste-Rempah-Ayam-2-scaled.jpg') center/cover">
                             </div><span class="mini-badge">⭐ Hot</span>
                             <div class="mini-name">Rempah Ayam</div>
                             <div class="mini-price">RM12.00</div>
                         </div>
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1615361200141-f45040f367be?w=200&q=80') center/cover">
+                                style="background:url('https://foodal.com/wp-content/uploads/2015/02/Make-Your-Own-Curry-Powder.jpg') center/cover">
                             </div>
                             <div class="mini-name">Curry Powder</div>
                             <div class="mini-price">RM8.50</div>
@@ -173,14 +226,14 @@
                     <div class="card-products">
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1533953943578-43da53d18c7c?w=200&q=80') center/cover">
+                                style="background:url('https://parisbaguette.com.my/wp-content/uploads/2021/12/Croissant.jpg') center/cover">
                             </div><span class="mini-badge">⭐ New</span>
                             <div class="mini-name">Croissant</div>
-                            <div class="mini-price">RM5.00</div>
+                            <div class="mini-price">RM10.00</div>
                         </div>
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=200&q=80') center/cover">
+                                style="background:url('https://thescranline.com/wp-content/uploads/2024/09/CHOOCLATE-MACARONS-S-02.jpg') center/cover">
                             </div>
                             <div class="mini-name">Macarons</div>
                             <div class="mini-price">RM18.00</div>
@@ -255,7 +308,7 @@
                     </div>
                     <div class="card-logo-wrap logo-teal"><span class="card-logo-text">BC</span></div>
                     <div class="card-store-name">Batik Craft</div>
-                    <div class="card-store-sub">Handmade Batik Kelantan</div>
+                    <div class="card-store-sub">Handmade Batik</div>
                     <div class="card-socials">
                         <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 class="h-5 w-5 fill-[#25D366]">
@@ -284,14 +337,14 @@
                     <div class="card-products">
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80') center/cover">
+                                style="background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWVrFrWQoj64rtaf5cYN7abLrJWv3sKqG4NA&s') center/cover">
                             </div><span class="mini-badge">⭐ Rare</span>
                             <div class="mini-name">Sarung Batik</div>
                             <div class="mini-price">RM85.00</div>
                         </div>
                         <div class="mini-product">
                             <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=200&q=80') center/cover">
+                                style="background:url('https://media-cdn.tripadvisor.com/media/photo-s/0f/3f/be/72/silk-scarf-3.jpg') center/cover">
                             </div>
                             <div class="mini-name">Scarf Batik</div>
                             <div class="mini-price">RM55.00</div>
@@ -626,7 +679,7 @@
 import { ref, reactive } from 'vue'
 import { Link } from '@inertiajs/vue3';
 const ctaEmail = ref('')
-
+const mobileOpen = ref(false)
 /* ── Step-2 product cards ── */
 const stepProducts = reactive([
     { name: 'Rempah Ayam', price: '9.50', badge: 'New', qty: 0, img: 'https://images.unsplash.com/photo-1646809156467-6e825869b29f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -676,51 +729,51 @@ const pricingPlans = [
             'No monthly commitment'
         ]
     },
-    {
-        name: 'Growth',
-        price: '129',
-        period: 'month',
-        popular: true,
-        buttonText: 'Upgrade to Growth',
-        features: [
-            'Up to 2 stores',
-            'Sync 1 marketplace (Shopee OR TikTok OR Lazada)',
-            'Centralised order dashboard',
-            'Manual WhatsApp integration',
-            'Standard sales & order reports',
-            'Email & ticket support'
-        ]
-    },
-    {
-        name: 'Pro',
-        price: '299',
-        period: 'month',
-        popular: false,
-        buttonText: 'Upgrade to Pro',
-        features: [
-            'Up to 5 stores',
-            'Sync Shopee + TikTok + Lazada',
-            'Automated order status updates',
-            'WhatsApp automation (fair usage)',
-            'Advanced reports & CSV export',
-            'Multi-user access (staff roles)'
-        ]
-    },
-    {
-        name: 'Enterprise',
-        price: '1,000',
-        period: 'month',
-        popular: false,
-        buttonText: 'Contact Sales',
-        features: [
-            'Unlimited stores & channels',
-            'High-volume order handling',
-            'Advanced automation & workflows',
-            'High WhatsApp message limits',
-            'Dedicated onboarding & support',
-            'Custom integrations & SLA'
-        ]
-    }
+    // {
+    //     name: 'Growth',
+    //     price: '129',
+    //     period: 'month',
+    //     popular: true,
+    //     buttonText: 'Upgrade to Growth',
+    //     features: [
+    //         'Up to 2 stores',
+    //         'Sync 1 marketplace (Shopee OR TikTok OR Lazada)',
+    //         'Centralised order dashboard',
+    //         'Manual WhatsApp integration',
+    //         'Standard sales & order reports',
+    //         'Email & ticket support'
+    //     ]
+    // },
+    // {
+    //     name: 'Pro',
+    //     price: '299',
+    //     period: 'month',
+    //     popular: false,
+    //     buttonText: 'Upgrade to Pro',
+    //     features: [
+    //         'Up to 5 stores',
+    //         'Sync Shopee + TikTok + Lazada',
+    //         'Automated order status updates',
+    //         'WhatsApp automation (fair usage)',
+    //         'Advanced reports & CSV export',
+    //         'Multi-user access (staff roles)'
+    //     ]
+    // },
+    // {
+    //     name: 'Enterprise',
+    //     price: '1,000',
+    //     period: 'month',
+    //     popular: false,
+    //     buttonText: 'Contact Sales',
+    //     features: [
+    //         'Unlimited stores & channels',
+    //         'High-volume order handling',
+    //         'Advanced automation & workflows',
+    //         'High WhatsApp message limits',
+    //         'Dedicated onboarding & support',
+    //         'Custom integrations & SLA'
+    //     ]
+    // }
 ]
 
 const faqs = [
@@ -729,6 +782,8 @@ const faqs = [
     { question: 'What platforms can I integrate with?', answer: 'Hantaro works great with WhatsApp, Instagram, Facebook, TikTok, and any platform where you can share links. Your store is mobile-optimized for social media sharing.' },
     { question: 'How often is the data updated?', answer: 'Your sales dashboard updates in real-time. Every order, payment, and product change is reflected instantly so you\'re always up to date.' }
 ]
+
+
 </script>
 
 <style scoped>
@@ -900,7 +955,7 @@ details>summary::-webkit-details-marker {
     border-radius: 18px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
     overflow: hidden;
-    pointer-events: auto;
+    pointer-events: none;
     will-change: transform;
 }
 

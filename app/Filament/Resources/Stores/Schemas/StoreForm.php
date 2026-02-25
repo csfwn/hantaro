@@ -28,8 +28,7 @@ class StoreForm
                             modifyQueryUsing: fn($query) =>
                             $query->whereHas(
                                 'roles',
-                                fn($q) =>
-                                $q->where('name', 'merchant')
+                                fn($q) => $q->where('name', 'merchant')
                             )
                         )
                         ->getOptionLabelFromRecordUsing(
@@ -37,7 +36,8 @@ class StoreForm
                         )
                         ->searchable()
                         ->preload()
-                        ->required(),
+                        ->required()
+                        ->visible(fn() => ! auth()->user()?->hasRole('merchant')),
 
                     TextInput::make('name')
                         ->label('Store Name')

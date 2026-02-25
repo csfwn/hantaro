@@ -16,33 +16,56 @@ class ListProducts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->disabled(function () {
+                    $user = auth()->user();
 
-            // Action::make('syncTikTokProducts')
-            //     ->label('Sync TikTok Products')
-            //     ->icon('heroicon-o-arrow-path')
-            //     ->color('gray')
-            //     ->requiresConfirmation()
-            //     ->modalHeading('Sync TikTok Products')
-            //     ->modalDescription(
-            //         'This will sync ALL products from TikTok Shop. The page will wait until sync completes.'
-            //     )
-            //     ->action(function (TikTokProductSyncService $service) {
-            //         try {
-            //             $service->process();
-            //             Notification::make()
-            //                 ->title('TikTok products synced successfully')
-            //                 ->success()
-            //                 ->send();
-            //              $this->dispatch('$refresh');
-            //         } catch (\Throwable $e) {
-            //             Notification::make()
-            //                 ->title('TikTok product sync failed')
-            //                 ->body($e->getMessage())
-            //                 ->danger()
-            //                 ->send();
-            //         }
-            //     }),
+                    if ($user?->hasRole('merchant')) {
+                        return ! $user->stores()->exists();
+                    }
+
+                    return false;
+                })
+                ->tooltip(function () {
+                    $user = auth()->user();
+
+                    if ($user?->hasRole('merchant') && ! $user->stores()->exists()) {
+                        return 'You need to create a store first.';
+                    }
+
+                    return null;
+                }),
+
+            // Optional TikTok Sync (kept clean)
+            /*
+            Action::make('syncTikTokProducts')
+                ->label('Sync TikTok Products')
+                ->icon('heroicon-o-arrow-path')
+                ->color('gray')
+                ->requiresConfirmation()
+                ->modalHeading('Sync TikTok Products')
+                ->modalDescription(
+                    'This will sync ALL products from TikTok Shop. The page will wait until sync completes.'
+                )
+                ->action(function (TikTokProductSyncService $service) {
+                    try {
+                        $service->process();
+
+                        Notification::make()
+                            ->title('TikTok products synced successfully')
+                            ->success()
+                            ->send();
+
+                        $this->dispatch('$refresh');
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->title('TikTok product sync failed')
+                            ->body($e->getMessage())
+                            ->danger()
+                            ->send();
+                    }
+                }),
+            */
         ];
     }
 }

@@ -22,10 +22,11 @@ class StoresTable
             ->columns([
                 TextColumn::make('user.name')
                     ->label('Owner')
-                    ->limit(25)               
+                    ->limit(25)
                     ->tooltip(fn(Model $record) => $record->user?->name)
                     ->description(fn(Model $record) => $record->user?->email)
-                    ->searchable(),
+                    ->searchable()
+                    ->visible(fn() => ! auth()->user()?->hasRole('merchant')),
                 TextColumn::make('name')
                     ->label('Store Name')
                     ->sortable()

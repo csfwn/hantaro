@@ -36,7 +36,7 @@ class ProductForm
                         ->unique(ignoreRecord: true)
                         ->live()
                         ->afterStateUpdated(fn($state, $set) => $set('slug', Str::slug($state))),
-                    
+
                     TextInput::make('sku')
                         ->label('Sku')
                         ->required(),
@@ -85,10 +85,21 @@ class ProductForm
                 Tab::make('Store Info')->schema([
                     Select::make('store_id')
                         ->label('Store')
-                        ->options(Store::where('status', ActiveStatus::Active->value)->pluck('name', 'id'))
+                        ->options(function () {
+                            $user = auth()->user();
+
+                            $query = Store::where('status', ActiveStatus::Active->value);
+
+                            // If merchant → only their store
+                            if ($user?->hasRole('merchant')) {
+                                $query->where('user_id', $user->id);
+                            }
+
+                            return $query->pluck('name', 'id');
+                        })
                         ->searchable()
                         ->required()
-                        ->placeholder('Select an active store'),
+                        ->placeholder('Select an active store')
                 ])->columnSpanFull(),
             ])->columnSpanFull(),
         ]);

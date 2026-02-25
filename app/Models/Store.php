@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
-
+use Illuminate\Database\Eloquent\Builder;
 #[ObservedBy([StoreObserver::class])]
 class Store extends Model implements HasMedia
 {
@@ -79,5 +79,18 @@ class Store extends Model implements HasMedia
         return Attribute::make(
             get: fn() => $this->links ?? []
         );
+    }
+
+    public function scopeVisibleTo(Builder $query, User $user): Builder
+    {
+        if ($user->hasRole(['super_admin'])) {
+            return $query;
+        }
+
+        if ($user->hasRole('merchant')) {
+            return $query->where('user_id', $user->id);
+        }
+
+        return $query->whereRaw('1 = 0');
     }
 }
