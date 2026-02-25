@@ -15,7 +15,6 @@
         "filament/support": "^4.1",
         "inertiajs/inertia-laravel": "^2.0",
         "l3aro/filament-turnstile": "^1.0",
-        "laraditz/tiktok": "^1.1",
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
