@@ -720,7 +720,7 @@ const pricingPlans = [
         popular: false,
         buttonText: 'Start Free',
         features: [
-            '1 ecommerce store',
+            'Unlimited ecommerce store',
             'Unlimited products',
             'Order & inventory management',
             'Checkout & payment handling',
