@@ -82,6 +82,7 @@ import {
       noUseBrowserLocale
       fetchCountry
       country-locale="ms-MY"
+      country-code="MY"
       class="flex"
       :ignored-countries="['AC']"
       @update="(data) => (e164PhoneNumber = data.e164 ?? '')"
