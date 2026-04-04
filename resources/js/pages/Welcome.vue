@@ -1,1361 +1,808 @@
 <template>
-    <div class="min-h-screen bg-white text-gray-900 font-sans">
-        <!-- Navigation -->
-        <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
+  <div id="app">
+    <!-- NAV -->
+    <nav>
+      <div class="logo">Hantaro<span>•</span></div>
+      <div class="nav-mid">
+        <a href="#features">Features</a>
+        <a href="#hiw">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="nav-right">
+        <!-- <a href="/admin" class="nav-login">Log In</a> -->
+        <a href="/" class="btn-orange">Get Started Free</a>
+      </div>
+    </nav>
 
-                    <!-- Logo -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-2xl font-bold text-black">
-                            Hantaro<span style="color:#F57C20">•</span>
-                        </span>
-                    </div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-mesh"></div>
+      <div class="hero-inner">
+        <div style="margin-top: 50px;"></div>
+        <h1>One Link.<br />Start Your <span class="accent">Business</span><br /><span class="accent">You Create.</span></h1>
+        <p>Share your personal page, sell digital &amp; physical products, and grow your audience all from a single link like hantaro.my/yourname.</p>
+        <div class="hero-btns">
+          <a href="/" class="btn-orange" style="padding:13px 28px;font-size:.95rem;border-radius:10px">Claim your Hantaro free</a>
+          <a href="#hiw" class="btn-outline-w">See how it works</a>
+        </div>
 
-                    <!-- Desktop Menu -->
-                    <div class="hidden md:flex items-center gap-10">
-                        <a href="#features" class="text-sm font-medium text-gray-600">Features</a>
-                        <a href="#how-it-works" class="text-sm font-medium text-gray-600">How It Works</a>
-                        <a href="#pricing" class="text-sm font-medium text-gray-600">Pricing</a>
-                        <a href="#faq" class="text-sm font-medium text-gray-600">FAQ</a>
-                    </div>
-
-                    <!-- Right Side -->
-                    <div class="flex items-center gap-4">
-
-                        <!-- Login -->
-                        <a href="/admin"
-                            class="hidden md:block text-sm font-medium text-gray-700 hover:text-black transition">
-                            Log In
-                        </a>
-
-                        <!-- CTA -->
-                        <a href="/admin/register"
-                            class="hidden md:block px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">
-                            Get Started Free
-                        </a>
-
-                        <!-- Hamburger Button -->
-                        <button class="md:hidden focus:outline-none" @click="mobileOpen = !mobileOpen">
-                            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-
-                    </div>
+        <!-- PHONES -->
+        <div class="phone-row">
+          <!-- Side Phone Left -->
+          <div class="phone side">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="pp-banner" style="background-image:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&q=80')"></div>
+              <div class="pp-body">
+                <div class="pp-avatar-row">
+                  <div class="pp-avatar"><img src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?w=100&q=80" alt="" /></div>
                 </div>
+                <div class="pp-name">Roasted Co.</div>
+                <div class="pp-handle">hantaro.my/roastedco</div>
+                <div class="pp-items">
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=100&q=80')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Liberica Blend</div>
+                      <div class="pp-item-sub">250g · Coffee</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM42</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=100&q=80')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Robusta Dark</div>
+                      <div class="pp-item-sub">250g · Coffee</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM35</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <!-- Mobile Dropdown -->
-            <div :class="[
-                'md:hidden bg-white border-t border-gray-200',
-                mobileOpen ? 'block' : 'hidden'
-            ]">
-                <div class="px-4 py-6 space-y-4">
-
-                    <a href="#features" @click="mobileOpen = false"
-                        class="block text-sm font-medium text-gray-700">Features</a>
-                    <a href="#how-it-works" @click="mobileOpen = false"
-                        class="block text-sm font-medium text-gray-700">How It Works</a>
-                    <a href="#pricing" @click="mobileOpen = false"
-                        class="block text-sm font-medium text-gray-700">Pricing</a>
-                    <a href="#faq" @click="mobileOpen = false" class="block text-sm font-medium text-gray-700">FAQ</a>
-
-                    <hr>
-
-                    <a href="/admin"
-                        class="block w-full text-center px-4 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-100 transition">
-                        Log In
-                    </a>
-
-                    <a href="/admin/register" class="block w-full text-center px-6 py-3 rounded-lg text-white text-sm font-semibold btn-orange">
-                        Get Started Free
-                    </a>
-
+          <!-- Center Phone -->
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="pp-banner" style="background:linear-gradient(135deg,#F57C20,#d96a15)"></div>
+              <div class="pp-body">
+                <div class="pp-avatar-row">
+                  <div class="pp-avatar"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80" alt="" /></div>
                 </div>
+                <div class="pp-name">Aina Sofea ✨</div>
+                <div class="pp-handle">hantaro.my/ainasofea</div>
+                <div class="pp-socials">
+                  <div class="pp-soc">📸</div>
+                  <div class="pp-soc">💬</div>
+                  <div class="pp-soc">🎵</div>
+                </div>
+                <div class="pp-items">
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=100&q=80')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Preset Pack Vol.1</div>
+                      <div class="pp-item-sub">Digital Download</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM25</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=100&q=80')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Content Planner PDF</div>
+                      <div class="pp-item-sub">Digital · Instant</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM18</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100&q=80')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Kek Lapis Order</div>
+                      <div class="pp-item-sub">Physical · 3 days</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM39</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </nav>
+          </div>
 
-        <!-- ===== HERO with Floating Cards ===== -->
-        <section class="hero-section relative overflow-hidden" style="min-height:100vh; background:#000;">
-            <div class="hero-mesh"></div>
-            <div class="hero-text-layer">
-                <h1 class="hero-h1">
-                    Build, Run &amp; Grow Your<br />
-                    <span class="hero-italic">Online Store.</span><br />
-                    <span class="hero-orange">All-in-One Platform</span>
-                </h1>
-                <p class="hero-sub">Hantaro is One Platform to build, run, and grow your commerce business — without
-                    limits. Built for fast-growing home businesses.</p>
-                <div class="hero-btns">
-                    <a href="/admin/register" class="btn-orange px-8 py-4 rounded-lg text-white font-semibold flex items-center gap-2">
-                        Get Started for Free
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </a>
-                    <a href="#how-it-works"
-                        class="px-8 py-4 rounded-lg border-2 font-semibold btn-outline-orange inline-block text-center">
-                        See How It Works
-                    </a>
+          <!-- Side Phone Right -->
+          <div class="phone side">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="pp-banner" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80')"></div>
+              <div class="pp-body">
+                <div class="pp-avatar-row">
+                  <div class="pp-avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="" /></div>
                 </div>
+                <div class="pp-name">Batik Craft</div>
+                <div class="pp-handle">hantaro.my/batikcraft</div>
+                <div class="pp-items">
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWVrFrWQoj64rtaf5cYN7abLrJWv3sKqG4NA&s')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Sarung Batik</div>
+                      <div class="pp-item-sub">Handmade</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM85</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                  <div class="pp-item">
+                    <div class="pp-item-thumb" style="background-image:url('https://media-cdn.tripadvisor.com/media/photo-s/0f/3f/be/72/silk-scarf-3.jpg')"></div>
+                    <div class="pp-item-info">
+                      <div class="pp-item-name">Scarf Batik</div>
+                      <div class="pp-item-sub">Handmade</div>
+                    </div>
+                    <div class="pp-item-right">
+                      <div class="pp-item-price">RM55</div>
+                      <div class="pp-item-btn">Buy</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="cards-field">
-                <div class="float-card card-0">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap"><span class="card-logo-text">STWO</span></div>
-                    <div class="card-store-name">Manisan Kita</div>
-                    <div class="card-store-sub">Manisan Original Malaysia</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-[#25D366]">
-                                <path
-                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5">
-                                <defs>
-                                    <linearGradient id="ig0" x1="0%" y1="100%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#F58529" />
-                                        <stop offset="30%" stop-color="#DD2A7B" />
-                                        <stop offset="60%" stop-color="#8134AF" />
-                                        <stop offset="100%" stop-color="#515BD4" />
-                                    </linearGradient>
-                                </defs>
-                                <path fill="url(#ig0)"
-                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-black">
-                                <path
-                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://cdn.motherhood.com.my/wp-content/uploads/sites/2/2023/05/05135830/Copy-of-Story-MMY-8-1-1-1.png') center/cover">
-                            </div><span class="mini-badge">⭐ Popular</span>
-                            <div class="mini-name">Kek Coklat</div>
-                            <div class="mini-price">RM39.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvj0BE-y_K2nu8beNyL6mPUyBKmDqi4FQcQ&s') center/cover">
-                            </div><span class="mini-badge">⭐ Popular</span>
-                            <div class="mini-name">Akok</div>
-                            <div class="mini-price">RM15.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="float-card card-1">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap logo-green"><span class="card-logo-text">SG</span></div>
-                    <div class="card-store-name">Spice Garden</div>
-                    <div class="card-store-sub">Fresh Spices</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-[#25D366]">
-                                <path
-                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5">
-                                <defs>
-                                    <linearGradient id="ig1" x1="0%" y1="100%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#F58529" />
-                                        <stop offset="30%" stop-color="#DD2A7B" />
-                                        <stop offset="60%" stop-color="#8134AF" />
-                                        <stop offset="100%" stop-color="#515BD4" />
-                                    </linearGradient>
-                                </defs>
-                                <path fill="url(#ig1)"
-                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://putrafood.com/wp-content/uploads/2024/05/Paste-Rempah-Ayam-2-scaled.jpg') center/cover">
-                            </div><span class="mini-badge">⭐ Hot</span>
-                            <div class="mini-name">Rempah Ayam</div>
-                            <div class="mini-price">RM12.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://foodal.com/wp-content/uploads/2015/02/Make-Your-Own-Curry-Powder.jpg') center/cover">
-                            </div>
-                            <div class="mini-name">Curry Powder</div>
-                            <div class="mini-price">RM8.50</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="float-card card-2">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap logo-pink"><span class="card-logo-text">SC</span></div>
-                    <div class="card-store-name">Sweet Corner</div>
-                    <div class="card-store-sub">Homemade Pastries &amp; Desserts</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5">
-                                <defs>
-                                    <linearGradient id="ig2" x1="0%" y1="100%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#F58529" />
-                                        <stop offset="30%" stop-color="#DD2A7B" />
-                                        <stop offset="60%" stop-color="#8134AF" />
-                                        <stop offset="100%" stop-color="#515BD4" />
-                                    </linearGradient>
-                                </defs>
-                                <path fill="url(#ig2)"
-                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-black">
-                                <path
-                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://parisbaguette.com.my/wp-content/uploads/2021/12/Croissant.jpg') center/cover">
-                            </div><span class="mini-badge">⭐ New</span>
-                            <div class="mini-name">Croissant</div>
-                            <div class="mini-price">RM10.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://thescranline.com/wp-content/uploads/2024/09/CHOOCLATE-MACARONS-S-02.jpg') center/cover">
-                            </div>
-                            <div class="mini-name">Macarons</div>
-                            <div class="mini-price">RM18.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="float-card card-3">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1439229747457-a74897f98ec8?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap logo-green"><span class="card-logo-text">OF</span></div>
-                    <div class="card-store-name">Organic Farm</div>
-                    <div class="card-store-sub">Fresh &amp; Natural Daily</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-[#25D366]">
-                                <path
-                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=200&q=80') center/cover">
-                            </div><span class="mini-badge">⭐ Fresh</span>
-                            <div class="mini-name">Sayur Organik</div>
-                            <div class="mini-price">RM9.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=200&q=80') center/cover">
-                            </div>
-                            <div class="mini-name">Buah Tempatan</div>
-                            <div class="mini-price">RM15.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="float-card card-4">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap logo-amber"><span class="card-logo-text">RC</span></div>
-                    <div class="card-store-name">Roasted Co.</div>
-                    <div class="card-store-sub">Specialty Coffee Beans</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-black">
-                                <path
-                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=200&q=80') center/cover">
-                            </div><span class="mini-badge">⭐ Best</span>
-                            <div class="mini-name">Liberica Blend</div>
-                            <div class="mini-price">RM42.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=200&q=80') center/cover">
-                            </div>
-                            <div class="mini-name">Robusta Dark</div>
-                            <div class="mini-price">RM35.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="float-card card-5">
-                    <div class="card-hero-img"
-                        style="background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80') center/cover">
-                    </div>
-                    <div class="card-logo-wrap logo-teal"><span class="card-logo-text">BC</span></div>
-                    <div class="card-store-name">Batik Craft</div>
-                    <div class="card-store-sub">Handmade Batik</div>
-                    <div class="card-socials">
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-[#25D366]">
-                                <path
-                                    d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5">
-                                <defs>
-                                    <linearGradient id="ig5" x1="0%" y1="100%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#F58529" />
-                                        <stop offset="30%" stop-color="#DD2A7B" />
-                                        <stop offset="60%" stop-color="#8134AF" />
-                                        <stop offset="100%" stop-color="#515BD4" />
-                                    </linearGradient>
-                                </defs>
-                                <path fill="url(#ig5)"
-                                    d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
-                            </svg></span>
-                        <span class="social-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                class="h-5 w-5 fill-black">
-                                <path
-                                    d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
-                            </svg></span>
-                    </div>
-                    <div class="card-products">
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWVrFrWQoj64rtaf5cYN7abLrJWv3sKqG4NA&s') center/cover">
-                            </div><span class="mini-badge">⭐ Rare</span>
-                            <div class="mini-name">Sarung Batik</div>
-                            <div class="mini-price">RM85.00</div>
-                        </div>
-                        <div class="mini-product">
-                            <div class="mini-img"
-                                style="background:url('https://media-cdn.tripadvisor.com/media/photo-s/0f/3f/be/72/silk-scarf-3.jpg') center/cover">
-                            </div>
-                            <div class="mini-name">Scarf Batik</div>
-                            <div class="mini-price">RM55.00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Dashboard Preview -->
-        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-            <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-                    <div class="bg-gray-100 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                        </div>
-                        <div class="flex-1 mx-8">
-                            <div class="bg-white rounded px-3 py-1 text-xs text-gray-500 text-center">
-                                hantaro.my/dashboard</div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex items-center justify-between mb-8">
-                            <div>
-                                <h3 class="text-2xl font-bold text-black mb-1">Analytics</h3>
-                                <p class="text-sm text-gray-500">Monitor your store performance</p>
-                            </div>
-                            <div class="flex items-center gap-3"><select
-                                    class="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium bg-white">
-                                    <option>Last 30 days</option>
-                                </select><button
-                                    class="px-4 py-2 rounded-lg text-white text-sm font-medium btn-orange">Share</button>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div v-for="stat in stats" :key="stat.label"
-                                class="p-6 rounded-xl border border-gray-200 hover:shadow-md transition stat-card">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <div class="w-10 h-10 rounded-lg flex items-center justify-center"
-                                        style="background:#FFF3E0"><svg class="w-5 h-5" fill="none" :stroke="'#F57C20'"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                :d="stat.icon" />
-                                        </svg></div><span class="text-sm font-medium text-gray-600">{{ stat.label
-                                        }}</span>
-                                </div>
-                                <div class="text-3xl font-bold text-black mb-1">{{ stat.value }}</div>
-                                <div class="flex items-center gap-1 text-xs"
-                                    :class="stat.up ? 'text-green-600' : 'text-red-600'"><span>{{ stat.change }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div class="p-6 rounded-xl border border-gray-200">
-                                <h4 class="font-bold text-black mb-1">Total Orders</h4>
-                                <p class="text-sm text-gray-500 mb-6">Total customer orders completed</p>
-                                <div class="space-y-3">
-                                    <div v-for="o in orders" :key="o.label">
-                                        <div class="flex items-center justify-between text-sm mb-1"><span
-                                                class="text-gray-600">{{ o.label }}</span><span class="font-semibold">{{
-                                                    o.val }}</span></div>
-                                        <div class="w-full bg-gray-100 rounded-full h-2">
-                                            <div class="h-2 rounded-full" style="background:#F57C20"
-                                                :style="{ width: o.pct + '%' }"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-6 pt-6 border-t border-gray-200 text-center">
-                                    <div class="text-4xl font-bold text-black mb-1">1,250+</div>
-                                    <div class="text-sm text-gray-500">Orders</div>
-                                </div>
-                            </div>
-                            <div class="p-6 rounded-xl border border-gray-200">
-                                <h4 class="font-bold text-black mb-1">Total Sales</h4>
-                                <p class="text-sm text-gray-500 mb-6">Monthly sales for the selected period</p>
-                                <div class="h-48 flex items-end justify-between gap-2 mb-4">
-                                    <div v-for="bar in bars" :key="bar.label"
-                                        class="flex flex-col items-center gap-1 flex-1">
-                                        <div class="w-full rounded-t"
-                                            :style="{ height: bar.h + '%', background: bar.color }"></div><span
-                                            class="text-xs text-gray-500">{{ bar.label }}</span>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-sm text-gray-500">May Sales</div>
-                                    <div class="text-2xl font-bold text-black">RM220,342,123</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats -->
-        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                    <div class="border-r border-gray-200 last:border-r-0">
-                        <div class="text-5xl font-bold text-black mb-3">5,000<span style="color:#F57C20">+</span></div>
-                        <p class="text-gray-600">Home businesses powered by Hantaro</p>
-                    </div>
-                    <div class="border-r border-gray-200 last:border-r-0">
-                        <div class="flex items-center justify-center gap-2 mb-3">
-                            <div class="text-5xl font-bold text-black">4.9</div>
-                            <div class="text-3xl" style="color:#F57C20">⭐</div>
-                        </div>
-                        <p class="text-gray-600">Average rating from sellers worldwide</p>
-                    </div>
-                    <div>
-                        <div class="text-5xl font-bold text-black mb-3">100<span style="color:#F57C20">%</span></div>
-                        <p class="text-gray-600">Mobile-optimized storefront experience</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works -->
-        <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-black text-white">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-20">
-                    <h2 class="text-4xl sm:text-5xl font-bold mb-6">How Hantaro Works?</h2>
-                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">Start selling online in 3 simple steps — no
-                        technical skills needed</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <!-- Step 1 -->
-                    <div class="text-center">
-                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
-                            style="background:#F57C20">1</div>
-                        <h3 class="text-2xl font-bold mb-4">Create Your Store</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed">Sign up in seconds and customize your store with
-                            your brand name and colors</p>
-                        <div class="inline-block px-6 py-3 rounded-lg text-sm font-mono bg-white" style="color:#F57C20">
-                            hantaro.my/yourstore</div>
-                    </div>
-                    <!-- Step 2 — PLACEHOLDER kept identical, will be replaced next -->
-                    <div class="text-center">
-                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
-                            style="background:#F57C20">2</div>
-                        <h3 class="text-2xl font-bold mb-4">Add Your Products</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed">Upload photos, set prices, and add descriptions —
-                            as simple as posting on social media</p>
-                        <!-- 2×2 product cards -->
-                        <div class="grid grid-cols-2 gap-3 max-w-xs mx-auto">
-                            <div v-for="p in stepProducts" :key="p.name" class="sp-card">
-                                <!-- image + badge -->
-                                <div class="sp-img-wrap">
-                                    <div class="sp-img" :style="`background:url('${p.img}') center/cover`"></div>
-                                    <span v-if="p.badge" class="sp-badge">⭐ {{ p.badge }}</span>
-                                </div>
-                                <!-- name & price -->
-                                <div class="sp-name">{{ p.name }}</div>
-                                <div class="sp-price">RM{{ p.price }}</div>
-                                <!-- qty row  ─  [ − ]  Qty / 0  [ + ] -->
-                                <div class="sp-qty-row">
-                                    <button class="sp-btn sp-btn-minus" @click="p.qty > 0 && p.qty--">−</button>
-                                    <div class="sp-qty-center">
-                                        <span class="sp-qty-label">Qty</span>
-                                        <span class="sp-qty-val">{{ p.qty }}</span>
-                                    </div>
-                                    <button class="sp-btn sp-btn-plus" @click="p.qty++">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="text-center">
-                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto text-white"
-                            style="background:#F57C20">3</div>
-                        <h3 class="text-2xl font-bold mb-4">Share &amp; Start Selling</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed">Share your store link on WhatsApp, Instagram, or
-                            Facebook and start receiving orders</p>
-                        <div class="flex gap-3 justify-center">
-                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
-                                    <defs>
-                                        <linearGradient id="ig3" x1="0%" y1="100%" x2="100%" y2="0%">
-                                            <stop offset="0%" stop-color="#F58529" />
-                                            <stop offset="30%" stop-color="#DD2A7B" />
-                                            <stop offset="60%" stop-color="#8134AF" />
-                                            <stop offset="100%" stop-color="#515BD4" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path fill="url(#ig3)"
-                                        d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3.5A4.5 4.5 0 1016.5 12 4.51 4.51 0 0012 7.5zm0 7.3A2.8 2.8 0 1114.8 12 2.81 2.81 0 0112 14.8zM17.25 6.25a1.05 1.05 0 11-1.05-1.05 1.05 1.05 0 011.05 1.05z" />
-                                </svg></div>
-                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    class="h-5 w-5 fill-[#25D366]">
-                                    <path
-                                        d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.48 0 .16 5.32.16 11.9c0 2.1.55 4.16 1.6 5.98L0 24l6.32-1.65a11.86 11.86 0 005.74 1.46h.01c6.58 0 11.9-5.32 11.9-11.9a11.84 11.84 0 00-3.45-8.43zm-8.46 18.3a9.8 9.8 0 01-4.99-1.37l-.36-.22-3.75.98 1-3.65-.24-.38a9.8 9.8 0 01-1.48-5.24c0-5.4 4.39-9.79 9.82-9.79a9.76 9.76 0 016.92 2.87 9.76 9.76 0 012.87 6.92c0 5.4-4.39 9.79-9.79 9.79zm5.38-7.38c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.45-1.73-1.62-2.02-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.48.1-.2.05-.37-.02-.51-.07-.15-.65-1.56-.89-2.14-.24-.58-.48-.5-.65-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02.99-1.02 2.41 0 1.41 1.05 2.78 1.19 2.97.15.2 2.07 3.16 5.02 4.43.7.3 1.24.48 1.66.61.7.22 1.33.19 1.83.11.56-.08 1.72-.7 1.97-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z" />
-                                </svg></div>
-                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-white"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-black">
-                                    <path
-                                        d="M21 8.5c-1.9 0-3.6-.6-5-1.7V15a6 6 0 11-6-6c.3 0 .7 0 1 .1v2.9a3.1 3.1 0 10 2 2.9V2h3c.3 2.3 2 4.1 4 4.5v2z" />
-                                </svg></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features -->
-        <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-20">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-black mb-6">Everything You Need to Sell Online</h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Powerful features designed for home business
-                        owners</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div v-for="f in features" :key="f.title"
-                        class="p-8 rounded-2xl border border-gray-200 feature-card"
-                        style="border-top:3px solid #F57C20">
-                        <div class="text-4xl mb-6">{{ f.icon }}</div>
-                        <h3 class="text-xl font-bold text-black mb-3">{{ f.title }}</h3>
-                        <p class="text-gray-600 leading-relaxed">{{ f.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing -->
-        <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-20">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-black mb-6">Simple, Transparent Pricing</h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Start free, upgrade as you grow — no hidden fees
-                    </p>
-                </div>
-
-                <!-- Hide scrollbar and center cards with proper spacing -->
-                <div class="overflow-x-auto pb-8 scrollbar-hide pt-6">
-                    <div class="flex gap-6 justify-center mx-auto" style="width: fit-content; min-width: 100%;">
-                        <div v-for="plan in pricingPlans" :key="plan.name"
-                            class="bg-white rounded-2xl p-8 relative flex-shrink-0 w-80"
-                            :class="plan.popular ? 'shadow-2xl' : 'shadow-md'"
-                            :style="plan.popular ? 'border:2px solid #F57C20' : 'border:2px solid #e5e7eb'">
-
-                            <div v-if="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                <span class="text-white px-6 py-2 rounded-full text-sm font-semibold whitespace-nowrap"
-                                    style="background:#F57C20">Most Popular</span>
-                            </div>
-
-                            <div class="mb-8">
-                                <div class="text-sm font-semibold text-gray-600 mb-3">{{ plan.name }}</div>
-                                <div class="mb-2 flex items-baseline flex-wrap">
-                                    <span class="text-5xl font-bold text-black">RM{{ plan.price }}</span>
-                                    <span class="text-gray-600 ml-1">/{{ plan.period }}</span>
-                                </div>
-                            </div>
-
-                            <ul class="space-y-4 mb-8">
-                                <li v-for="feat in plan.features" :key="feat" class="flex items-start gap-3">
-                                    <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="#F57C20"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span class="text-gray-700 text-sm">{{ feat }}</span>
-                                </li>
-                            </ul>
-
-                            <button class="w-full py-4 rounded-lg font-semibold transition hover:opacity-90"
-                                :style="plan.popular ? 'background:#F57C20;color:#fff' : 'border:2px solid #F57C20;color:#F57C20;background:#fff'">
-                                {{ plan.buttonText }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-black mb-6">Frequently Asked Questions</h2>
-                </div>
-                <div class="space-y-4">
-                    <details v-for="faq in faqs" :key="faq.question"
-                        class="group border-2 border-gray-200 rounded-xl p-6 faq-item">
-                        <summary
-                            class="font-semibold text-lg text-black cursor-pointer list-none flex items-center justify-between">
-                            <span>{{ faq.question }}</span><span
-                                class="text-2xl transition-transform group-open:rotate-45"
-                                style="color:#F57C20">+</span>
-                        </summary>
-                        <p class="text-gray-600 mt-4 leading-relaxed">{{ faq.answer }}</p>
-                    </details>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="py-24 px-4 sm:px-6 lg:px-8 bg-black text-white">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl sm:text-5xl font-bold mb-6">Ready to Start Your <span style="color:#F57C20">Online
-                        Business?</span></h2>
-                <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">Join 5,000+ entrepreneurs selling online with
-                    Hantaro. No credit card required.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                    <input v-model="ctaEmail" type="email" placeholder="Enter your email address"
-                        class="px-6 py-4 rounded-lg w-full sm:w-96 text-white placeholder-gray-500 cta-input"
-                        style="border:2px solid #444;background:#1a1a1a">
-                    <button class="px-8 py-4 rounded-lg font-bold btn-orange text-white w-full sm:w-auto">Get Started
-                        Free</button>
-                </div>
-                <p class="text-sm text-gray-500">Free forever • No credit card required • Setup in 5 minutes</p>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-white border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-10">
-            <div class="max-w-7xl mx-auto">
-                <div class="border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-gray-600">© 2026 Stwo Ventures. 202503084987 (AS0493179-P).</p>
-                    <div class="flex gap-6"><a href="/privacy" class="footer-link">Privacy</a><a href="/terms"
-                            class="footer-link">Terms</a></div>
-                </div>
-            </div>
-        </footer>
+    <!-- MARQUEE -->
+    <div class="marquee-bar">
+      <div class="marquee-track">
+        <div v-for="(item, i) in [...marqueeItems, ...marqueeItems]" :key="i" class="marquee-item">
+          {{ item }} <span class="m-dot"></span>
+        </div>
+      </div>
     </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stats-grid">
+        <div v-for="stat in stats" :key="stat.label" class="stat">
+          <div class="stat-n" v-html="stat.number"></div>
+          <div class="stat-d">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOWCASE 1 -->
+    <section class="showcase">
+      <div class="showcase-inner">
+        <div>
+          <span class="sec-label">For food &amp; product sellers</span>
+          <h2 class="sec-title">Your products, sold beautifully online</h2>
+          <p class="sec-sub">List physical items food, fashion, crafts and let customers order directly. WhatsApp notification on every order.</p>
+          <div class="checklist">
+            <div v-for="item in showcase1Checks" :key="item.text" class="check-item">
+              <div class="check-icon">{{ item.icon }}</div>
+              <span class="check-text">{{ item.text }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="c-card">
+          <div class="c-banner" style="background-image:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80')"></div>
+          <div class="c-body">
+            <div class="c-top-row">
+              <div class="c-avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="" /></div>
+              <div class="c-link-pill">hantaro.my/kektradisi</div>
+            </div>
+            <div class="c-name">Puan Zila's Kitchen</div>
+            <div class="c-handle">@kektradisi · Kuala Lumpur 🇲🇾</div>
+            <div class="c-bio">Homemade traditional Malay kuih &amp; cakes. Order 3 days ahead. All handmade with love 🍰</div>
+            <div class="c-products">
+              <div v-for="prod in showcase1Products" :key="prod.name" class="c-prod">
+                <div class="c-prod-img" :style="{ backgroundImage: `url('${prod.img}')` }"></div>
+                <div class="c-prod-info">
+                  <div class="c-prod-name">{{ prod.name }}</div>
+                  <div class="c-prod-sub">{{ prod.sub }}</div>
+                </div>
+                <div class="c-prod-price">{{ prod.price }}</div>
+                <button class="c-prod-btn">Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWCASE 2 -->
+    <section class="showcase" style="background:#f9f9f9;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb">
+      <div class="showcase-inner">
+        <div class="c-card">
+          <div class="c-banner" style="background-image:url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80')"></div>
+          <div class="c-body">
+            <div class="c-top-row">
+              <div class="c-avatar"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80" alt="" /></div>
+              <div class="c-link-pill">hantaro.my/aina.creates</div>
+            </div>
+            <div class="c-name">Aina Sofea</div>
+            <div class="c-handle">@aina.creates · Content Creator</div>
+            <div class="c-bio">Photography tips, content templates &amp; digital goodies. Download my resources 👇</div>
+            <div class="c-products">
+              <div v-for="prod in showcase2Products" :key="prod.name" class="c-prod">
+                <div class="c-prod-img" :style="{ backgroundImage: `url('${prod.img}')` }"></div>
+                <div class="c-prod-info">
+                  <div class="c-prod-name">{{ prod.name }}</div>
+                  <div class="c-prod-sub">{{ prod.sub }}</div>
+                </div>
+                <div class="c-prod-price">{{ prod.price }}</div>
+                <button class="c-prod-btn">Buy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="sec-label">For digital creators</span>
+          <h2 class="sec-title">Sell what you create digitally</h2>
+          <p class="sec-sub">Sell ebooks, presets, templates, courses buyers get an instant download link after payment. Pure passive income.</p>
+          <div class="checklist">
+            <div v-for="item in showcase2Checks" :key="item.text" class="check-item">
+              <div class="check-icon">{{ item.icon }}</div>
+              <span class="check-text">{{ item.text }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features">
+      <div class="features-inner">
+        <div class="features-head">
+          <span class="sec-label">Platform features</span>
+          <h2 class="sec-title">Everything a creator needs</h2>
+          <p class="sec-sub">Built for Malaysian creators, influencers &amp; home businesses no technical skills required.</p>
+        </div>
+        <div class="feat-grid">
+          <div v-for="feat in features" :key="feat.title" class="feat-item">
+            <div class="feat-ico">{{ feat.icon }}</div>
+            <div class="feat-title">{{ feat.title }}</div>
+            <div class="feat-desc">{{ feat.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="hiw" class="hiw">
+      <div class="hiw-inner">
+        <div class="hiw-head">
+          <span class="sec-label">Simple setup</span>
+          <h2 class="sec-title">Live in 3 steps</h2>
+          <p class="sec-sub">No code, no designers, no drama. Start selling in minutes.</p>
+        </div>
+        <div class="steps">
+          <div v-for="(step, i) in steps" :key="step.title" class="step">
+            <div class="step-num">{{ i + 1 }}</div>
+            <div class="step-title">{{ step.title }}</div>
+            <p class="step-desc">{{ step.desc }}</p>
+            <div v-if="step.url" class="step-url">{{ step.url }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="pricing">
+      <div class="pricing-head">
+        <span class="sec-label">Pricing</span>
+        <h2 class="sec-title">Simple, transparent pricing</h2>
+        <p class="sec-sub">Start free, upgrade as you grow — no hidden fees.</p>
+      </div>
+      <div class="plans">
+        <div
+          v-for="plan in plans"
+          :key="plan.name"
+          class="plan"
+          :class="{ pop: plan.popular }"
+        >
+          <div v-if="plan.popular" class="plan-badge">Most Popular</div>
+          <div class="plan-name">{{ plan.name }}</div>
+          <div class="plan-price" v-html="plan.price"></div>
+          <div class="plan-period">{{ plan.period }}</div>
+          <ul class="plan-feats">
+            <li v-for="feat in plan.features" :key="feat">{{ feat }}</li>
+          </ul>
+          <button class="plan-btn" :class="plan.btnClass" @click="handlePlanClick(plan)">{{ plan.btnLabel }}</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <div class="faq-inner">
+        <div class="faq-head">
+          <span class="sec-label">FAQ</span>
+          <h2 class="sec-title">Frequently asked questions</h2>
+        </div>
+        <div class="faq-list">
+          <details v-for="faq in faqs" :key="faq.q">
+            <summary>{{ faq.q }} <div class="faq-plus">+</div></summary>
+            <p class="faq-ans">{{ faq.a }}</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="cta-inner">
+        <span class="sec-label">Join 10,000+ creators</span>
+        <h2 class="sec-title" style="color:#fff;margin-bottom:10px">Your link is waiting.<br /><span style="color:#F57C20">Claim it free.</span></h2>
+        <p style="color:#555;font-size:.9rem;margin-top:10px">No credit card. No setup fee. Live in minutes.</p>
+        <div class="cta-row">
+          <input v-model="ctaEmail" class="cta-input" type="email" placeholder="Enter your email address" />
+          <button class="btn-orange" style="padding:13px 24px;font-size:.875rem;border-radius:10px" @click="handleCtaSubmit">Get Started Free</button>
+        </div>
+        <p class="cta-note">Free forever plan available · Setup in 5 minutes · No code needed</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 Stwo Ventures Sdn Bhd. 202503084987 (AS0493179-P).</p>
+      <div class="foot-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </footer>
+  </div>
 </template>
 
-<script setup>
-import { ref, reactive } from 'vue'
-import { Link } from '@inertiajs/vue3';
-const ctaEmail = ref('')
-const mobileOpen = ref(false)
-/* ── Step-2 product cards ── */
-const stepProducts = reactive([
-    { name: 'Rempah Ayam', price: '9.50', badge: 'New', qty: 0, img: 'https://images.unsplash.com/photo-1646809156467-6e825869b29f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-    { name: 'Macarons', price: '18.00', badge: null, qty: 0, img: 'https://images.unsplash.com/photo-1422255198496-21531f12a6e8?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
-])
+<script>
+export default {
+  name: 'HantaroLanding',
 
-const stats = [
-    { label: 'Website Visitors', value: '500', change: '↑ 2.5%', up: true, icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' },
-    { label: 'Total Sales', value: 'RM70k', change: '↓ 1.3%', up: false, icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { label: 'Orders', value: '328', change: '↑ 2.3%', up: true, icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' },
-    { label: 'Conversion Rate', value: '5.23%', change: '↑ 1.5%', up: true, icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' }
-]
-const orders = [
-    { label: 'Return & Refund', val: '12', pct: 2 },
-    { label: 'Order Pending', val: '251', pct: 42 },
-    { label: 'Delivered', val: '1,665', pct: 95 }
-]
-const bars = [
-    { label: 'Mar 1', h: 45, color: '#FFE0B2' },
-    { label: 'Mar 8', h: 65, color: '#FFCC80' },
-    { label: 'Mar 15', h: 50, color: '#FFE0B2' },
-    { label: 'Mar 22', h: 85, color: '#F57C20' },
-    { label: 'Mar 31', h: 70, color: '#FFCC80' }
-]
-const features = [
-    { icon: '🔗', title: 'Personal Store Link', description: 'Get your own custom link like hantaro.my/yourname to share everywhere' },
-    { icon: '📦', title: 'Product Management', description: 'Add unlimited products with photos, prices, variants, and stock tracking' },
-    { icon: '💳', title: 'Accept Payments', description: 'FPX online banking, DuitNow QR, or manual bank transfer — your choice' },
-    { icon: '📱', title: 'WhatsApp Integration', description: 'Get instant order notifications via WhatsApp — perfect for your workflow' },
-    { icon: '📊', title: 'Sales Dashboard', description: 'Track orders, revenue, and top products all in one simple dashboard' },
-    { icon: '📲', title: 'Mobile Optimized', description: 'Your store looks perfect on phones, tablets, and desktop' }
-]
-const pricingPlans = [
-    {
-        name: 'Starter (Free)',
-        price: '0',
-        period: 'forever',
-        popular: false,
-        buttonText: 'Start Free',
-        features: [
-            'Unlimited ecommerce store',
+  data() {
+    return {
+      ctaEmail: '',
+
+      marqueeItems: [
+        'Digital Products',
+        'Physical Products',
+        'Personal Link Page',
+        'WhatsApp Orders',
+        'Instant Download',
+        'No Tech Skills',
+        'DuitNow & FPX',
+      ],
+
+      stats: [
+        { number: '10k<span>+</span>', label: 'Creators & sellers on Hantaro' },
+        { number: '4.9<span>⭐</span>', label: 'Average creator rating' },
+        { number: '100<span>%</span>', label: 'Mobile-optimized experience' },
+      ],
+
+      showcase1Checks: [
+        { icon: '📦', text: 'Add unlimited products with photos, variants & stock tracking' },
+        { icon: '💬', text: 'Instant WhatsApp order alerts works without any app' },
+        { icon: '💳', text: 'FPX, DuitNow QR & manual bank transfer supported' },
+      ],
+
+      showcase1Products: [
+        {
+          name: 'Kek Coklat Moist',
+          sub: 'Whole Cake · 1kg',
+          price: 'RM39',
+          img: 'https://cdn.motherhood.com.my/wp-content/uploads/sites/2/2023/05/05135830/Copy-of-Story-MMY-8-1-1-1.png',
+        },
+        {
+          name: 'Akok Traditional',
+          sub: 'Set of 12',
+          price: 'RM15',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvj0BE-y_K2nu8beNyL6mPUyBKmDqi4FQcQ&s',
+        },
+      ],
+
+      showcase2Checks: [
+        { icon: '⚡', text: 'Instant auto-delivery of files after payment' },
+        { icon: '🔗', text: 'One page for all your links, products & socials' },
+        { icon: '📊', text: 'Track views, clicks & earnings in real-time' },
+      ],
+
+      showcase2Products: [
+        {
+          name: 'Lightroom Preset Pack',
+          sub: 'Digital · 30 Presets',
+          price: 'RM25',
+          img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=100&q=80',
+        },
+        {
+          name: '30-Day Content Planner',
+          sub: 'PDF · Instant Access',
+          price: 'RM18',
+          img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=100&q=80',
+        },
+      ],
+
+      features: [
+        { icon: '🔗', title: 'Personal Link Page', desc: 'Your own hantaro.my/yourname — like Linktree but with a built-in store and checkout.' },
+        { icon: '📦', title: 'Physical Products', desc: 'List food, fashion, crafts with photos, stock count, variants and delivery options.' },
+        { icon: '⚡', title: 'Digital Products', desc: 'Sell ebooks, presets, templates, courses — buyers get instant download after payment.' },
+        { icon: '💳', title: 'Flexible Payments', desc: 'FPX online banking, DuitNow QR, or manual bank transfer — accept money your way.' },
+        { icon: '💬', title: 'WhatsApp Integration', desc: 'Get instant order notifications on WhatsApp. Customers can reach you in one tap.' },
+        { icon: '📊', title: 'Creator Dashboard', desc: 'Real-time analytics: page views, link clicks, sales and top products — all in one view.' },
+      ],
+
+      steps: [
+        {
+          title: 'Claim Your Link',
+          desc: 'Sign up free and choose your unique URL. Your page goes live instantly.',
+          url: 'hantaro.my/yourname',
+        },
+        {
+          title: 'Add Your Products',
+          desc: 'Upload digital files or product photos. Set prices and descriptions — done in minutes.',
+          url: null,
+        },
+        {
+          title: 'Share & Earn',
+          desc: 'Drop your link on Instagram bio, WhatsApp status, TikTok and start collecting orders.',
+          url: null,
+        },
+      ],
+
+      plans: [
+        {
+          name: 'Starter',
+          price: 'RM0',
+          period: 'forever free',
+          popular: false,
+          btnClass: 'outline',
+          btnLabel: 'Get Started Free',
+          features: [
+            'Personal link page',
+            'Up to 10 products',
+            'Physical & digital products',
+            'WhatsApp order alerts',
+            '2.5%–3% platform fee',
+          ],
+        },
+        {
+          name: 'Creator',
+          price: 'RM49<sub>/mo</sub>',
+          period: 'billed monthly',
+          popular: true,
+          btnClass: 'solid',
+          btnLabel: 'Upgrade to Creator',
+          features: [
+            'Everything in Starter',
             'Unlimited products',
-            'Order & inventory management',
-            'Checkout & payment handling',
-            'Sales summary dashboard',
-            'Platform fee per transaction (2.5%–3%)',
-            'No monthly commitment'
-        ]
+            'Custom page themes',
+            'Analytics dashboard',
+            'Priority support',
+            'Lower 1.5% platform fee',
+          ],
+        },
+        {
+          name: 'Pro',
+          price: 'RM129<sub>/mo</sub>',
+          period: 'billed monthly',
+          popular: false,
+          btnClass: 'outline',
+          btnLabel: 'Upgrade to Pro',
+          features: [
+            'Everything in Creator',
+            'Multiple stores & brands',
+            'Team access & staff roles',
+            'Advanced reports & CSV',
+            'Marketplace sync',
+            '0% platform fee',
+          ],
+        },
+      ],
+
+      faqs: [
+        {
+          q: "What's the difference between Hantaro and Linktree?",
+          a: 'Linktree only gives you links. Hantaro gives you a full store — customers can browse and buy directly from your page. You also get order management, payment processing, and WhatsApp notifications built in.',
+        },
+        {
+          q: 'Can I sell digital products like ebooks and presets?',
+          a: 'Yes! When a customer pays, they automatically receive a download link. No manual sending — it works while you sleep.',
+        },
+        {
+          q: 'Do I need any technical knowledge?',
+          a: 'Not at all. If you can post on Instagram, you can set up Hantaro. Most sellers are fully live within 10 minutes of signing up.',
+        },
+        {
+          q: 'How do payments work in Malaysia?',
+          a: 'Hantaro supports FPX online banking, DuitNow QR, and manual bank transfer. Payouts go directly to your bank account.',
+        },
+        {
+          q: 'What is the platform fee?',
+          a: 'Free Starter plan charges 2.5%–3% per transaction. Creator plan reduces this to 1.5%. Pro plan has 0% platform fee — you keep everything.',
+        },
+      ],
+    }
+  },
+
+  methods: {
+    handlePlanClick(plan) {
+      if (plan.name === 'Starter') {
+        window.location.href = '/admin/register'
+      } else {
+        window.location.href = `/admin/register?plan=${plan.name.toLowerCase()}`
+      }
     },
-    // {
-    //     name: 'Growth',
-    //     price: '129',
-    //     period: 'month',
-    //     popular: true,
-    //     buttonText: 'Upgrade to Growth',
-    //     features: [
-    //         'Up to 2 stores',
-    //         'Sync 1 marketplace (Shopee OR TikTok OR Lazada)',
-    //         'Centralised order dashboard',
-    //         'Manual WhatsApp integration',
-    //         'Standard sales & order reports',
-    //         'Email & ticket support'
-    //     ]
-    // },
-    // {
-    //     name: 'Pro',
-    //     price: '299',
-    //     period: 'month',
-    //     popular: false,
-    //     buttonText: 'Upgrade to Pro',
-    //     features: [
-    //         'Up to 5 stores',
-    //         'Sync Shopee + TikTok + Lazada',
-    //         'Automated order status updates',
-    //         'WhatsApp automation (fair usage)',
-    //         'Advanced reports & CSV export',
-    //         'Multi-user access (staff roles)'
-    //     ]
-    // },
-    // {
-    //     name: 'Enterprise',
-    //     price: '1,000',
-    //     period: 'month',
-    //     popular: false,
-    //     buttonText: 'Contact Sales',
-    //     features: [
-    //         'Unlimited stores & channels',
-    //         'High-volume order handling',
-    //         'Advanced automation & workflows',
-    //         'High WhatsApp message limits',
-    //         'Dedicated onboarding & support',
-    //         'Custom integrations & SLA'
-    //     ]
-    // }
-]
 
-const faqs = [
-    { question: 'Is there a free trial available?', answer: 'Yes! Our Free plan is free forever with up to 10 products. You can also try our paid plans free for 14 days with no credit card required.' },
-    { question: 'Do I need technical skills to use Hantaro?', answer: 'Not at all! Hantaro is designed for non-technical users. If you can use WhatsApp or Instagram, you can use Hantaro. Everything is point-and-click simple.' },
-    { question: 'What platforms can I integrate with?', answer: 'Hantaro works great with WhatsApp, Instagram, Facebook, TikTok, and any platform where you can share links. Your store is mobile-optimized for social media sharing.' },
-    { question: 'How often is the data updated?', answer: 'Your sales dashboard updates in real-time. Every order, payment, and product change is reflected instantly so you\'re always up to date.' }
-]
-
-
+    handleCtaSubmit() {
+      if (this.ctaEmail) {
+        window.location.href = `/admin/register?email=${encodeURIComponent(this.ctaEmail)}`
+      }
+    },
+  },
+}
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-* {
-    font-family: 'Inter', sans-serif;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+#app {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+  overflow-x: hidden;
 }
 
-/* Hide scrollbar but keep functionality */
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e5e7eb;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 72px;
 }
+.logo { font-size: 1.35rem; font-weight: 800; color: #000; letter-spacing: -.5px; }
+.logo span { color: #F57C20; }
+.nav-mid { display: flex; gap: 32px; }
+.nav-mid a { font-size: .875rem; font-weight: 500; color: #555; text-decoration: none; transition: color .15s; }
+.nav-mid a:hover { color: #000; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-login { font-size: .875rem; font-weight: 500; color: #555; text-decoration: none; transition: color .15s; }
+.nav-login:hover { color: #000; }
+.btn-orange { background: #F57C20; color: #fff; font-weight: 600; font-size: .875rem; padding: 10px 20px; border-radius: 10px; text-decoration: none; border: none; cursor: pointer; transition: background .15s; display: inline-block; }
+.btn-orange:hover { background: #d96a15; }
 
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari and Opera */
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; padding-top: 72px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #000; position: relative; overflow: hidden; text-align: center;
+  padding-left: 24px; padding-right: 24px; padding-bottom: 60px;
 }
-
-details>summary {
-    list-style: none;
-}
-
-details>summary::-webkit-details-marker {
-    display: none;
-}
-
-.btn-orange {
-    background: #F57C20;
-    transition: background .2s;
-}
-
-.btn-orange:hover {
-    background: #e06a10;
-}
-
-.btn-outline-orange {
-    border-color: #F57C20;
-    color: #F57C20;
-    background: transparent;
-    transition: background .2s;
-}
-
-.btn-outline-orange:hover {
-    background: rgba(245, 124, 32, .08);
-}
-
-.nav-link {
-    transition: color .2s;
-}
-
-.nav-link:hover {
-    color: #F57C20;
-}
-
-.footer-link {
-    transition: color .2s;
-}
-
-.footer-link:hover {
-    color: #F57C20;
-}
-
-.cta-input:focus {
-    outline: none;
-    border-color: #F57C20 !important;
-}
-
-.stat-card {
-    border-top: 3px solid #F57C20;
-}
-
-.feature-card {
-    transition: box-shadow .25s, border-color .25s;
-}
-
-.feature-card:hover {
-    box-shadow: 0 10px 25px rgba(245, 124, 32, .18);
-    border-color: #F57C20;
-}
-
-.faq-item {
-    transition: border-color .2s;
-}
-
-.faq-item:hover,
-.faq-item[open] {
-    border-color: #F57C20;
-}
-
-.hero-section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 80px;
-    min-height: 100vh;
-    background: #0a0a0a;
-    overflow: hidden;
-}
-
 .hero-mesh {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(245, 124, 32, .18) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 85% 30%, rgba(245, 124, 32, .10) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 75% 75%, rgba(245, 124, 32, .06) 0%, transparent 70%);
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(245,124,32,.16) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 40% at 10% 20%, rgba(245,124,32,.09) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 35% at 90% 80%, rgba(245,124,32,.07) 0%, transparent 60%);
 }
-
-.hero-text-layer {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    max-width: 680px;
-    padding: 0 24px;
-    pointer-events: none;
+.hero-inner { position: relative; z-index: 2; max-width: 740px; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,124,32,.12); border: 1px solid rgba(245,124,32,.3);
+  color: #F57C20; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 30px; margin-bottom: 28px;
 }
-
-.hero-text-layer * {
-    pointer-events: auto;
+.hero-dot { width: 6px; height: 6px; background: #F57C20; border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 900; line-height: 1.08;
+  letter-spacing: -.04em; color: #fff; margin-bottom: 22px;
 }
-
-.hero-h1 {
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.15;
-    color: #fff;
-    margin-bottom: 20px;
+.hero h1 .accent { color: #F57C20; }
+.hero p { font-size: 1.05rem; color: rgba(255,255,255,.5); font-weight: 400; line-height: 1.65; max-width: 500px; margin: 0 auto 36px; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+.btn-outline-w {
+  background: transparent; color: rgba(255,255,255,.7); border: 1.5px solid rgba(255,255,255,.2);
+  font-weight: 600; font-size: .875rem; padding: 10px 22px; border-radius: 10px;
+  text-decoration: none; transition: border-color .15s, color .15s;
 }
+.btn-outline-w:hover { border-color: rgba(255,255,255,.5); color: #fff; }
 
-.hero-italic {
-    font-style: italic;
-    font-family: 'Georgia', serif;
-    color: #fff;
+/* ── PHONE ── */
+.phone-row {
+  display: flex; gap: 20px; justify-content: center; align-items: flex-end;
+  position: relative; z-index: 2;
 }
-
-.hero-orange {
-    color: #F57C20;
-    font-style: normal;
+.phone {
+  width: 220px; background: #111; border: 1.5px solid #2a2a2a;
+  border-radius: 36px; padding: 12px 8px 8px;
+  box-shadow: 0 50px 100px rgba(0,0,0,.8), 0 0 0 1px #1a1a1a;
 }
+.phone.side { width: 186px; opacity: .4; transform: scale(.9) translateY(28px); }
+.phone-notch { width: 68px; height: 18px; background: #111; border-radius: 0 0 12px 12px; margin: 0 auto 8px; border: 1.5px solid #222; border-top: none; }
+.phone-screen { background: #f4f4f4; border-radius: 26px; overflow: hidden; }
+.pp-banner { height: 86px; background-size: cover; background-position: center; }
+.pp-body { background: #f4f4f4; }
+.pp-avatar-row { display: flex; justify-content: center; margin-top: -24px; margin-bottom: 6px; }
+.pp-avatar { width: 48px; height: 48px; border-radius: 50%; border: 3px solid #f4f4f4; overflow: hidden; background: #ddd; }
+.pp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.pp-name { text-align: center; font-size: .7rem; font-weight: 800; color: #111; }
+.pp-handle { text-align: center; font-size: .56rem; color: #F57C20; font-weight: 600; margin-bottom: 6px; }
+.pp-socials { display: flex; gap: 4px; justify-content: center; margin-bottom: 8px; }
+.pp-soc { width: 18px; height: 18px; border-radius: 50%; background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: .5rem; }
+.pp-items { padding: 0 7px 8px; display: flex; flex-direction: column; gap: 5px; }
+.pp-item { background: #fff; border-radius: 9px; padding: 6px 8px; display: flex; align-items: center; gap: 7px; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+.pp-item-thumb { width: 26px; height: 26px; border-radius: 6px; background-size: cover; background-position: center; flex-shrink: 0; }
+.pp-item-info { flex: 1; }
+.pp-item-name { font-size: .56rem; font-weight: 700; color: #111; line-height: 1.2; }
+.pp-item-sub { font-size: .48rem; color: #999; }
+.pp-item-right { text-align: right; flex-shrink: 0; }
+.pp-item-price { font-size: .6rem; font-weight: 800; color: #F57C20; white-space: nowrap; }
+.pp-item-btn { font-size: .44rem; font-weight: 700; background: #F57C20; color: #fff; padding: 2px 6px; border-radius: 20px; margin-top: 2px; display: inline-block; white-space: nowrap; }
 
-.hero-sub {
-    color: rgba(255, 255, 255, .55);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 32px;
+/* ── MARQUEE ── */
+.marquee-bar { background: #F57C20; padding: 11px 0; overflow: hidden; }
+.marquee-track { display: flex; width: max-content; animation: scroll 22s linear infinite; }
+.marquee-item { display: inline-flex; align-items: center; gap: 14px; padding: 0 32px; font-size: .74rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.9); white-space: nowrap; }
+.m-dot { width: 4px; height: 4px; background: rgba(255,255,255,.5); border-radius: 50%; }
+@keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── STATS ── */
+.stats { background: #f9f9f9; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; padding: 48px 24px; }
+.stats-grid { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); text-align: center; }
+.stat { padding: 8px 24px; border-right: 1px solid #e5e7eb; }
+.stat:last-child { border-right: none; }
+.stat-n { font-size: 2.8rem; font-weight: 900; color: #000; letter-spacing: -.04em; line-height: 1; }
+.stat-n :deep(span) { color: #F57C20; }
+.stat-d { font-size: .82rem; color: #888; margin-top: 6px; }
+
+/* ── SECTION LABELS ── */
+.sec-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #F57C20; margin-bottom: 12px; display: block; }
+.sec-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: #000; margin-bottom: 14px; }
+.sec-sub { font-size: .95rem; color: #666; line-height: 1.65; max-width: 480px; }
+
+/* ── SHOWCASE ── */
+.showcase { padding: 96px 40px; }
+.showcase-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.c-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.07); }
+.c-banner { height: 110px; background-size: cover; background-position: center; }
+.c-body { padding: 0 20px 20px; }
+.c-top-row { display: flex; align-items: flex-end; justify-content: space-between; margin-top: -22px; margin-bottom: 12px; }
+.c-avatar { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #fff; overflow: hidden; background: #eee; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.c-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.c-link-pill { margin-top: 30px; font-size: .68rem; font-weight: 700; color: #F57C20; background: rgba(245,124,32,.07); border: 1px solid rgba(245,124,32,.2); padding: 4px 12px; border-radius: 20px; }
+.c-name { font-size: 1rem; font-weight: 800; color: #000; margin-bottom: 2px; }
+.c-handle { font-size: .75rem; color: #999; margin-bottom: 8px; }
+.c-bio { font-size: .8rem; color: #555; line-height: 1.55; margin-bottom: 14px; }
+.c-products { display: flex; flex-direction: column; gap: 8px; }
+.c-prod { background: #f9f9f9; border: 1px solid #eee; border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 12px; transition: border-color .15s; }
+.c-prod:hover { border-color: #F57C20; }
+.c-prod-img { width: 44px; height: 44px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; }
+.c-prod-info { flex: 1; }
+.c-prod-name { font-size: .8rem; font-weight: 700; color: #000; }
+.c-prod-sub { font-size: .68rem; color: #999; }
+.c-prod-price { font-size: .88rem; font-weight: 800; color: #F57C20; white-space: nowrap; }
+.c-prod-btn { background: #F57C20; color: #fff; font-size: .65rem; font-weight: 700; padding: 6px 12px; border-radius: 20px; border: none; cursor: pointer; transition: background .15s; white-space: nowrap; }
+.c-prod-btn:hover { background: #d96a15; }
+.checklist { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+.check-item { display: flex; align-items: center; gap: 12px; }
+.check-icon { width: 34px; height: 34px; border-radius: 9px; background: #fff7f0; border: 1px solid rgba(245,124,32,.15); display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+.check-text { font-size: .85rem; color: #555; line-height: 1.4; }
+
+/* ── FEATURES ── */
+.features { background: #000; padding: 96px 40px; }
+.features-inner { max-width: 1100px; margin: 0 auto; }
+.features-head { text-align: center; margin-bottom: 56px; }
+.features-head .sec-title { color: #fff; }
+.features-head .sec-sub { color: #555; margin: 0 auto; }
+.feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #1e1e1e; border: 1px solid #1e1e1e; border-radius: 20px; overflow: hidden; }
+.feat-item { background: #0d0d0d; padding: 32px 26px; position: relative; transition: background .2s; }
+.feat-item:hover { background: #141414; }
+.feat-item::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:#F57C20; transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+.feat-item:hover::after { transform:scaleX(1); }
+.feat-ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(245,124,32,.08); border: 1px solid rgba(245,124,32,.12); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 18px; }
+.feat-title { font-size: .95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.feat-desc { font-size: .8rem; color: #555; line-height: 1.6; }
+
+/* ── HOW IT WORKS ── */
+.hiw { padding: 96px 40px; }
+.hiw-inner { max-width: 960px; margin: 0 auto; }
+.hiw-head { text-align: center; margin-bottom: 72px; }
+.hiw-head .sec-sub { margin: 0 auto; }
+.steps { display: grid; grid-template-columns: repeat(3,1fr); position: relative; }
+.steps::before { content:''; position:absolute; top:25px; left:calc(16.6% + 14px); right:calc(16.6% + 14px); height:1px; background: linear-gradient(90deg,#F57C20,#e5e7eb,#F57C20); }
+.step { text-align: center; padding: 0 28px; }
+.step-num { width: 50px; height: 50px; border-radius: 50%; background: #F57C20; color: #fff; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; box-shadow: 0 0 0 8px rgba(245,124,32,.1); }
+.step-title { font-size: 1rem; font-weight: 700; color: #000; margin-bottom: 10px; }
+.step-desc { font-size: .82rem; color: #666; line-height: 1.6; }
+.step-url { display: inline-block; margin-top: 14px; font-size: .72rem; font-weight: 700; color: #F57C20; background: rgba(245,124,32,.07); border: 1px solid rgba(245,124,32,.2); padding: 5px 14px; border-radius: 20px; font-family: monospace; }
+
+/* ── PRICING ── */
+.pricing { padding: 96px 40px; background: #f9f9f9; }
+.pricing-head { text-align: center; margin-bottom: 56px; }
+.pricing-head .sec-sub { margin: 0 auto; }
+.plans { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.plan { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 18px; padding: 28px 22px; position: relative; transition: box-shadow .2s, transform .2s; }
+.plan:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+.plan.pop { border-color: #F57C20; }
+.plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #F57C20; color: #fff; font-size: .68rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+.plan-name { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #999; margin-bottom: 10px; }
+.plan-price { font-size: 2.6rem; font-weight: 900; color: #000; letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; }
+.plan-price :deep(sub) { font-size: .95rem; font-weight: 500; color: #999; vertical-align: middle; }
+.plan-period { font-size: .75rem; color: #999; margin-bottom: 22px; }
+.plan-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+.plan-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: .8rem; color: #444; }
+.plan-feats li::before { content:'✓'; color: #F57C20; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+.plan-btn { width: 100%; padding: 12px; border-radius: 10px; font-size: .875rem; font-weight: 700; cursor: pointer; border: none; transition: background .15s, transform .1s; font-family: 'Inter', sans-serif; }
+.plan-btn:hover { transform: translateY(-1px); }
+.plan-btn.solid { background: #F57C20; color: #fff; }
+.plan-btn.solid:hover { background: #d96a15; }
+.plan-btn.outline { background: #fff; color: #F57C20; border: 1.5px solid #F57C20; }
+.plan-btn.outline:hover { background: rgba(245,124,32,.05); }
+
+/* ── FAQ ── */
+.faq { padding: 96px 40px; }
+.faq-inner { max-width: 680px; margin: 0 auto; }
+.faq-head { text-align: center; margin-bottom: 48px; }
+.faq-list { display: flex; flex-direction: column; gap: 8px; }
+details { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 14px; overflow: hidden; transition: border-color .2s; }
+details[open] { border-color: #F57C20; }
+summary { padding: 18px 20px; font-size: .9rem; font-weight: 600; color: #000; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; user-select: none; }
+summary::-webkit-details-marker { display: none; }
+.faq-plus { width: 22px; height: 22px; border-radius: 50%; background: #fff7f0; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #F57C20; font-weight: 700; flex-shrink: 0; transition: transform .25s; }
+details[open] .faq-plus { transform: rotate(45deg); }
+.faq-ans { padding: 0 20px 18px; font-size: .83rem; color: #666; line-height: 1.7; }
+
+/* ── CTA ── */
+.cta { padding: 96px 40px; background: #000; text-align: center; }
+.cta-inner { max-width: 580px; margin: 0 auto; }
+.cta .sec-label { display: block; margin-bottom: 12px; }
+.cta-note { font-size: .72rem; color: #444; }
+.cta-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 32px 0 16px; }
+.cta-input { background: #111; border: 1.5px solid #222; color: #fff; padding: 13px 18px; border-radius: 10px; font-family: 'Inter',sans-serif; font-size: .875rem; width: 280px; outline: none; transition: border-color .15s; }
+.cta-input::placeholder { color: #444; }
+.cta-input:focus { border-color: #F57C20; }
+
+/* ── FOOTER ── */
+footer { background: #fff; border-top: 1px solid #e5e7eb; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+footer p { font-size: .78rem; color: #999; }
+.foot-links { display: flex; gap: 20px; }
+.foot-links a { font-size: .78rem; color: #999; text-decoration: none; transition: color .15s; }
+.foot-links a:hover { color: #000; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav { padding: 0 20px; }
+  .nav-mid { display: none; }
+  .showcase-inner { grid-template-columns: 1fr; gap: 40px; }
+  .feat-grid { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 36px; }
+  .steps::before { display: none; }
+  .plans { grid-template-columns: 1fr; max-width: 360px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid #e5e7eb; padding: 20px; }
+  .stat:last-child { border-bottom: none; }
+  .phone.side { display: none; }
+  footer { flex-direction: column; text-align: center; }
 }
-
-.hero-btns {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.cards-field {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.float-card {
-    position: absolute;
-    width: 200px;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
-    overflow: hidden;
-    pointer-events: none;
-    will-change: transform;
-}
-
-.card-hero-img {
-    width: 100%;
-    height: 78px;
-    background-size: cover;
-    background-position: center;
-}
-
-.card-logo-wrap {
-    position: absolute;
-    top: 34px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 48px;
-    background: #fff;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
-    border: 3px solid #fff;
-}
-
-.card-logo-wrap.logo-green {
-    border-color: #a8e6a0;
-}
-
-.card-logo-wrap.logo-pink {
-    border-color: #f6a0c0;
-}
-
-.card-logo-wrap.logo-amber {
-    border-color: #f5c842;
-}
-
-.card-logo-wrap.logo-teal {
-    border-color: #6dd5d0;
-}
-
-.card-logo-text {
-    font-weight: 900;
-    font-size: .72rem;
-    color: #111;
-    letter-spacing: -.5px;
-}
-
-.card-store-name {
-    text-align: center;
-    font-weight: 700;
-    font-size: .78rem;
-    color: #111;
-    margin-top: 18px;
-}
-
-.card-store-sub {
-    text-align: center;
-    font-size: .62rem;
-    color: #888;
-    margin-top: 1px;
-}
-
-.card-socials {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    margin-top: 8px;
-}
-
-.social-pill {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-products {
-    display: flex;
-    gap: 6px;
-    padding: 10px 8px 10px;
-}
-
-.mini-product {
-    flex: 1;
-    background: #f7f7f7;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.mini-img {
-    width: 100%;
-    aspect-ratio: 1;
-    background-size: cover;
-    background-position: center;
-}
-
-.mini-badge {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background: rgba(0, 0, 0, .7);
-    color: #fff;
-    font-size: .52rem;
-    font-weight: 600;
-    padding: 2px 5px;
-    border-radius: 5px;
-}
-
-.mini-name {
-    font-size: .6rem;
-    font-weight: 600;
-    color: #111;
-    padding: 4px 4px 0;
-}
-
-.mini-price {
-    font-size: .62rem;
-    font-weight: 700;
-    color: #F57C20;
-    padding: 0 4px 4px;
-}
-
-.card-0 {
-    left: 3%;
-    top: 12%;
-    animation: float0 5.8s ease-in-out infinite;
-}
-
-@keyframes float0 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(-1.2deg);
-    }
-
-    50% {
-        transform: translateY(-22px) rotate(0.6deg);
-    }
-}
-
-.card-1 {
-    left: 22%;
-    top: 5%;
-    animation: float1 6.6s ease-in-out infinite;
-    animation-delay: -.8s;
-}
-
-@keyframes float1 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(0.8deg);
-    }
-
-    50% {
-        transform: translateY(-18px) rotate(-1deg);
-    }
-}
-
-.card-2 {
-    right: 18%;
-    top: 4%;
-    animation: float2 5.2s ease-in-out infinite;
-    animation-delay: -1.6s;
-}
-
-@keyframes float2 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(1deg);
-    }
-
-    50% {
-        transform: translateY(-26px) rotate(-0.5deg);
-    }
-}
-
-.card-3 {
-    right: 2%;
-    top: 42%;
-    animation: float3 7s ease-in-out infinite;
-    animation-delay: -2.4s;
-}
-
-@keyframes float3 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(-0.7deg);
-    }
-
-    50% {
-        transform: translateY(-20px) rotate(1.1deg);
-    }
-}
-
-.card-4 {
-    left: 6%;
-    bottom: 4%;
-    animation: float4 6.1s ease-in-out infinite;
-    animation-delay: -3.2s;
-}
-
-@keyframes float4 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(1.4deg);
-    }
-
-    50% {
-        transform: translateY(-16px) rotate(-0.8deg);
-    }
-}
-
-.card-5 {
-    right: 5%;
-    bottom: 2%;
-    animation: float5 5.5s ease-in-out infinite;
-    animation-delay: -4s;
-}
-
-@keyframes float5 {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(-0.5deg);
-    }
-
-    50% {
-        transform: translateY(-24px) rotate(0.9deg);
-    }
-}
-
-@media (max-width:1024px) {
-    .float-card {
-        width: 160px;
-    }
-
-    .card-hero-img {
-        height: 60px;
-    }
-
-    .card-logo-wrap {
-        width: 38px;
-        height: 38px;
-        top: 28px;
-    }
-
-    .card-store-name {
-        font-size: .68rem;
-        margin-top: 14px;
-    }
-
-    .card-store-sub {
-        font-size: .55rem;
-    }
-}
-
-@media (max-width:640px) {
-    .cards-field {
-        display: none;
-    }
-
-    .hero-section {
-        min-height: auto;
-        padding-top: 140px;
-        padding-bottom: 60px;
-    }
-}
-
-/* ========================================
-   STEP-2 PRODUCT CARDS  (dark bg section)
-   ======================================== */
-.sp-card {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-/* image + badge */
-.sp-img-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1;
-}
-
-.sp-img {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-}
-
-.sp-badge {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background: rgba(0, 0, 0, .72);
-    color: #fff;
-    font-size: .58rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 20px;
-}
-
-/* name & price */
-.sp-name {
-    color: #fff;
-    font-size: .7rem;
-    font-weight: 600;
-    padding: 6px 7px 1px;
-    line-height: 1.25;
-}
-
-.sp-price {
-    color: #F57C20;
-    font-size: .75rem;
-    font-weight: 700;
-    padding: 0 7px 5px;
-}
-
-/* qty row  ──  [−]  center  [+] */
-.sp-qty-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 7px 7px;
-    margin-top: auto;
-    gap: 2px;
-}
-
-.sp-qty-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.15;
-}
-
-.sp-qty-label {
-    color: #777;
-    font-size: .54rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .3px;
-}
-
-.sp-qty-val {
-    color: #fff;
-    font-size: .82rem;
-    font-weight: 700;
-}
-
-/* buttons */
-.sp-btn {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background .15s, transform .1s;
-    line-height: 1;
-    flex-shrink: 0;
-}
-
-.sp-btn:active {
-    transform: scale(.85);
-}
-
-.sp-btn-minus {
-    background: #2a2a2a;
-    color: #aaa;
-    border: 1px solid #444;
-}
-
-.sp-btn-minus:hover {
-    background: #3a3a3a;
-    color: #fff;
-}
-
-.sp-btn-plus {
-    background: #F57C20;
-    color: #fff;
-}
-
-.sp-btn-plus:hover {
-    background: #e06a10;
+@media(max-width:600px){
+  .feat-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.4rem; }
+  .showcase, .features, .hiw, .pricing, .faq, .cta { padding: 70px 20px; }
 }
 </style>
