@@ -10,8 +10,8 @@
         <a href="#faq">FAQ</a>
       </div>
       <div class="nav-right">
-        <!-- <a href="/admin" class="nav-login">Log In</a> -->
-        <a href="/admin" class="btn-orange">Get Started Free</a>
+        <a href="/admin" class="nav-login">Log In</a>
+        <a href="/admin/register" class="btn-orange">Get Started Free</a>
       </div>
     </nav>
 
