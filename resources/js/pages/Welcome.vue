@@ -11,7 +11,7 @@
       </div>
       <div class="nav-right">
         <!-- <a href="/admin" class="nav-login">Log In</a> -->
-        <a href="/" class="btn-orange">Get Started Free</a>
+        <a href="/admin" class="btn-orange">Get Started Free</a>
       </div>
     </nav>
 
@@ -23,7 +23,7 @@
         <h1>One Link.<br />Start Your <span class="accent">Business</span><br /><span class="accent">You Create.</span></h1>
         <p>Share your personal page, sell digital &amp; physical products, and grow your audience all from a single link like hantaro.my/yourname.</p>
         <div class="hero-btns">
-          <a href="/" class="btn-orange" style="padding:13px 28px;font-size:.95rem;border-radius:10px">Claim your Hantaro free</a>
+          <a href="/admin/register" class="btn-orange" style="padding:13px 28px;font-size:.95rem;border-radius:10px">Claim your Hantaro free</a>
           <a href="#hiw" class="btn-outline-w">See how it works</a>
         </div>
 
